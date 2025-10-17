@@ -21,8 +21,7 @@ public class AudioTargetRT : AudioColliderGroup
         spatializer = GetComponent<AudioSpatializer>();
         reverb = GetComponent<AudioReverbFilter>();
 
-        //reset spatializer settings
-        spatializer.UpdateSettings(new AudioTargetData(0, 0, 0, float3.zero));
+        spatializer.muffleStrength = 0f;
     }
 
 
@@ -96,10 +95,7 @@ public class AudioTargetRT : AudioColliderGroup
     /// </summary>
     public void UpdateAudioSource(AudioTargetData newSettings)
     {
-        spatializer.UpdateSettings(newSettings);
-
-        DEBUG_audioTargetData = newSettings;
+        //1 = 100% muffled audio
+        spatializer.muffleStrength = newSettings.muffle;
     }
-
-    [SerializeField] private AudioTargetData DEBUG_audioTargetData;
 }

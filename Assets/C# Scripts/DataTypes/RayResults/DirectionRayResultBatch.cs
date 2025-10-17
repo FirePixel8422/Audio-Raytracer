@@ -5,6 +5,7 @@ using Unity.Mathematics;
 public struct DirectionRayResultBatch
 {
     private float3 weightedPoint;
+
     private float totalWeight;
 
 

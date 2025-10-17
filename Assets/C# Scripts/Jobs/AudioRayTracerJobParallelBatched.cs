@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using System;
 
 
 [BurstCompile]
@@ -23,19 +22,22 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
     [ReadOnly][NoAlias] public int totalAudioTargets;
 
     [NativeDisableParallelForRestriction]
-    [NoAlias] public NativeArray<MuffleRayResultBatch> muffleResultBatches;
+    [WriteOnly][NoAlias] public NativeArray<MuffleRayResultBatch> muffleResultBatches;
 
     [NativeDisableParallelForRestriction]
-    [NoAlias] public NativeArray<DirectionRayResult> directionResults;
+    [WriteOnly][NoAlias] public NativeArray<DirectionRayResultBatch> directionResultBatches;
 
     [NativeDisableParallelForRestriction]
-    [NoAlias] public NativeArray<float> permeationResultBatches;
+    [WriteOnly][NoAlias] public NativeArray<DirectionRayResult> directionResultBatches;
 
-    [ReadOnly][NoAlias] public float distanceFalloffPerMeter;
+    [NativeDisableParallelForRestriction]
+    [WriteOnly][NoAlias] public NativeArray<PermeationRayResultBatch> permeationResultBatches;
+
+    [ReadOnly][NoAlias] public float distanceFalloffPerUnit;
     [ReadOnly][NoAlias] public float permeationFalloffPerMeter;
 
     [NativeDisableParallelForRestriction]
-    [WriteOnly][NoAlias] public NativeArray<float> echoRayResults;
+    [WriteOnly][NoAlias] public NativeArray<EchoRayResult> echoRayResults;
 
     private const float epsilon = 0.0001f;
 
@@ -52,9 +54,9 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
 
         ColliderType hitColliderType;
 
-        ColliderAABBStruct hitAABB = new ColliderAABBStruct();
-        ColliderOBBStruct hitOBB = new ColliderOBBStruct();
-        ColliderSphereStruct hitSphere = new ColliderSphereStruct();
+        ColliderAABBStruct hitAABB = ColliderAABBStruct.Null;
+        ColliderOBBStruct hitOBB = ColliderOBBStruct.Null;
+        ColliderSphereStruct hitSphere = ColliderSphereStruct.Null;
 
 
         #region Reset Required Data
@@ -62,17 +64,17 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
         //reset return ray directions array completely before starting
         for (int i = 0; i < totalRays * maxRayHits; i++)
         {
-            int rayHitIndex = rayStartIndex + i;
+            int rayIndex = rayStartIndex + i;
 
-            directionResults[rayHitIndex] = DirectionRayResult.Default();
-            echoRayResults[rayHitIndex] = 0;
+            echoRayResults[rayIndex].Reset();
         }
 
         //reset batch results
         for (int i = 0; i < totalAudioTargets; i++)
         {
-            muffleResultBatches[batchId * totalAudioTargets + i] = MuffleRayResultBatch.Default();
-            permeationResultBatches[batchId * totalAudioTargets + i] = 0;
+            muffleResultBatches[batchId * totalAudioTargets + i].Reset();
+            directionResultBatches[batchId * totalAudioTargets + i].Reset();
+            permeationResultBatches[batchId * totalAudioTargets + i].Reset();
         }
 
         #endregion
@@ -90,13 +92,16 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
             float totalDist = 0;
             bool rayAlive = true;
 
+            float3 directionRayHitPosRelativeToPlayer = float3.zero;
+            float directionRayTotalDistance = -1;
+
 
             //loop of ray has bounces and life left
             while (rayAlive)
             {
                 //intersection tests for environment ray: AABB, OBB, Sphere
                 //if a collider was hit (aka. the ray didnt go out of bounds)
-                if (ShootRayCast(cRayOrigin, cRayDir, out int hitAudioTargetId, out float distance, out hitColliderType, out closestDist, out hitAABB, out hitOBB, out hitSphere))
+                if (ShootRayCast(cRayOrigin, cRayDir, out int hitTargetAudioId, out float distance, out hitColliderType, out closestDist, out hitAABB, out hitOBB, out hitSphere))
                 {
                     //update ray distance traveled and add 1 bounce
                     totalDist += closestDist;
@@ -120,7 +125,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                             float distToTarget = math.distance(cRayOrigin, audioTargetPosition);
 
                             // Cast a ray from the hit point to the audio target
-                            float strengthLeft = GetPermeationStrengthToAudioTarget(raytracerOrigin, rayToTargetDir, distToTarget, i, distanceFalloffPerMeter, permeationFalloffPerMeter);
+                            float strengthLeft = GetPermeationStrengthToAudioTarget(raytracerOrigin, rayToTargetDir, distToTarget, i, distanceFalloffPerUnit, permeationFalloffPerMeter);
 
 
 
@@ -136,7 +141,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                             //Compute this in a sepperate job
                             //Compute this in a sepperate job
 
-                            permeationResultBatches[batchId * totalAudioTargets + i] += strengthLeft;
+                            permeationResultBatches[batchId * totalAudioTargets + i].AddEntry(strengthLeft);
                         }
                     }
 
@@ -158,7 +163,8 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                     {
                         //  echoRayResults[rayIndex * maxRayHits + cRayHits - 1].add;
 
-                        directionResults[rayIndex * maxRayHits + cRayHits - 1] = new DirectionRayResult(offsettedRayHitWorldPoint - raytracerOrigin, distToRaytracerOrigin, hitAudioTargetId);
+                        directionRayHitPosRelativeToPlayer = offsettedRayHitWorldPoint - raytracerOrigin;
+                        directionRayTotalDistance = totalDist;
                     }
                 
                     #endregion
@@ -190,11 +196,9 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
 
                         //first test total dist, otherwise test dist from last bouncepoint (distToTarget)
 
-                        MuffleRayResultBatch muffleRayResultBatch = muffleResultBatches[batchId * totalAudioTargets + i];
 
-                        muffleRayResultBatch.AddEntry(canRaySeeAudioTarget, totalDist);
 
-                        muffleResultBatches[batchId * totalAudioTargets + i] = muffleRayResultBatch;
+                        muffleResultBatches[batchId * totalAudioTargets + i].AddEntry(canRaySeeAudioTarget, totalDist);
                     }
 
                     #endregion
@@ -216,6 +220,13 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                 {
                     break; //ray went out of bounds, break out of the loop
                 }
+            }
+
+
+            // After ray dies add entry to directionray batch IF the ray had LOS with the player atleast once
+            if (directionRayTotalDistance != -1)
+            {
+                directionResultBatches[batchId * totalAudioTargets + 0].AddEntry(directionRayHitPosRelativeToPlayer, directionRayTotalDistance);
             }
         }
     }
@@ -381,7 +392,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                 float inDist = math.min(exitDist, distToAudioTarget) - math.max(enterDist, 0f);
                 if (inDist > 0f)
                 {
-                    remainingStrength -= inDist * permeationFalloffPerMeter * collider.thicknessMultiplier;
+                    remainingStrength -= inDist * permeationFalloffPerMeter;
                     if (remainingStrength <= 0f) return 0f;
                 }
             }
@@ -404,7 +415,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                 float inDist = math.min(exitDist, distToAudioTarget) - math.max(enterDist, 0f);
                 if (inDist > 0f)
                 {
-                    remainingStrength -= inDist * permeationFalloffPerMeter * collider.thicknessMultiplier;
+                    remainingStrength -= inDist * permeationFalloffPerMeter;
                     if (remainingStrength <= 0f) return 0f;
                 }
             }
@@ -427,7 +438,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                 float inDist = math.min(exitDist, distToAudioTarget) - math.max(enterDist, 0f);
                 if (inDist > 0f)
                 {
-                    remainingStrength -= inDist * permeationFalloffPerMeter * collider.thicknessMultiplier;
+                    remainingStrength -= inDist * permeationFalloffPerMeter;
                     if (remainingStrength <= 0f) return 0f;
                 }
             }
