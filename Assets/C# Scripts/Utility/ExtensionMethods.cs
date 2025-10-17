@@ -163,5 +163,4 @@ public static class ExtensionMethods
         if (array.IsCreated)
             array.Dispose();
     }
-
 }
