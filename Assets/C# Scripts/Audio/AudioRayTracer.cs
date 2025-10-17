@@ -3,6 +3,8 @@ using Unity.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.Jobs;
+using Unity.Burst;
+
 
 public class AudioRayTracer : MonoBehaviour
 {
@@ -223,7 +225,6 @@ public class AudioRayTracer : MonoBehaviour
 
         //trigger an update for all audio targets with ray traced data
         UpdateAudioTargets();
-
 
         #region Raycasting Job ParallelBatched
 

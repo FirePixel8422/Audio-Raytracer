@@ -48,17 +48,17 @@ public struct ProcessAudioDataJob : IJob
             // Loop over all batches bound to current audio target
             for (int batchId = 0; batchId < batchCount; batchId++)
             {
-                int cAudioTargetBatchId = audioTargetId * batchCount + batchId;
+                int targetAudioTargetBatchId = audioTargetId * batchCount + batchId;
 
                 // Add strength of current batch to muffleStrength
-                muffleStrength += muffleResultBatches[cAudioTargetBatchId].GetMuffleStrength(fullClarityDist, fullClarityHitPercentage);
+                muffleStrength += muffleResultBatches[targetAudioTargetBatchId].GetMuffleStrength(fullClarityDist, fullClarityHitPercentage);
 
 
-                audioPosition += directionResultBatches[cAudioTargetBatchId].GetAvgAudioPosition();
+                audioPosition += directionResultBatches[targetAudioTargetBatchId].GetAvgAudioPosition();
 
 
                 // Get permeation rays data
-                float muffleReduction = permeationResultBatches[cAudioTargetBatchId].GetMuffleReduction(fullMuffleReductionStrength, muffleReductionPercent);
+                float muffleReduction = permeationResultBatches[targetAudioTargetBatchId].GetMuffleReduction(fullMuffleReductionStrength, muffleReductionPercent);
 
                 //subtract muffleStrength by permeation muffleReduction
                 muffleStrength -= muffleReduction;
