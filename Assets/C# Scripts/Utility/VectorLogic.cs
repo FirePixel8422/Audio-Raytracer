@@ -1,13 +1,17 @@
-﻿using Unity.Mathematics;
+﻿using System.Runtime.CompilerServices;
+using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
 
+[BurstCompile]
 public static class VectorLogic
 {
     /// <summary>
     /// Instantly move a vector3 towards the new Vector3, up to maxDistance
     /// </summary>
     /// <returns>The new Position</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 InstantMoveTowards(Vector3 from, Vector3 to, float maxDist)
     {
         // Calculate the direction vector and its magnitude
@@ -28,6 +32,7 @@ public static class VectorLogic
     }
 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector3 Clamp(this Vector3 value, Vector3 min, Vector3 max)
     {
         value.x = math.clamp(value.x, min.x, max.x);
@@ -36,6 +41,7 @@ public static class VectorLogic
 
         return value;
     }
+
 
 
     public static Vector3 ClampDirection(this Vector3 value, Vector3 clamp)
@@ -50,6 +56,37 @@ public static class VectorLogic
 
         // Scale the vector uniformly
         return value * scale;
+    }
+
+    public static float3 ClampDirection(this float3 value, float3 clamp)
+    {
+        // Calculate the scale factors for each axis
+        float scaleX = math.abs(value.x) > clamp.x ? math.abs(clamp.x / value.x) : 1f;
+        float scaleY = math.abs(value.y) > clamp.y ? math.abs(clamp.y / value.y) : 1f;
+        float scaleZ = math.abs(value.z) > clamp.z ? math.abs(clamp.z / value.z) : 1f;
+
+        // Use the smallest scale factor to preserve direction
+        float scale = math.min(scaleX, math.min(scaleY, scaleZ));
+
+        // Scale the vector uniformly
+        return value * scale;
+    }
+
+    /// <summary>
+    /// Normalize each cord in the vector by wrapping rotation (-360 if above 180 degrees)
+    /// </summary>
+    public static void NormalizeAsEuler(this ref Vector3 value)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (float.IsNaN(value[i]) || float.IsInfinity(value[i]))
+            {
+                value[i] = 0f; // or handle gracefully
+                continue;
+            }
+
+            value[i] = Mathf.Repeat(value[i] + 180f, 360f) - 180f;
+        }
     }
 
 

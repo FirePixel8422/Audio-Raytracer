@@ -1,4 +1,3 @@
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
@@ -6,7 +5,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(AudioLowPassFilter), typeof(AudioHighPassFilter), typeof(AudioReverbFilter))]
-[BurstCompile]
 public class AudioTargetRT : AudioColliderGroup
 {
     [Header("Audio Settings:")]
@@ -25,7 +23,10 @@ public class AudioTargetRT : AudioColliderGroup
 
 
 
-    [BurstCompile]
+    private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
+    private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
+
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -36,14 +37,11 @@ public class AudioTargetRT : AudioColliderGroup
         settings.volume = baseVolume;
 
         spatializer.muffleStrength = 0f;
-
-        UpdateScheduler.Register(OnUpdate);
     }
 
 
     #region Get Colliders Override Method
 
-    [BurstCompile]
     /// <summary>
     /// Add all colliders of this AudioGroup to the native arrays of the custom physics engine.
     /// override: also set the audioTargetId of all colliders to the id of this script
@@ -106,7 +104,6 @@ public class AudioTargetRT : AudioColliderGroup
     #endregion
 
 
-    [BurstCompile]
     /// <summary>
     /// Update AudioTarget at realtime based on the AudioRaytracer's data
     /// </summary>
@@ -141,7 +138,6 @@ public class AudioTargetRT : AudioColliderGroup
 
 
 
-    [BurstCompile]
     private void OnUpdate()
     {
         float deltaTime = Time.deltaTime;
@@ -149,12 +145,5 @@ public class AudioTargetRT : AudioColliderGroup
         //maybe make this method smarter, make it so it takes MAX volumeUpdatepeed to change from a to b
 
         source.volume = MathLogic.MoveTowards(source.volume, settings.volume, volumeUpdateSpeed * deltaTime);
-    }
-
-
-    [BurstCompile]
-    private void OnDestroy()
-    {
-        UpdateScheduler.Unregister(OnUpdate);
     }
 }

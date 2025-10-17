@@ -27,20 +27,48 @@ public static class EzRandom
         random = new Unity.Mathematics.Random(seed);
     }
 
+    /// <returns>True or false</returns>
+    public static bool CoinFlip()
+    {
+        return random.NextBool();
+    }
+
 
     public static int Range(int min, int max)
     {
         return random.NextInt(min, max);
     }
 
+
     public static uint Range(uint min, uint max)
     {
         return random.NextUInt(min, max);
     }
 
+
     public static float Range(float min, float max)
     {
         return random.NextFloat(min, max);
+    }
+
+    public static float Range01()
+    {
+        return random.NextFloat(0, 1);
+    }
+
+    public static bool Chance(float chance)
+    {
+        return chance > random.NextFloat(0, 100);
+    }
+
+    public static uint Seed()
+    {
+        return random.NextUInt(uint.MinValue, uint.MaxValue);
+    }
+
+    public static float Range(MinMaxFloat value)
+    {
+        return random.NextFloat(value.min, value.max);
     }
 
     public static Vector3 Range(Vector3 min, Vector3 max)
@@ -86,5 +114,12 @@ public static class EzRandom
 
 
         return color;
+    }
+
+
+    /// <returns>float between -90 and 270</returns>
+    public static float RandomRotationAxis()
+    {
+        return random.NextFloat(-90, 270);
     }
 }

@@ -2,10 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.Collections;
-using Unity.Burst;
 
 
-[BurstCompile]
 public class AudioColliderGroup : MonoBehaviour
 {
     [Header("Sphere Collider: very fast > 10/10")]
@@ -25,7 +23,6 @@ public class AudioColliderGroup : MonoBehaviour
 
 
 
-    [BurstCompile]
     /// <summary>
     /// Add all colliders of this AudioGroup to the native arrays of the custom physics engine.
     /// </summary>
@@ -85,8 +82,6 @@ public class AudioColliderGroup : MonoBehaviour
     }
 
     
-
-    [BurstCompile]
     private void OnValidate()
     {
         for (int i = 0; i < AABBCount; i++)
@@ -147,7 +142,6 @@ public class AudioColliderGroup : MonoBehaviour
     }
 
 
-    [BurstCompile]
     private void OnDrawGizmosSelected()
     {
         if (Application.isPlaying) return;

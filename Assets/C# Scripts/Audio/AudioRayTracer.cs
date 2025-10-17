@@ -1,14 +1,10 @@
 using UnityEngine;
 using Unity.Collections;
-using Unity.Burst;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.Jobs;
-using Unity.VisualScripting;
-using System.Runtime.CompilerServices;
 
 
-[BurstCompile]
 public class AudioRayTracer : MonoBehaviour
 {
     [SerializeField] private float3 rayOrigin;
@@ -48,7 +44,9 @@ public class AudioRayTracer : MonoBehaviour
 
 
 
-    [BurstCompile]
+    private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
+    private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
+
     private void Start()
     {
         InitializeAudioRaytraceSystem();
@@ -56,14 +54,11 @@ public class AudioRayTracer : MonoBehaviour
 #if UNITY_EDITOR
         sw = new System.Diagnostics.Stopwatch();
 #endif
-
-        UpdateScheduler.Register(OnUpdate);
     }
 
 
     #region Setup Raytrace System and data Methods
 
-    [BurstCompile]
     private void InitializeAudioRaytraceSystem()
     {
         //initialize Raycast native arrays
@@ -92,11 +87,10 @@ public class AudioRayTracer : MonoBehaviour
         mainJobHandle.Complete();
     }
 
-    [BurstCompile]
     private void SetupColliderData()
     {
         //get all collider groups
-        colliderGroups = new List<AudioColliderGroup>(FindObjectsOfType<AudioColliderGroup>());
+        colliderGroups = new List<AudioColliderGroup>(this.FindObjectsOfType<AudioColliderGroup>());
 
         AABBCount = 0;
         OBBCount = 0;
@@ -130,11 +124,10 @@ public class AudioRayTracer : MonoBehaviour
         }
     }
 
-    [BurstCompile]
     private void SetupAudioTargetData()
     {
         //get all audio targets
-        audioTargets = new List<AudioTargetRT>(FindObjectsOfType<AudioTargetRT>());
+        audioTargets = new List<AudioTargetRT>(this.FindObjectsOfType<AudioTargetRT>());
 
         int audioTargetCount = audioTargets.Count;
 
@@ -162,7 +155,7 @@ public class AudioRayTracer : MonoBehaviour
 
 
     [Header("WARNING: If false will block the main thread every frame until all rays are calculated")]
-    [SerializeField] private bool waitForJobCompletion = true;
+    [SerializeField] private bool computeAsync = true;
 
     [SerializeField] private int batchSize = 4048;
     [SerializeField] private int maxBatchCount = 3;
@@ -178,11 +171,10 @@ public class AudioRayTracer : MonoBehaviour
 
     private NativeArray<AudioSettings> audioTargetSettings;
 
-    [BurstCompile]
     private void OnUpdate()
     {
-        //if waitForJobCompletion is true skip a frame if job is not done yet
-        if (waitForJobCompletion && mainJobHandle.IsCompleted == false) return;
+        //if computeAsync is true skip a frame if job is not done yet
+        if (computeAsync && mainJobHandle.IsCompleted == false) return;
 
         mainJobHandle.Complete();
 
@@ -307,7 +299,6 @@ public class AudioRayTracer : MonoBehaviour
     }
 
 
-    [BurstCompile]
     private void UpdateAudioTargets()
     {
         int totalAudioTargets = audioTargets.Count;
@@ -335,7 +326,6 @@ public class AudioRayTracer : MonoBehaviour
 
 
 
-    [BurstCompile]
     private void OnDestroy()
     {
         // Force complete all jobs
@@ -360,9 +350,6 @@ public class AudioRayTracer : MonoBehaviour
         targetReturnCounts.DisposeIfCreated();
         audioTargetPositions.DisposeIfCreated();
         audioTargetSettings.DisposeIfCreated();
-
-        // Unregister update scheduler
-        UpdateScheduler.Unregister(OnUpdate);
     }
 
 
@@ -404,7 +391,6 @@ public class AudioRayTracer : MonoBehaviour
     private System.Diagnostics.Stopwatch sw;
 
 
-    [BurstCompile]
     private void OnDrawGizmos()
     {
         if (Application.isPlaying == false) return;

@@ -71,8 +71,8 @@ public class AudioSpatializer : MonoBehaviour
     private int sampleRate;
 
 
-    private void OnEnable() => UpdateScheduler.Register(OnUpdate);
-    private void OnDisable() => UpdateScheduler.Unregister(OnUpdate);
+    private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
+    private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
 
 
     private void Start()
