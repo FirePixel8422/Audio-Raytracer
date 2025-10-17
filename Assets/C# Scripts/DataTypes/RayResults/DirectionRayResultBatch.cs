@@ -29,8 +29,13 @@ public struct DirectionRayResultBatch
 
 
     /// <returns>The Averaged point</returns>
-    public readonly float3 GetAvgAudioPosition()
+    public float3 GetAvgResult()
     {
-        return totalWeight == 0 ? float3.zero : weightedPoint / totalWeight;
+        if (totalWeight == 0)
+        {
+            return float3.zero;
+        }
+
+        return weightedPoint / totalWeight;
     }
 }

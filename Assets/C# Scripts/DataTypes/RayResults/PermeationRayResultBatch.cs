@@ -25,13 +25,10 @@ public struct PermeationRayResultBatch
     /// <summary>
     /// Get MuffleStrengthReduction based on accumulatedStrength and fullReductionStrength and get audioTargetPosEffectiveness.
     /// </summary>
-    public readonly float GetMuffleReduction(float fullReductionStrength, float fullReductionPercent)
+    public void GetPermeationData(float fullReductionStrength, float fullReductionPercent, float3 audioTargetPosRelativeToPlayer, out float muffleReduction, out float3 audioTargetPosEffectiveness)
     {
-        return math.clamp(accumulatedStrength / fullReductionStrength, 0, fullReductionPercent);
+        muffleReduction = math.clamp(accumulatedStrength / fullReductionStrength, 0, fullReductionPercent);
 
-
-
-
-        //DEBUG maybe chnage muffleReduction calculation
+        audioTargetPosEffectiveness = audioTargetPosRelativeToPlayer * muffleReduction;
     }
 }
