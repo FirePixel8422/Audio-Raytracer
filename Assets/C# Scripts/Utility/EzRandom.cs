@@ -27,12 +27,6 @@ public static class EzRandom
         random = new Unity.Mathematics.Random(seed);
     }
 
-    /// <returns>True or false</returns>
-    public static bool CoinFlip()
-    {
-        return random.NextBool();
-    }
-
 
     public static int Range(int min, int max)
     {
@@ -44,38 +38,10 @@ public static class EzRandom
         return random.NextUInt(min, max);
     }
 
-
     public static float Range(float min, float max)
     {
         return random.NextFloat(min, max);
     }
-
-    /// <returns>A float between 0 and 1</returns>
-    public static float Range01()
-    {
-        return random.NextFloat(0, 1);
-    }
-
-    /// <summary>
-    /// Compares random number between 0 and 100 with given chance
-    /// </summary>
-    public static bool Chance(float chance)
-    {
-        return chance > random.NextFloat(0, 100);
-    }
-    /// <summary>
-    /// Compares random number between 0 and 1 with given chance
-    /// </summary>
-    public static bool Chance01(float chance)
-    {
-        return chance > random.NextFloat(0, 100);
-    }
-
-    public static float Range(MinMaxFloat value)
-    {
-        return random.NextFloat(value.Min, value.Max);
-    }
-
 
     public static Vector3 Range(Vector3 min, Vector3 max)
     {
@@ -95,6 +61,7 @@ public static class EzRandom
         vec.y = Range(min.y, max.y);
         vec.z = Range(min.z, max.z);
 
+
         return vec;
     }
 
@@ -104,6 +71,7 @@ public static class EzRandom
         vec.x = Range(min.x, max.x);
         vec.y = Range(min.y, max.y);
         vec.z = Range(min.z, max.z);
+
 
         return vec;
     }
@@ -116,16 +84,6 @@ public static class EzRandom
         color.b = random.NextFloat();
         color.a = randomizeAlpha ? random.NextFloat() : 1;
 
-        return color;
-    }
-
-    public static Color RandomColor(float alpha)
-    {
-        Color color;
-        color.r = random.NextFloat();
-        color.g = random.NextFloat();
-        color.b = random.NextFloat();
-        color.a = alpha;
 
         return color;
     }
