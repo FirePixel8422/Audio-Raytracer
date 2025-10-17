@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         float moveZ = Input.GetAxisRaw("Vertical");
 
         Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
-        rb.linearVelocity = transform.TransformDirection(moveDir) * moveSpeed + new Vector3(0f, rb.linearVelocity.y, 0f);
+        rb.velocity = transform.TransformDirection(moveDir) * moveSpeed + new Vector3(0f, rb.velocity.y, 0f);
     }
 
     [BurstCompile]
