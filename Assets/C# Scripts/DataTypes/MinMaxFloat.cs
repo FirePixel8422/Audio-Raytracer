@@ -15,23 +15,4 @@ public struct MinMaxFloat
         this.min = min;
         this.max = max;
     }
-
-
-    // Math oerators
-    public static MinMaxFloat operator +(MinMaxFloat a, MinMaxFloat b)
-    {
-        return new MinMaxFloat(a.min + b.min, a.max + b.max);
-    }
-    public static MinMaxFloat operator -(MinMaxFloat a, MinMaxFloat b)
-    {
-        return new MinMaxFloat(a.min - b.min, a.max - b.max);
-    }
-    public static MinMaxFloat operator *(MinMaxFloat a, MinMaxFloat b)
-    {
-        return new MinMaxFloat(a.min * b.min, a.max * b.max);
-    }
-    public static MinMaxFloat operator *(MinMaxFloat a, float b)
-    {
-        return new MinMaxFloat(a.min * b, a.max * b);
-    }
 }

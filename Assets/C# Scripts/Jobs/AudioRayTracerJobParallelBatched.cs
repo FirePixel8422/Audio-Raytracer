@@ -49,9 +49,9 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
 
         ColliderType hitColliderType;
 
-        ColliderAABBStruct hitAABB = ColliderAABBStruct.Null;
-        ColliderOBBStruct hitOBB = ColliderOBBStruct.Null;
-        ColliderSphereStruct hitSphere = ColliderSphereStruct.Null;
+        ColliderAABBStruct hitAABB = new ColliderAABBStruct();
+        ColliderOBBStruct hitOBB = new ColliderOBBStruct();
+        ColliderSphereStruct hitSphere = new ColliderSphereStruct();
 
 
         #region Reset Required Data

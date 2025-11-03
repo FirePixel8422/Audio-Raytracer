@@ -16,10 +16,10 @@ public struct ColliderAABBStruct
     [HideInInspector]
     public int audioTargetId;
 
-    public bool IsNull => size.x == -1;
-
-    public static ColliderAABBStruct Null => new ColliderAABBStruct
+    public static ColliderAABBStruct Default => new ColliderAABBStruct()
     {
-        size = new float3(-1, 0, 0)
+        size = new float3(0.5f),
+        thicknessMultiplier = 1,
+        audioTargetId = -1,
     };
 }

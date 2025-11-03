@@ -18,20 +18,8 @@ public class AudioRayTracer : MonoBehaviour
     [Range(0, 1000)]
     [SerializeField] float maxRayDist = 10;
 
-
-    private List<AudioColliderGroup> colliderGroups;
-
     private List<AudioTargetRT> audioTargets;
     private NativeArray<float3> audioTargetPositions;
-
-    private NativeArray<ColliderAABBStruct> AABBColliders;
-    private int AABBCount;
-
-    private NativeArray<ColliderOBBStruct> OBBColliders;
-    private int OBBCount;
-
-    private NativeArray<ColliderSphereStruct> sphereColliders;
-    private int sphereCount;
 
     private NativeArray<float3> rayDirections;
 
@@ -43,6 +31,16 @@ public class AudioRayTracer : MonoBehaviour
     private NativeArray<int> muffleRayHits;
 
 
+    private NativeArray<ColliderAABBStruct> aabbColliders;
+    private int AABBCount => AudioColliderManager.Instance.AABBCount;
+
+    private NativeArray<ColliderOBBStruct> obbColliders;
+    private int OBBCount => AudioColliderManager.Instance.OBBCount;
+
+    private NativeArray<ColliderSphereStruct> sphereColliders;
+    private int SphereCount => AudioColliderManager.Instance.SphereCount;
+
+
 
     private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
     private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
@@ -50,6 +48,10 @@ public class AudioRayTracer : MonoBehaviour
     private void Start()
     {
         InitializeAudioRaytraceSystem();
+
+        aabbColliders = AudioColliderManager.Instance.AABBColliders;
+        obbColliders = AudioColliderManager.Instance.OBBColliders;
+        sphereColliders = AudioColliderManager.Instance.SphereColliders;
 
 #if UNITY_EDITOR
         sw = new System.Diagnostics.Stopwatch();
@@ -81,47 +83,9 @@ public class AudioRayTracer : MonoBehaviour
         returnRayDirections = new NativeArray<float3>(maxRayResultsArrayLength, Allocator.Persistent);
         rayResultCounts = new NativeArray<int>(rayCount, Allocator.Persistent);
 
-        SetupColliderData();
         SetupAudioTargetData();
 
         mainJobHandle.Complete();
-    }
-
-    private void SetupColliderData()
-    {
-        //get all collider groups
-        colliderGroups = new List<AudioColliderGroup>(this.FindObjectsOfType<AudioColliderGroup>());
-
-        AABBCount = 0;
-        OBBCount = 0;
-        sphereCount = 0;
-
-        //calculate total amount of colliders for box and spheres
-        for (int i = 0; i < colliderGroups.Count; i++)
-        {
-            AABBCount += colliderGroups[i].AABBCount;
-            OBBCount += colliderGroups[i].OBBCount;
-            sphereCount += colliderGroups[i].SphereCount;
-        }
-
-        //setup native arrays for colliders
-        AABBColliders = new NativeArray<ColliderAABBStruct>(AABBCount, Allocator.Persistent);
-        OBBColliders = new NativeArray<ColliderOBBStruct>(OBBCount, Allocator.Persistent);
-        sphereColliders = new NativeArray<ColliderSphereStruct>(sphereCount, Allocator.Persistent);
-
-        int cAABBId = 0;
-        int cOBBId = 0;
-        int cSphereId = 0;
-
-        //assign colliders to the native arrays
-        foreach (var group in colliderGroups)
-        {
-            group.GetColliders(AABBColliders, cAABBId, OBBColliders, cOBBId, sphereColliders, cSphereId);
-
-            cAABBId += group.AABBCount;
-            cOBBId += group.OBBCount;
-            cSphereId += group.SphereCount;
-        }
     }
 
     private void SetupAudioTargetData()
@@ -185,7 +149,7 @@ public class AudioRayTracer : MonoBehaviour
         sw.Restart();
 
         //failsafe to prevent crash when updating maxBounces in editor
-        if (audioRayTraceJob.rayDirections.Length != 0 && (audioRayTraceJob.maxRayHits != (maxBounces + 1) || rayDirections.Length != rayCount))
+        if (audioRayTraceJob.RayDirections.Length != 0 && (audioRayTraceJob.MaxRayHits != (maxBounces + 1) || rayDirections.Length != rayCount))
         {
             //recreate rayResults and returnRayDirections arrays with new size because maxBounces or rayCount changed
             rayResults = new NativeArray<AudioRayResult>(rayCount * (maxBounces + 1), Allocator.Persistent);
@@ -228,25 +192,30 @@ public class AudioRayTracer : MonoBehaviour
         //create raytrace job and fire it
         audioRayTraceJob = new AudioRayTracerJobParallelBatchedOld
         {
-            rayOrigin = (float3)transform.position + rayOrigin,
-            rayDirections = rayDirections,
+            RayOrigin = (float3)transform.position + rayOrigin,
+            RayDirections = rayDirections,
 
-            AABBColliders = AABBColliders,
-            OBBColliders = OBBColliders,
-            sphereColliders = sphereColliders,
+            AABBColliders = aabbColliders,
+            AABBCount = AABBCount,
 
-            audioTargetPositions = audioTargetPositions,
-
-            maxRayHits = maxBounces + 1,
-            maxRayDist = maxRayDist,
-            totalAudioTargets = audioTargets.Count,
-
-            results = rayResults,
-            resultCounts = rayResultCounts,
-
-            echoRayDirections = returnRayDirections,
+            OBBColliders = obbColliders,
+            OBBCount = OBBCount,
             
-            muffleRayHits = muffleRayHits,
+            SphereColliders = sphereColliders,
+            SphereCount = SphereCount,
+
+            AudioTargetPositions = audioTargetPositions,
+
+            MaxRayHits = maxBounces + 1,
+            MaxRayDist = maxRayDist,
+            TotalAudioTargets = audioTargets.Count,
+
+            Results = rayResults,
+            ResultCounts = rayResultCounts,
+
+            EchoRayDirections = returnRayDirections,
+            
+            MuffleRayHits = muffleRayHits,
         };
 
         // Calculate how many batches this job would run normally
@@ -337,11 +306,6 @@ public class AudioRayTracer : MonoBehaviour
         rayResultCounts.DisposeIfCreated();
         muffleRayHits.DisposeIfCreated();
 
-        // Collider arrays
-        AABBColliders.DisposeIfCreated();
-        OBBColliders.DisposeIfCreated();
-        sphereColliders.DisposeIfCreated();
-
         // Audio arrays
         targetHitCounts.DisposeIfCreated();
         targetReturnPositionsTotal.DisposeIfCreated();
@@ -358,7 +322,6 @@ public class AudioRayTracer : MonoBehaviour
 #if UNITY_EDITOR
 
     [Header("DEBUG")]
-    [SerializeField] private bool drawColliderGizmos = true;
     [SerializeField] private bool drawRayHitsGizmos = true;
     [SerializeField] private bool drawRayTrailsGizmos;
     [SerializeField] private bool drawReturnRayDirectionGizmos;
@@ -374,8 +337,6 @@ public class AudioRayTracer : MonoBehaviour
     [SerializeField] private Color rayReturnDirectionColor = new Color(0.5f, 0.25f, 0, 1f);
     [SerializeField] private Color rayReturnLastDirectionColor = new Color(1, 0.5f, 0, 1);
     [SerializeField] private Color rayReturnAvgDirectionColor = new Color(1, 0.5f, 0, 1);
-
-    [SerializeField] private Color colliderColor = new Color(1f, 0.75f, 0.25f);
 
 
     private AudioRayResult[] DEBUG_rayResults;
@@ -500,26 +461,6 @@ public class AudioRayTracer : MonoBehaviour
         Gizmos.color = originColor;
         Gizmos.DrawWireSphere(rayOrigin, 0.025f);
         Gizmos.DrawWireSphere(rayOrigin, 0.05f);
-
-        //green blue-ish color
-        Gizmos.color = colliderColor;
-
-        // Draw all colliders in the collider arrays
-        if (drawColliderGizmos && AABBColliders.IsCreated)
-        {
-            foreach (var box in AABBColliders)
-            {
-                Gizmos.DrawWireCube(box.center, box.size * 2);
-            }
-            foreach (var box in OBBColliders)
-            {
-                Gizmos.DrawWireMesh(GlobalMeshes.cube, box.center, box.rotation, box.size * 2);
-            }
-            foreach (var sphere in sphereColliders)
-            {
-                Gizmos.DrawWireSphere(sphere.center, sphere.radius);
-            }
-        }
     }
 #endif
 }

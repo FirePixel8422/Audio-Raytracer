@@ -18,10 +18,12 @@ public struct ColliderOBBStruct
     [HideInInspector]
     public int audioTargetId;
 
-    public bool IsNull => size.x == -1;
 
-    public static ColliderOBBStruct Null => new ColliderOBBStruct
+    public static ColliderOBBStruct Default => new ColliderOBBStruct()
     {
-        size = new float3(-1, 0, 0)
+        size = new float3(0.5f),
+        rotation = quaternion.identity,
+        thicknessMultiplier = 1,
+        audioTargetId = -1,
     };
 }

@@ -13,7 +13,7 @@ public static class UpdateScheduler
 #pragma warning restore UDR0002
 
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
         UpdateCallbackManager gameManager = new GameObject("UpdateCallbackManager").AddComponent<UpdateCallbackManager>();

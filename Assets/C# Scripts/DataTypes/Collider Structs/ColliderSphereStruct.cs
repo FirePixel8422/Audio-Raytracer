@@ -16,10 +16,10 @@ public struct ColliderSphereStruct
     [HideInInspector]
     public int audioTargetId;
 
-    public bool IsNull => radius == -1;
-
-    public static ColliderSphereStruct Null => new ColliderSphereStruct
+    public static ColliderSphereStruct Default => new ColliderSphereStruct()
     {
-        radius = -1,
+        radius = 0.5f,
+        thicknessMultiplier = 1,
+        audioTargetId = -1,
     };
 }

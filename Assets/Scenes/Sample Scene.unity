@@ -1966,8 +1966,8 @@ GameObject:
   - component: {fileID: 222297318}
   - component: {fileID: 222297321}
   - component: {fileID: 222297320}
-  - component: {fileID: 222297319}
   - component: {fileID: 222297322}
+  - component: {fileID: 222297323}
   m_Layer: 0
   m_Name: Wall (10)
   m_TagString: Untagged
@@ -1990,38 +1990,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &222297319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222297317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &222297320
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2099,6 +2067,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &222297323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222297317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &225529168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,26 +2408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f869e5abad9be74eb03b92dfe49c6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
   settings:
     volume: 0
     muffle: 0
@@ -2591,7 +2564,7 @@ GameObject:
   - component: {fileID: 259388598}
   - component: {fileID: 259388601}
   - component: {fileID: 259388600}
-  - component: {fileID: 259388599}
+  - component: {fileID: 259388603}
   - component: {fileID: 259388602}
   m_Layer: 0
   m_Name: Wall (9)
@@ -2615,38 +2588,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &259388599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 259388597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &259388600
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2703,7 +2644,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259388597}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &259388602
+--- !u!114 &259388602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259388597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
+--- !u!65 &259388603
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2722,8 +2688,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.000000014901161}
 --- !u!1 &266169657
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,8 +3155,8 @@ GameObject:
   - component: {fileID: 327348723}
   - component: {fileID: 327348727}
   - component: {fileID: 327348726}
-  - component: {fileID: 327348725}
   - component: {fileID: 327348724}
+  - component: {fileID: 327348728}
   m_Layer: 0
   m_Name: Wall (16)
   m_TagString: Untagged
@@ -3234,38 +3200,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &327348725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327348722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &327348726
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3322,6 +3256,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327348722}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &327348728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327348722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &350203522
 GameObject:
   m_ObjectHideFlags: 0
@@ -4626,8 +4585,8 @@ GameObject:
   - component: {fileID: 516096227}
   - component: {fileID: 516096230}
   - component: {fileID: 516096229}
-  - component: {fileID: 516096228}
   - component: {fileID: 516096231}
+  - component: {fileID: 516096232}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -4650,38 +4609,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &516096228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516096226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &516096229
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4759,6 +4686,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &516096232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516096226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &557577173
 GameObject:
   m_ObjectHideFlags: 0
@@ -9720,6 +9672,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030488006}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1030950977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1030950979}
+  - component: {fileID: 1030950978}
+  m_Layer: 0
+  m_Name: AudioColliderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1030950978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d434d7127fa8946ae1a87fc7bc7ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioColliderManager
+  drawColliderGizmos: 1
+  colliderColor: {r: 1, g: 0.75, b: 0.25, a: 1}
+--- !u!4 &1030950979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1035452490
 GameObject:
   m_ObjectHideFlags: 0
@@ -10037,8 +10035,8 @@ GameObject:
   - component: {fileID: 1062018011}
   - component: {fileID: 1062018014}
   - component: {fileID: 1062018013}
-  - component: {fileID: 1062018012}
   - component: {fileID: 1062018015}
+  - component: {fileID: 1062018016}
   m_Layer: 0
   m_Name: Wall (11)
   m_TagString: Untagged
@@ -10061,38 +10059,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1062018012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1062018010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1062018013
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10170,6 +10136,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1062018016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062018010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &1067560548
 GameObject:
   m_ObjectHideFlags: 0
@@ -11241,8 +11232,8 @@ GameObject:
   - component: {fileID: 1166970477}
   - component: {fileID: 1166970481}
   - component: {fileID: 1166970480}
-  - component: {fileID: 1166970479}
   - component: {fileID: 1166970478}
+  - component: {fileID: 1166970482}
   m_Layer: 0
   m_Name: Ramp (3)
   m_TagString: Untagged
@@ -11286,38 +11277,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1166970479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166970476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1166970480
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11374,6 +11333,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166970476}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1166970482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166970476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    rotation:
+      value:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+    thicknessMultiplier: 1
+    audioTargetId: -1
+  includeGameObjectRotation: 1
 --- !u!1 &1170413188
 GameObject:
   m_ObjectHideFlags: 0
@@ -11509,8 +11500,8 @@ GameObject:
   - component: {fileID: 1173208417}
   - component: {fileID: 1173208421}
   - component: {fileID: 1173208420}
-  - component: {fileID: 1173208419}
   - component: {fileID: 1173208418}
+  - component: {fileID: 1173208422}
   m_Layer: 0
   m_Name: Ramp (1)
   m_TagString: Untagged
@@ -11554,38 +11545,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1173208419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173208416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1173208420
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11642,6 +11601,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173208416}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1173208422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173208416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    rotation:
+      value:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+    thicknessMultiplier: 1
+    audioTargetId: -1
+  includeGameObjectRotation: 1
 --- !u!1 &1194012905
 GameObject:
   m_ObjectHideFlags: 0
@@ -13227,8 +13218,8 @@ GameObject:
   - component: {fileID: 1375711492}
   - component: {fileID: 1375711496}
   - component: {fileID: 1375711495}
-  - component: {fileID: 1375711494}
   - component: {fileID: 1375711493}
+  - component: {fileID: 1375711497}
   m_Layer: 0
   m_Name: Wall (18)
   m_TagString: Untagged
@@ -13272,38 +13263,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1375711494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375711491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1375711495
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13360,6 +13319,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375711491}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1375711497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375711491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &1382396550
 GameObject:
   m_ObjectHideFlags: 0
@@ -13881,8 +13865,8 @@ GameObject:
   - component: {fileID: 1458046729}
   - component: {fileID: 1458046733}
   - component: {fileID: 1458046732}
-  - component: {fileID: 1458046731}
   - component: {fileID: 1458046730}
+  - component: {fileID: 1458046734}
   m_Layer: 0
   m_Name: Wall (19)
   m_TagString: Untagged
@@ -13926,38 +13910,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1458046731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458046728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1458046732
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14014,6 +13966,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458046728}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1458046734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458046728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &1459303128
 GameObject:
   m_ObjectHideFlags: 0
@@ -14229,8 +14206,8 @@ GameObject:
   - component: {fileID: 1488041907}
   - component: {fileID: 1488041910}
   - component: {fileID: 1488041909}
-  - component: {fileID: 1488041908}
   - component: {fileID: 1488041911}
+  - component: {fileID: 1488041912}
   m_Layer: 0
   m_Name: Wall (13)
   m_TagString: Untagged
@@ -14253,38 +14230,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1488041908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1488041906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1488041909
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14362,6 +14307,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1488041912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488041906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &1535602530
 GameObject:
   m_ObjectHideFlags: 0
@@ -15455,8 +15425,8 @@ GameObject:
   - component: {fileID: 1648640013}
   - component: {fileID: 1648640017}
   - component: {fileID: 1648640016}
-  - component: {fileID: 1648640015}
   - component: {fileID: 1648640014}
+  - component: {fileID: 1648640018}
   m_Layer: 0
   m_Name: Ramp (2)
   m_TagString: Untagged
@@ -15500,38 +15470,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1648640015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648640012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1648640016
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15588,6 +15526,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648640012}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1648640018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648640012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    rotation:
+      value:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+    thicknessMultiplier: 1
+    audioTargetId: -1
+  includeGameObjectRotation: 1
 --- !u!1 &1653812445
 GameObject:
   m_ObjectHideFlags: 0
@@ -15838,8 +15808,8 @@ GameObject:
   - component: {fileID: 1729863503}
   - component: {fileID: 1729863507}
   - component: {fileID: 1729863506}
-  - component: {fileID: 1729863505}
   - component: {fileID: 1729863504}
+  - component: {fileID: 1729863508}
   m_Layer: 0
   m_Name: Ramp
   m_TagString: Untagged
@@ -15883,38 +15853,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1729863505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729863502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1729863506
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15971,6 +15909,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729863502}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1729863508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729863502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    rotation:
+      value:
+        x: 0
+        y: 0
+        z: 0
+        w: 1
+    thicknessMultiplier: 1
+    audioTargetId: -1
+  includeGameObjectRotation: 1
 --- !u!1 &1739547083
 GameObject:
   m_ObjectHideFlags: 0
@@ -17796,8 +17766,8 @@ GameObject:
   - component: {fileID: 1907513787}
   - component: {fileID: 1907513790}
   - component: {fileID: 1907513789}
-  - component: {fileID: 1907513788}
   - component: {fileID: 1907513791}
+  - component: {fileID: 1907513792}
   m_Layer: 0
   m_Name: Wall (14)
   m_TagString: Untagged
@@ -17820,38 +17790,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1907513788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907513786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1907513789
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17929,6 +17867,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1907513792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907513786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &1913523950
 GameObject:
   m_ObjectHideFlags: 0
@@ -18064,8 +18027,8 @@ GameObject:
   - component: {fileID: 1920798009}
   - component: {fileID: 1920798013}
   - component: {fileID: 1920798012}
-  - component: {fileID: 1920798011}
   - component: {fileID: 1920798010}
+  - component: {fileID: 1920798014}
   m_Layer: 0
   m_Name: Wall (17)
   m_TagString: Untagged
@@ -18109,38 +18072,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1920798011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1920798008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &1920798012
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18197,6 +18128,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920798008}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1920798014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920798008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &1941546987
 GameObject:
   m_ObjectHideFlags: 0
@@ -19074,8 +19030,8 @@ GameObject:
   - component: {fileID: 2037342794}
   - component: {fileID: 2037342798}
   - component: {fileID: 2037342797}
-  - component: {fileID: 2037342796}
   - component: {fileID: 2037342795}
+  - component: {fileID: 2037342799}
   m_Layer: 0
   m_Name: Wall (15)
   m_TagString: Untagged
@@ -19119,38 +19075,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2037342796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2037342793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &2037342797
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19207,6 +19131,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037342793}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2037342799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037342793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &2037746630
 GameObject:
   m_ObjectHideFlags: 0
@@ -19530,7 +19479,6 @@ MonoBehaviour:
   computeAsync: 1
   batchSize: 4048
   maxBatchCount: 3
-  drawColliderGizmos: 0
   drawRayHitsGizmos: 1
   drawRayTrailsGizmos: 0
   drawReturnRayDirectionGizmos: 0
@@ -19542,7 +19490,6 @@ MonoBehaviour:
   rayReturnDirectionColor: {r: 0.5, g: 0.25, b: 0, a: 1}
   rayReturnLastDirectionColor: {r: 1, g: 0.5, b: 0, a: 1}
   rayReturnAvgDirectionColor: {r: 1, g: 0.5, b: 0, a: 1}
-  colliderColor: {r: 1, g: 0.75, b: 0.25, a: 1}
   DEBUG_muffleRayHits: 
   hashes: 
   ms: 0
@@ -19863,8 +19810,8 @@ GameObject:
   - component: {fileID: 2111826283}
   - component: {fileID: 2111826286}
   - component: {fileID: 2111826285}
-  - component: {fileID: 2111826284}
   - component: {fileID: 2111826287}
+  - component: {fileID: 2111826288}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -19887,38 +19834,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429698494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2111826284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111826282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e521f23679650564f988c604f4bef3ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spheres: []
-  axisAlignedBoxes: []
-  orientedBoxes:
-  - center:
-      x: 0
-      y: 0
-      z: 0
-    size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 0
-    audioTargetId: 0
-  groupId: 0
 --- !u!23 &2111826285
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19996,6 +19911,31 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2111826288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111826282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x: 0
+      y: 0
+      z: 0
+    size:
+      x: 0.5
+      y: 0.5
+      z: 0.5
+    thicknessMultiplier: 1
+    audioTargetId: -1
 --- !u!1 &2114451458
 GameObject:
   m_ObjectHideFlags: 0
@@ -20314,3 +20254,4 @@ SceneRoots:
   - {fileID: 768564311}
   - {fileID: 241768773}
   - {fileID: 2039623052}
+  - {fileID: 1030950979}

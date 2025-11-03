@@ -8,32 +8,35 @@ using Unity.Mathematics;
 [BurstCompile]
 public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 {
-    [ReadOnly][NoAlias] public float3 rayOrigin;
-    [ReadOnly][NoAlias] public NativeArray<float3> rayDirections;
+    [ReadOnly][NoAlias] public float3 RayOrigin;
+    [ReadOnly][NoAlias] public NativeArray<float3> RayDirections;
 
     [ReadOnly][NoAlias] public NativeArray<ColliderAABBStruct> AABBColliders;
+    [ReadOnly][NoAlias] public int AABBCount;
     [ReadOnly][NoAlias] public NativeArray<ColliderOBBStruct> OBBColliders;
-    [ReadOnly][NoAlias] public NativeArray<ColliderSphereStruct> sphereColliders;
+    [ReadOnly][NoAlias] public int OBBCount;
+    [ReadOnly][NoAlias] public NativeArray<ColliderSphereStruct> SphereColliders;
+    [ReadOnly][NoAlias] public int SphereCount;
 
-    [ReadOnly][NoAlias] public NativeArray<float3> audioTargetPositions;
+    [ReadOnly][NoAlias] public NativeArray<float3> AudioTargetPositions;
 
-    [ReadOnly][NoAlias] public float maxRayDist;
-    [ReadOnly][NoAlias] public int maxRayHits;
-    [ReadOnly][NoAlias] public int totalAudioTargets;
-
-    [NativeDisableParallelForRestriction]
-    [WriteOnly][NoAlias] public NativeArray<AudioRayResult> results;
-
-    [NativeDisableParallelForRestriction]
-    [WriteOnly][NoAlias] public NativeArray<int> resultCounts;
+    [ReadOnly][NoAlias] public float MaxRayDist;
+    [ReadOnly][NoAlias] public int MaxRayHits;
+    [ReadOnly][NoAlias] public int TotalAudioTargets;
 
     [NativeDisableParallelForRestriction]
-    [WriteOnly][NoAlias] public NativeArray<float3> echoRayDirections;
+    [WriteOnly][NoAlias] public NativeArray<AudioRayResult> Results;
 
     [NativeDisableParallelForRestriction]
-    [NoAlias] public NativeArray<int> muffleRayHits;
+    [WriteOnly][NoAlias] public NativeArray<int> ResultCounts;
 
-    private const float epsilon = 0.0001f;
+    [NativeDisableParallelForRestriction]
+    [WriteOnly][NoAlias] public NativeArray<float3> EchoRayDirections;
+
+    [NativeDisableParallelForRestriction]
+    [NoAlias] public NativeArray<int> MuffleRayHits;
+
+    private const float Epsilon = 0.0001f;
 
 
     [BurstCompile]
@@ -41,7 +44,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     {
         int batchId = rayStartIndex / totalRays;
 
-        //save local copy of rayOrigin
+        //save local copy of RayOrigin
         float3 cRayOrigin;
 
         float closestDist;
@@ -49,25 +52,25 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
         ColliderType hitColliderType;
 
-        ColliderAABBStruct hitAABB = ColliderAABBStruct.Null;
-        ColliderOBBStruct hitOBB = ColliderOBBStruct.Null;
-        ColliderSphereStruct hitSphere = ColliderSphereStruct.Null;
+        ColliderAABBStruct hitAABB = new ColliderAABBStruct();
+        ColliderOBBStruct hitOBB = new ColliderOBBStruct();
+        ColliderSphereStruct hitSphere = new ColliderSphereStruct();
 
 
         #region Reset Required Data
 
         //reset return ray directions array completely before starting
-        for (int i = 0; i < totalRays * maxRayHits; i++)
+        for (int i = 0; i < totalRays * MaxRayHits; i++)
         {
             int rayIndex = rayStartIndex + i;
 
-            echoRayDirections[rayIndex] = float3.zero;
-            results[rayIndex] = AudioRayResult.Null;
+            EchoRayDirections[rayIndex] = float3.zero;
+            Results[rayIndex] = AudioRayResult.Null;
         }
         //reset muffleRayHit count assigned to this batch
-        for (int i = 0; i < totalAudioTargets; i++)
+        for (int i = 0; i < TotalAudioTargets; i++)
         {
-            muffleRayHits[batchId * totalAudioTargets + i] = 0;
+            MuffleRayHits[batchId * TotalAudioTargets + i] = 0;
         }
 
         #endregion
@@ -78,8 +81,8 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         {
             int rayIndex = rayStartIndex + localRayId;
 
-            float3 cRayDir = rayDirections[rayIndex];
-            cRayOrigin = rayOrigin;
+            float3 cRayDir = RayDirections[rayIndex];
+            cRayOrigin = RayOrigin;
 
             int cRayHits = 0;
             float totalDist = 0;
@@ -113,18 +116,18 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
                     #region Check if hit ray point can return to original origin point (Blue Echo rays to player)
 
-                    float3 offsettedRayHitWorldPoint = cRayOrigin - cRayDir * epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
+                    float3 offsettedRayHitWorldPoint = cRayOrigin - cRayDir * Epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
 
                     //shoot a return ray to the original origin
-                    float3 returnRayDir = math.normalize(rayOrigin - offsettedRayHitWorldPoint);
+                    float3 returnRayDir = math.normalize(RayOrigin - offsettedRayHitWorldPoint);
 
-                    //calculate the distance to the origin and offset rayOrigin by a bit back so it doesnt intersect with same collider again
-                    float distToOriginalOrigin = math.distance(rayOrigin, offsettedRayHitWorldPoint);
+                    //calculate the distance to the origin and offset RayOrigin by a bit back so it doesnt intersect with same collider again
+                    float distToOriginalOrigin = math.distance(RayOrigin, offsettedRayHitWorldPoint);
 
                     // if nothing was hit, aka the ray go to the player succesfully store the return ray direction
                     if (CanRaySeePoint(offsettedRayHitWorldPoint, returnRayDir, distToOriginalOrigin))
                     {
-                        echoRayDirections[rayIndex * maxRayHits + cRayHits - 1] = returnRayDir;
+                        EchoRayDirections[rayIndex * MaxRayHits + cRayHits - 1] = returnRayDir;
                     }
                 
                     #endregion
@@ -133,9 +136,9 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                     #region Check if ray can get to audiotarget (Green Muffle rays to all audio targets)
 
                     // Raycast to each AudioTarget position
-                    for (int i = 0; i < totalAudioTargets; i++)
+                    for (int i = 0; i < TotalAudioTargets; i++)
                     {
-                        float3 audioTargetPosition = audioTargetPositions[i]; // Get the position of the current audio target
+                        float3 audioTargetPosition = AudioTargetPositions[i]; // Get the position of the current audio target
                         float3 rayToTargetDir = math.normalize(audioTargetPosition - cRayOrigin); // Direction to the audio target
 
                         // Calculate distance to the audio target
@@ -144,8 +147,8 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                         // Cast a ray from the hit point to the audio target
                         if (CanRaySeeAudioTarget(cRayOrigin, rayToTargetDir, distToTarget, i))
                         {
-                            // If the ray to the audio target is clear, increment the appropriate entry in muffleRayHits
-                            muffleRayHits[batchId * totalAudioTargets + i] += 1;
+                            // If the ray to the audio target is clear, increment the appropriate entry in MuffleRayHits
+                            MuffleRayHits[batchId * TotalAudioTargets + i] += 1;
 
                             rayResult.audioTargetId = i; // Set the audio target Id in the result
                         }
@@ -154,8 +157,8 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                     #endregion
 
 
-                    //check if ray is finished (if rayHits is more than maxRayHits or totalDist is equal or exceeds maxRayDist)
-                    if (cRayHits >= maxRayHits || totalDist >= maxRayDist)
+                    //check if ray is finished (if rayHits is more than MaxRayHits or totalDist is equal or exceeds MaxRayDist)
+                    if (cRayHits >= MaxRayHits || totalDist >= MaxRayDist)
                     {
                         //if ray dies this iteration, give it the totalDist traveled value as its fullRayDistance
                         rayResult.fullRayDistance = totalDist;
@@ -169,17 +172,17 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                     }
 
                     //add hit result to return data array in the assigned index for this ray
-                    results[rayIndex * maxRayHits + cRayHits - 1] = rayResult;
+                    Results[rayIndex * MaxRayHits + cRayHits - 1] = rayResult;
                 }
                 else
                 {
-                    resultCounts[rayIndex] = cRayHits;
+                    ResultCounts[rayIndex] = cRayHits;
 
                     break; //ray went out of bounds, break out of the loop
                 }
             }
 
-            resultCounts[rayIndex] = cRayHits;
+            ResultCounts[rayIndex] = cRayHits;
         }
     }
 
@@ -235,9 +238,9 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
             }
         }
         //sphere intersections
-        for (int i = 0; i < sphereColliders.Length; i++)
+        for (int i = 0; i < SphereColliders.Length; i++)
         {
-            var tempSphere = sphereColliders[i];
+            var tempSphere = SphereColliders[i];
 
             //if collider is hit AND it is the closest hit so far
             if (RayIntersectsSphere(cRayOrigin, cRayDir, tempSphere.center, tempSphere.radius, out dist) && dist < closestDist)
@@ -259,15 +262,15 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
     [BurstCompile]
-    private bool RayIntersectsAABB(float3 rayOrigin, float3 rayDir, float3 center, float3 halfExtents, out float distance)
+    private bool RayIntersectsAABB(float3 RayOrigin, float3 rayDir, float3 center, float3 halfExtents, out float distance)
     {
         float3 min = center - halfExtents;
         float3 max = center + halfExtents;
 
         float3 invDir = 1.0f / rayDir;
 
-        float3 t0 = (min - rayOrigin) * invDir;
-        float3 t1 = (max - rayOrigin) * invDir;
+        float3 t0 = (min - RayOrigin) * invDir;
+        float3 t1 = (max - RayOrigin) * invDir;
 
         float3 tmin = math.min(t0, t1);
         float3 tmax = math.max(t0, t1);
@@ -287,10 +290,10 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
     [BurstCompile]
-    private bool RayIntersectsOBB(float3 rayOrigin, float3 rayDir, float3 center, float3 halfExtents, quaternion rotation, out float distance)
+    private bool RayIntersectsOBB(float3 RayOrigin, float3 rayDir, float3 center, float3 halfExtents, quaternion rotation, out float distance)
     {
         quaternion invRotation = math.inverse(rotation);
-        float3 localOrigin = math.mul(invRotation, rayOrigin - center);
+        float3 localOrigin = math.mul(invRotation, RayOrigin - center);
         float3 localDir = math.mul(invRotation, rayDir);
 
         // Use your existing AABB intersection function on the local ray
@@ -299,9 +302,9 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
     [BurstCompile]
-    private bool RayIntersectsSphere(float3 rayOrigin, float3 rayDir, float3 center, float radius, out float distance)
+    private bool RayIntersectsSphere(float3 RayOrigin, float3 rayDir, float3 center, float radius, out float distance)
     {
-        float3 oc = rayOrigin - center;
+        float3 oc = RayOrigin - center;
         float a = math.dot(rayDir, rayDir);
         float b = 2.0f * math.dot(oc, rayDir);
         float c = math.dot(oc, oc) - radius * radius;
@@ -340,7 +343,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     /// Check if world point is visible from the ray origin, meaning no colliders are in the way.
     /// </summary>
     [BurstCompile]
-    private bool CanRaySeePoint(float3 rayOrigin, float3 rayDir, float distToTarget)
+    private bool CanRaySeePoint(float3 RayOrigin, float3 rayDir, float distToTarget)
     {
         float dist;
 
@@ -348,7 +351,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         for (int i = 0; i < AABBColliders.Length; i++)
         {
             var tempAABB = AABBColliders[i];
-            if (RayIntersectsAABB(rayOrigin, rayDir, tempAABB.center, tempAABB.size, out dist) && dist < distToTarget)
+            if (RayIntersectsAABB(RayOrigin, rayDir, tempAABB.center, tempAABB.size, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -357,16 +360,16 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         for (int i = 0; i < OBBColliders.Length; i++)
         {
             var tempOBB = OBBColliders[i];
-            if (RayIntersectsOBB(rayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.rotation, out dist) && dist < distToTarget)
+            if (RayIntersectsOBB(RayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.rotation, out dist) && dist < distToTarget)
             {
                 return false;
             }
         }
         //if there were no AABB and OBB hits, check against spheres
-        for (int i = 0; i < sphereColliders.Length; i++)
+        for (int i = 0; i < SphereColliders.Length; i++)
         {
-            var tempSphere = sphereColliders[i];
-            if (RayIntersectsSphere(rayOrigin, rayDir, tempSphere.center, tempSphere.radius, out dist) && dist < distToTarget)
+            var tempSphere = SphereColliders[i];
+            if (RayIntersectsSphere(RayOrigin, rayDir, tempSphere.center, tempSphere.radius, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -380,7 +383,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     /// Identical to CanRaySeePoint, but skips hits against the colliders of the audioTarget
     /// </summary>
     [BurstCompile]
-    private bool CanRaySeeAudioTarget(float3 rayOrigin, float3 rayDir, float distToOriginalOrigin, int audioTargetId)
+    private bool CanRaySeeAudioTarget(float3 RayOrigin, float3 rayDir, float distToOriginalOrigin, int audioTargetId)
     {
         //check against AABBs
         for (int i = 0; i < AABBColliders.Length; i++)
@@ -393,7 +396,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsAABB(rayOrigin, rayDir, collider.center, collider.size, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsAABB(RayOrigin, rayDir, collider.center, collider.size, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
@@ -409,15 +412,15 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsOBB(rayOrigin, rayDir, collider.center, collider.size, collider.rotation, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsOBB(RayOrigin, rayDir, collider.center, collider.size, collider.rotation, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
         }
         //if there were no AABB and OBB hits, check against spheres
-        for (int i = 0; i < sphereColliders.Length; i++)
+        for (int i = 0; i < SphereColliders.Length; i++)
         {
-            var collider = sphereColliders[i];
+            var collider = SphereColliders[i];
 
             //skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
             if (collider.audioTargetId == audioTargetId)
@@ -425,7 +428,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsSphere(rayOrigin, rayDir, collider.center, collider.radius, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsSphere(RayOrigin, rayDir, collider.center, collider.radius, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
@@ -437,32 +440,32 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
 
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RAYORIGIN AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
+    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
 
     /// <summary>
     /// Calculate the new ray direction and origin after a hit, based on the hit collider type, so it "bounces" of the hits surface.
@@ -546,6 +549,6 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         cRayDir = math.reflect(cRayDir, normal);
 
         //update rays new origin (hit point)
-        cRayOrigin += cRayDir * epsilon;
+        cRayOrigin += cRayDir * Epsilon;
     }
 }
