@@ -225,7 +225,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
             var tempOBB = OBBColliders[i];
 
             //if collider is hit AND it is the closest hit so far
-            if (RayIntersectsOBB(cRayOrigin, cRayDir, tempOBB.center, tempOBB.size, tempOBB.rotation, out dist) && dist < closestDist)
+            if (RayIntersectsOBB(cRayOrigin, cRayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < closestDist)
             {
                 hitColliderType = ColliderType.OBB;
                 hitOBB = tempOBB;
@@ -357,7 +357,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
         for (int i = 0; i < OBBColliders.Length; i++)
         {
             var tempOBB = OBBColliders[i];
-            if (RayIntersectsOBB(rayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.rotation, out dist) && dist < distToTarget)
+            if (RayIntersectsOBB(rayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -409,7 +409,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsOBB(rayOrigin, rayDir, collider.center, collider.size, collider.rotation, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsOBB(rayOrigin, rayDir, collider.center, collider.size, collider.Rotation, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
@@ -502,7 +502,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
 
             case ColliderType.OBB:
 
-                float3 localHit = math.mul(math.inverse(hitOBB.rotation), cRayOrigin - hitOBB.center);
+                float3 localHit = math.mul(math.inverse(hitOBB.Rotation), cRayOrigin - hitOBB.center);
                 float3 localHalfExtents = hitOBB.size;
 
                 float3 absPointOBB = math.abs(localHit);
@@ -523,7 +523,7 @@ public struct AudioRayTracerJobParallelBatched : IJobParallelForBatch
                     localNormal.z = math.sign(localHit.z);
                 }
 
-                normal = math.mul(hitOBB.rotation, localNormal);
+                normal = math.mul(hitOBB.Rotation, localNormal);
 
                 audioTargetHit = hitOBB.audioTargetId != -1;
 

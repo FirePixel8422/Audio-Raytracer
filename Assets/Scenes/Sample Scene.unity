@@ -2083,14 +2083,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &225529168
 GameObject:
@@ -2144,6 +2151,7 @@ GameObject:
   - component: {fileID: 241768779}
   - component: {fileID: 241768778}
   - component: {fileID: 241768782}
+  - component: {fileID: 241768784}
   - component: {fileID: 241768772}
   - component: {fileID: 241768775}
   - component: {fileID: 241768774}
@@ -2415,7 +2423,6 @@ MonoBehaviour:
   baseVolume: 0
   volumeUpdateSpeed: 0.5
   lowPassUpdateSpeed: 8500
-  id: 0
   direction:
     x: 0
     y: 0
@@ -2451,6 +2458,39 @@ MonoBehaviour:
   muffleStrength: 0
   maxMuffleCutoff: 8000
   minMuffleCutoff: 0
+--- !u!114 &241768784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241768771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
+  IsStatic: 0
+  AudioColliderId: 0
+  colliderStruct:
+    center:
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
+    size:
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
+    audioTargetId: -1
+  includeGameObjectRotation: 1
 --- !u!1 &250552647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,14 +2700,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!65 &259388603
 BoxCollider:
@@ -3272,14 +3319,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &350203522
 GameObject:
@@ -4702,14 +4756,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &557577173
 GameObject:
@@ -9701,8 +9762,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d434d7127fa8946ae1a87fc7bc7ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioColliderManager
-  drawColliderGizmos: 1
-  colliderColor: {r: 1, g: 0.75, b: 0.25, a: 1}
+  drawColliderGizmos: 0
+  colliderGizmosColor: {r: 1, g: 0.75, b: 0.25, a: 1}
 --- !u!4 &1030950979
 Transform:
   m_ObjectHideFlags: 0
@@ -10152,14 +10213,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &1067560548
 GameObject:
@@ -11349,20 +11417,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1170413188
@@ -11617,20 +11686,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1194012905
@@ -13335,14 +13405,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &1382396550
 GameObject:
@@ -13982,14 +14059,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &1459303128
 GameObject:
@@ -14323,14 +14407,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &1535602530
 GameObject:
@@ -15542,20 +15633,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1653812445
@@ -15925,20 +16017,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    rotation:
-      value:
-        x: 0
-        y: 0
-        z: 0
-        w: 1
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1739547083
@@ -17883,14 +17976,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &1913523950
 GameObject:
@@ -18144,14 +18244,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &1941546987
 GameObject:
@@ -19147,14 +19254,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &2037746630
 GameObject:
@@ -19927,14 +20041,21 @@ MonoBehaviour:
   AudioColliderId: 0
   colliderStruct:
     center:
-      x: 0
-      y: 0
-      z: 0
+      x:
+        value: 0
+      y:
+        value: 0
+      z:
+        value: 0
     size:
-      x: 0.5
-      y: 0.5
-      z: 0.5
-    thicknessMultiplier: 1
+      x:
+        value: 14336
+      y:
+        value: 14336
+      z:
+        value: 14336
+    thicknessMultiplier:
+      value: 15360
     audioTargetId: -1
 --- !u!1 &2114451458
 GameObject:

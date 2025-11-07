@@ -8,15 +8,20 @@ public class AudioOBBCollider : AudioCollider
     [Header("Box Colliders with rotation: \nfast, but a little slower than an 'axisAlignedBox' > 6/10")]
     [SerializeField] private ColliderOBBStruct colliderStruct = ColliderOBBStruct.Default;
 
-    [Header("Include gameObject rotation into the colliders final rotation")]
+    [Header("Include gameObject rotation shorto the colliders final rotation")]
     [SerializeField] private bool includeGameObjectRotation = true;
 
 
+    public override ColliderType GetColliderType()
+    {
+        return ColliderType.OBB;
+    }
+
     public override void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref int cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref int cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref int cSphereId,
-        int audioColliderId)
+        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
+        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
+        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
+        short audioColliderId)
     {
         base.AddToAudioSystem(ref aabbStructs, ref cAABBId, ref obbStructs, ref cOBBId, ref sphereStructs, ref cSphereId, audioColliderId);
 
@@ -24,18 +29,18 @@ public class AudioOBBCollider : AudioCollider
 
         if (TryGetComponent(out AudioTargetRT rtTarget))
         {
-            colliderStruct.audioTargetId = rtTarget.id;
+            colliderStruct.audioTargetId = rtTarget.Id;
         }
 
         if (includeGameObjectRotation)
         {
-            colliderStruct.rotation *= transform.rotation;
+            colliderStruct.Rotation *= transform.rotation;
         }
 
-        float3 mergedPosition = colliderStruct.center + (float3)transform.position;
+        Half3.Add(transform.rotation * colliderStruct.center.ToFloat3(), transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        float3 scaledSize = colliderStruct.size * transform.lossyScale;
+        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
         obbStructs[cOBBId++] = colliderStruct;
@@ -49,16 +54,16 @@ public class AudioOBBCollider : AudioCollider
 
         if (includeGameObjectRotation)
         {
-            colliderStruct.rotation *= transform.rotation;
+            colliderStruct.Rotation *= transform.rotation;
         }
 
-        float3 mergedPosition = colliderStruct.center + (float3)transform.position;
+        Half3.Add(transform.rotation * colliderStruct.center.ToFloat3(), transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        float3 scaledSize = colliderStruct.size * transform.lossyScale;
+        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
-        Gizmos.DrawWireMesh(GlobalMeshes.cube, colliderStruct.center, colliderStruct.rotation, colliderStruct.size * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, colliderStruct.center.ToFloat3(), colliderStruct.Rotation, colliderStruct.size.ToFloat3() * 2);
     }
 #endif
 }

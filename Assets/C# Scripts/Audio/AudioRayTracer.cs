@@ -97,9 +97,9 @@ public class AudioRayTracer : MonoBehaviour
 
         audioTargetPositions = new NativeArray<float3>(audioTargetCount, Allocator.Persistent);
 
-        for (int i = 0; i < audioTargetCount; i++)
+        for (short i = 0; i < audioTargetCount; i++)
         {
-            audioTargets[i].id = i;
+            audioTargets[i].Id = i;
             audioTargetPositions[i] = audioTargets[i].transform.position;
         }
 
@@ -184,12 +184,12 @@ public class AudioRayTracer : MonoBehaviour
         }
 #endif
 
-        //trigger an update for all audio targets with ray traced data
+        // Trigger an update for all audio targets with ray traced data
         UpdateAudioTargets();
 
         #region Raycasting Job ParallelBatched
 
-        //create raytrace job and fire it
+        // Create raytrace job and fire it
         audioRayTraceJob = new AudioRayTracerJobParallelBatchedOld
         {
             RayOrigin = (float3)transform.position + rayOrigin,

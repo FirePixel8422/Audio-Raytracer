@@ -3,8 +3,8 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-[BurstCompile(DisableSafetyChecks = true)]
-public static class MathLogic
+[BurstCompile]
+public static class MathUtility
 {
     public static float DistanceFrom(this float3 value, float3 toSubtract)
     {

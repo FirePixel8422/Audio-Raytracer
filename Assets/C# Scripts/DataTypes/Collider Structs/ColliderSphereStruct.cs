@@ -7,19 +7,19 @@ using UnityEngine;
 [BurstCompile]
 public struct ColliderSphereStruct
 {
-    public float3 center;
-    public float radius;
+    public half3 center;
+    public half radius;
 
     [Header("How thick is this wall for permeation calculations")]
-    public float thicknessMultiplier;
+    public half thicknessMultiplier;
 
     [HideInInspector]
-    public int audioTargetId;
+    public short audioTargetId;
 
     public static ColliderSphereStruct Default => new ColliderSphereStruct()
     {
-        radius = 0.5f,
-        thicknessMultiplier = 1,
+        radius = (half)0.5f,
+        thicknessMultiplier = (half)1,
         audioTargetId = -1,
     };
 }

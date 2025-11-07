@@ -7,9 +7,13 @@ using UnityEngine;
 /// </summary>
 public static class UpdateScheduler
 {
-#pragma warning disable UDR0002
+#pragma warning disable UDR000
     private static Action OnUpdate;
+    private static Action OnLateUpdate;
     private static Action OnFixedUpdate;
+
+    private static Action OnLateDestroy;
+    private static Action OnLateApplicationQuit;
 #pragma warning restore UDR0002
 
 
@@ -22,6 +26,8 @@ public static class UpdateScheduler
         GameObject.DontDestroyOnLoad(gameManager.gameObject);
     }
 
+
+    #region void Update
 
     /// <summary>
     /// Register a method to call every frame like Update()
@@ -54,6 +60,47 @@ public static class UpdateScheduler
         }
     }
 
+    #endregion
+
+
+    #region void LateUpdate
+
+    /// <summary>
+    /// Register a method to call every frame like Update()
+    /// </summary>
+    public static void RegisterLateUpdate(Action action)
+    {
+#pragma warning disable UDR0004
+        OnLateUpdate += action;
+#pragma warning restore UDR0004
+    }
+    /// <summary>
+    /// Unregister a registerd method for Update()
+    /// </summary>
+    public static void UnRegisterLateUpdate(Action action)
+    {
+        OnLateUpdate -= action;
+    }
+    /// <summary>
+    /// Register or Unregister a method for Update() based on bool <paramref name="register"/>
+    /// </summary>
+    public static void ManageLateUpdate(Action action, bool register)
+    {
+        if (register)
+        {
+            RegisterLateUpdate(action);
+        }
+        else
+        {
+            UnRegisterLateUpdate(action);
+        }
+    }
+
+    #endregion
+
+
+    #region void FixedUpdate
+
     /// <summary>
     /// Register a method to call every frame like FixedUpdate()
     /// </summary>
@@ -85,6 +132,19 @@ public static class UpdateScheduler
         }
     }
 
+    #endregion
+
+
+    public static void CreateLateOnDestroyCallback(Action action)
+    {
+        OnLateDestroy += action;
+    }
+
+    public static void CreateLateOnApplicationQuitCallback(Action action)
+    {
+        OnLateApplicationQuit += action;
+    }
+
 
     /// <summary>
     /// Handle Update Callbacks and batch them for every script by an event based register system
@@ -95,15 +155,37 @@ public static class UpdateScheduler
         {
             OnUpdate?.Invoke();
         }
+        private void LateUpdate()
+        {
+            OnLateUpdate?.Invoke();
+
+            if (OnLateDestroy != null)
+            {
+                OnLateDestroy.Invoke();
+                OnLateDestroy = null;
+            }
+        }
 
         private void FixedUpdate()
         {
             OnFixedUpdate?.Invoke();
         }
 
+        private void OnApplicationQuit()
+        {
+            OnLateUpdate += () =>
+            {
+                if (OnLateApplicationQuit != null)
+                {
+                    OnLateApplicationQuit.Invoke();
+                    OnLateApplicationQuit = null;
+                }
+            };
+        }
         private void OnDestroy()
         {
             OnUpdate = null;
+            OnLateUpdate = null;
             OnFixedUpdate = null;
         }
     }

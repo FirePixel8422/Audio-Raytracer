@@ -1,5 +1,4 @@
 ﻿using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -9,7 +8,7 @@ public abstract class AudioCollider : MonoBehaviour
     public bool IsStatic;
 
     private bool initialized;
-    public int AudioColliderId;
+    public short AudioColliderId;
 
 
     private void Start()
@@ -19,14 +18,20 @@ public abstract class AudioCollider : MonoBehaviour
         AudioColliderManager.Instance.AddColiderToSystem(this);
     }
 
+
+    public virtual ColliderType GetColliderType()
+    {
+        return ColliderType.None;
+    }
+
     /// <summary>
     /// Add audio collider as struct data into the corresponding native array at correct index and increment index
     /// </summary>
     public virtual void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref int cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref int cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref int cSphereId,
-        int audioColliderId)
+        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
+        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
+        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
+        short audioColliderId)
     {
         initialized = true;
         AudioColliderId = audioColliderId;
@@ -34,7 +39,11 @@ public abstract class AudioCollider : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected() => DrawColliderGizmo();
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = AudioColliderManager.ColliderGizmosSelectedColor;
+        DrawColliderGizmo();
+    }
     public virtual void DrawColliderGizmo() { }
 #endif
 }

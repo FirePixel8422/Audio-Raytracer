@@ -8,11 +8,17 @@ public class AudioAABBCollider : AudioCollider
     [Header("Box Colliders WITHOUT rotation: fast > 7/10")]
     [SerializeField] private ColliderAABBStruct colliderStruct = ColliderAABBStruct.Default;
 
+
+    public override ColliderType GetColliderType()
+    {
+        return ColliderType.AABB;
+    }
+
     public override void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref int cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref int cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref int cSphereId,
-        int audioColliderId)
+        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
+        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
+        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
+        short audioColliderId)
     {
         base.AddToAudioSystem(ref aabbStructs, ref cAABBId, ref obbStructs, ref cOBBId, ref sphereStructs, ref cSphereId, audioColliderId);
 
@@ -20,13 +26,13 @@ public class AudioAABBCollider : AudioCollider
 
         if (TryGetComponent(out AudioTargetRT rtTarget))
         {
-            colliderStruct.audioTargetId = rtTarget.id;
+            colliderStruct.audioTargetId = rtTarget.Id;
         }
 
-        float3 mergedPosition = colliderStruct.center + (float3)transform.position;
+        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition); 
         colliderStruct.center = mergedPosition;
 
-        float3 scaledSize = colliderStruct.size * transform.lossyScale;
+        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
         aabbStructs[cAABBId++] = colliderStruct;
@@ -38,13 +44,13 @@ public class AudioAABBCollider : AudioCollider
     {
         ColliderAABBStruct colliderStruct = this.colliderStruct;
 
-        float3 mergedPosition = colliderStruct.center + (float3)transform.position;
+        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        float3 scaledSize = colliderStruct.size * transform.lossyScale;
+        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
-        Gizmos.DrawWireCube(colliderStruct.center, colliderStruct.size * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, colliderStruct.center.ToFloat3(), Quaternion.identity, colliderStruct.size.ToFloat3() * 2);
     }
 #endif
 }

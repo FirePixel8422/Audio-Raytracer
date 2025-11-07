@@ -830,7 +830,7 @@ PlayerSettings:
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
     Android: STEAMAUDIO_ENABLED
-    Standalone: STEAMAUDIO_ENABLED
+    Standalone: Enable_Debug_Logging
     WebGL: STEAMAUDIO_ENABLED
     iPhone: STEAMAUDIO_ENABLED
   additionalCompilerArguments: {}

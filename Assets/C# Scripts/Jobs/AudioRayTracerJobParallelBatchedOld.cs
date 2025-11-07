@@ -228,7 +228,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
             var tempOBB = OBBColliders[i];
 
             //if collider is hit AND it is the closest hit so far
-            if (RayIntersectsOBB(cRayOrigin, cRayDir, tempOBB.center, tempOBB.size, tempOBB.rotation, out dist) && dist < closestDist)
+            if (RayIntersectsOBB(cRayOrigin, cRayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < closestDist)
             {
                 hitColliderType = ColliderType.OBB;
                 hitOBB = tempOBB;
@@ -360,7 +360,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         for (int i = 0; i < OBBColliders.Length; i++)
         {
             var tempOBB = OBBColliders[i];
-            if (RayIntersectsOBB(RayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.rotation, out dist) && dist < distToTarget)
+            if (RayIntersectsOBB(RayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -412,7 +412,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsOBB(RayOrigin, rayDir, collider.center, collider.size, collider.rotation, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsOBB(RayOrigin, rayDir, collider.center, collider.size, collider.Rotation, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
@@ -437,35 +437,6 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         return true;
     }
 
-
-
-
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
-    ///ADD REF TO REFLECT RAY TO MAKE TUPLE SMALLER (REF RayOrigin AND REF RAY DIRETION)
 
     /// <summary>
     /// Calculate the new ray direction and origin after a hit, based on the hit collider type, so it "bounces" of the hits surface.
@@ -505,7 +476,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
             case ColliderType.OBB:
 
-                float3 localHit = math.mul(math.inverse(hitOBB.rotation), cRayOrigin - hitOBB.center);
+                float3 localHit = math.mul(math.inverse(hitOBB.Rotation), cRayOrigin - hitOBB.center);
                 float3 localHalfExtents = hitOBB.size;
 
                 float3 absPointOBB = math.abs(localHit);
@@ -526,7 +497,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                     localNormal.z = math.sign(localHit.z);
                 }
 
-                normal = math.mul(hitOBB.rotation, localNormal);
+                normal = math.mul(hitOBB.Rotation, localNormal);
 
                 audioTargetHit = hitOBB.audioTargetId != -1;
 

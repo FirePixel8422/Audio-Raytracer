@@ -8,11 +8,17 @@ public class AudioSphereCollider : AudioCollider
     [Header("Sphere Collider: very fast > 10/10")]
     [SerializeField] private ColliderSphereStruct colliderStruct = ColliderSphereStruct.Default;
 
+
+    public override ColliderType GetColliderType()
+    {
+        return ColliderType.Sphere;
+    }
+
     public override void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref int cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref int cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref int cSphereId,
-        int audioColliderId)
+        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
+        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
+        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
+        short audioColliderId)
     {
         base.AddToAudioSystem(ref aabbStructs, ref cAABBId, ref obbStructs, ref cOBBId, ref sphereStructs, ref cSphereId, audioColliderId);
 
@@ -20,13 +26,13 @@ public class AudioSphereCollider : AudioCollider
 
         if (TryGetComponent(out AudioTargetRT rtTarget))
         {
-            colliderStruct.audioTargetId = rtTarget.id;
+            colliderStruct.audioTargetId = rtTarget.Id;
         }
 
-        float3 mergedPosition = colliderStruct.center + (float3)transform.position;
+        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        float scaledRadius = colliderStruct.radius * math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z));
+        Half.Multiply(colliderStruct.radius, math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z)), out half scaledRadius);
         colliderStruct.radius = scaledRadius;
 
         sphereStructs[cSphereId++] = colliderStruct;
@@ -38,13 +44,13 @@ public class AudioSphereCollider : AudioCollider
     {
         ColliderSphereStruct colliderStruct = this.colliderStruct;
 
-        float3 mergedPosition = colliderStruct.center + (float3)transform.position;
+        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        float scaledRadius = colliderStruct.radius * math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z));
+        Half.Multiply(colliderStruct.radius, math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z)), out half scaledRadius);
         colliderStruct.radius = scaledRadius;
 
-        Gizmos.DrawWireSphere(colliderStruct.center, colliderStruct.radius);
+        Gizmos.DrawWireSphere(colliderStruct.center.ToFloat3(), (float)colliderStruct.radius);
     }
 #endif
 }

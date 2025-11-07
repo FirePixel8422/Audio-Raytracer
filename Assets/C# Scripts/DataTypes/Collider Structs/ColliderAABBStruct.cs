@@ -1,25 +1,27 @@
-using Unity.Mathematics;
+using System.Runtime.InteropServices;
 using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
 
-[System.Serializable]
 [BurstCompile]
+[System.Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 4)]
 public struct ColliderAABBStruct
 {
-    public float3 center;
-    public float3 size;
+    public half3 center;
+    public half3 size;
 
     [Header("How thick is this wall for permeation calculations")]
-    public float thicknessMultiplier;
+    public half thicknessMultiplier;
 
     [HideInInspector]
-    public int audioTargetId;
+    public short audioTargetId;
 
     public static ColliderAABBStruct Default => new ColliderAABBStruct()
     {
-        size = new float3(0.5f),
-        thicknessMultiplier = 1,
+        size = new half3(0.5f),
+        thicknessMultiplier = (half)1,
         audioTargetId = -1,
     };
 }

@@ -15,7 +15,7 @@ public class AudioTargetRT : MonoBehaviour
     [SerializeField] private float volumeUpdateSpeed = 0.5f;
     [SerializeField] private float lowPassUpdateSpeed = 8500;
 
-    public int id;
+    public short Id { get; set; }
 
     private AudioSource source;
     private AudioSpatializer spatializer;

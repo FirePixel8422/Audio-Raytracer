@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [BurstCompile]
-public static class VectorLogic
+public static class VectorUtility
 {
     /// <summary>
     /// Instantly move a vector3 towards the new Vector3, up to maxDistance

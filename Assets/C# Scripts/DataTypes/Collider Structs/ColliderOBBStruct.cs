@@ -7,23 +7,31 @@ using UnityEngine;
 [BurstCompile]
 public struct ColliderOBBStruct
 {
-    public float3 center;
-    public float3 size;
+    public half3 center;
+    public half3 size;
 
-    public quaternion rotation;
+    private halfQuaternion rotation;
+    public quaternion Rotation
+    {
+        get => rotation.QuaternionValue;
+        set
+        {
+            rotation.QuaternionValue = value;
+        }
+    }
 
     [Header("How thick is this wall for permeation calculations")]
-    public float thicknessMultiplier;
+    public half thicknessMultiplier;
 
     [HideInInspector]
-    public int audioTargetId;
+    public short audioTargetId;
 
 
     public static ColliderOBBStruct Default => new ColliderOBBStruct()
     {
-        size = new float3(0.5f),
-        rotation = quaternion.identity,
-        thicknessMultiplier = 1,
+        size = new half3(0.5f),
+        rotation = new halfQuaternion(quaternion.identity),
+        thicknessMultiplier = (half)1,
         audioTargetId = -1,
     };
 }
