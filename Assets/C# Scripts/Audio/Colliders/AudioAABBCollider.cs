@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using System.Linq;
+using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -14,15 +15,11 @@ public class AudioAABBCollider : AudioCollider
         return ColliderType.AABB;
     }
 
-    public override void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
-        short audioColliderId)
+    public override void AddToAudioSystem(ref NativeList<ColliderAABBStruct> aabbStructs, ref NativeList<ColliderOBBStruct> obbStructs, ref NativeList<ColliderSphereStruct> sphereStructs)
     {
-        base.AddToAudioSystem(ref aabbStructs, ref cAABBId, ref obbStructs, ref cOBBId, ref sphereStructs, ref cSphereId, audioColliderId);
+        base.AddToAudioSystem(ref aabbStructs, ref obbStructs, ref sphereStructs);
 
-        var colliderStruct = this.colliderStruct;
+        ColliderAABBStruct colliderStruct = this.colliderStruct;
 
         if (TryGetComponent(out AudioTargetRT rtTarget))
         {
@@ -35,7 +32,8 @@ public class AudioAABBCollider : AudioCollider
         Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
-        aabbStructs[cAABBId++] = colliderStruct;
+        AudioColliderId = (short)aabbStructs.Length;
+        aabbStructs.Add(colliderStruct);
     }
 
 

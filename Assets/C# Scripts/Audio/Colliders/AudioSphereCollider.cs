@@ -14,15 +14,11 @@ public class AudioSphereCollider : AudioCollider
         return ColliderType.Sphere;
     }
 
-    public override void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
-        short audioColliderId)
+    public override void AddToAudioSystem(ref NativeList<ColliderAABBStruct> aabbStructs, ref NativeList<ColliderOBBStruct> obbStructs, ref NativeList<ColliderSphereStruct> sphereStructs)
     {
-        base.AddToAudioSystem(ref aabbStructs, ref cAABBId, ref obbStructs, ref cOBBId, ref sphereStructs, ref cSphereId, audioColliderId);
+        base.AddToAudioSystem(ref aabbStructs, ref obbStructs, ref sphereStructs);
 
-        var colliderStruct = this.colliderStruct;
+        ColliderSphereStruct colliderStruct = this.colliderStruct;
 
         if (TryGetComponent(out AudioTargetRT rtTarget))
         {
@@ -35,7 +31,8 @@ public class AudioSphereCollider : AudioCollider
         Half.Multiply(colliderStruct.radius, math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z)), out half scaledRadius);
         colliderStruct.radius = scaledRadius;
 
-        sphereStructs[cSphereId++] = colliderStruct;
+        AudioColliderId = (short)sphereStructs.Length;
+        sphereStructs.Add(colliderStruct);
     }
 
 

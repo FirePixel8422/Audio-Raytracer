@@ -15,7 +15,7 @@ public abstract class AudioCollider : MonoBehaviour
     {
         if (initialized) return;
 
-        AudioColliderManager.Instance.AddColiderToSystem(this);
+        AudioColliderManager.AddColiderToSystem(this);
     }
 
 
@@ -27,14 +27,9 @@ public abstract class AudioCollider : MonoBehaviour
     /// <summary>
     /// Add audio collider as struct data into the corresponding native array at correct index and increment index
     /// </summary>
-    public virtual void AddToAudioSystem(
-        ref NativeArray<ColliderAABBStruct> aabbStructs, ref short cAABBId,
-        ref NativeArray<ColliderOBBStruct> obbStructs, ref short cOBBId,
-        ref NativeArray<ColliderSphereStruct> sphereStructs, ref short cSphereId,
-        short audioColliderId)
+    public virtual void AddToAudioSystem(ref NativeList<ColliderAABBStruct> aabbStructs, ref NativeList<ColliderOBBStruct> obbStructs, ref NativeList<ColliderSphereStruct> sphereStructs)
     {
         initialized = true;
-        AudioColliderId = audioColliderId;
     }
 
 

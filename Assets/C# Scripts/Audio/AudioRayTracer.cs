@@ -31,16 +31,6 @@ public class AudioRayTracer : MonoBehaviour
     private NativeArray<int> muffleRayHits;
 
 
-    private NativeArray<ColliderAABBStruct> aabbColliders;
-    private int AABBCount => AudioColliderManager.Instance.AABBCount;
-
-    private NativeArray<ColliderOBBStruct> obbColliders;
-    private int OBBCount => AudioColliderManager.Instance.OBBCount;
-
-    private NativeArray<ColliderSphereStruct> sphereColliders;
-    private int SphereCount => AudioColliderManager.Instance.SphereCount;
-
-
 
     private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
     private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
@@ -48,10 +38,6 @@ public class AudioRayTracer : MonoBehaviour
     private void Start()
     {
         InitializeAudioRaytraceSystem();
-
-        aabbColliders = AudioColliderManager.Instance.AABBColliders;
-        obbColliders = AudioColliderManager.Instance.OBBColliders;
-        sphereColliders = AudioColliderManager.Instance.SphereColliders;
 
 #if UNITY_EDITOR
         sw = new System.Diagnostics.Stopwatch();
@@ -195,14 +181,14 @@ public class AudioRayTracer : MonoBehaviour
             RayOrigin = (float3)transform.position + rayOrigin,
             RayDirections = rayDirections,
 
-            AABBColliders = aabbColliders,
-            AABBCount = AABBCount,
+            AABBColliders = AudioColliderManager.AABBColliders.CurrentBatch.AsArray(),
+            AABBCount = AudioColliderManager.AABBColliders.CurrentBatch.Length,
 
-            OBBColliders = obbColliders,
-            OBBCount = OBBCount,
-            
-            SphereColliders = sphereColliders,
-            SphereCount = SphereCount,
+            OBBColliders = AudioColliderManager.OBBColliders.CurrentBatch.AsArray(),
+            OBBCount = AudioColliderManager.OBBColliders.CurrentBatch.Length,
+
+            SphereColliders = AudioColliderManager.SphereColliders.CurrentBatch.AsArray(),
+            SphereCount = AudioColliderManager.SphereColliders.CurrentBatch.Length,
 
             AudioTargetPositions = audioTargetPositions,
 
@@ -218,13 +204,7 @@ public class AudioRayTracer : MonoBehaviour
             MuffleRayHits = muffleRayHits,
         };
 
-        // Calculate how many batches this job would run normally
-        int totalBatches = (int)math.ceil((float)rayCount / batchSize);
-
-        // Clamp to the maxBatchCount to prevent overflow
-        totalBatches = math.min(totalBatches, maxBatchCount);
-
-        mainJobHandle = audioRayTraceJob.Schedule(rayCount, batchSize * totalBatches);
+        mainJobHandle = audioRayTraceJob.Schedule(rayCount, batchSize);
 
         #endregion
 

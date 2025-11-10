@@ -1,10 +1,12 @@
-using Unity.Mathematics;
+using System.Runtime.InteropServices;
 using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
 
-[System.Serializable]
 [BurstCompile]
+[System.Serializable]
+[StructLayout(LayoutKind.Sequential, Pack = 4)]
 public struct ColliderOBBStruct
 {
     public half3 center;

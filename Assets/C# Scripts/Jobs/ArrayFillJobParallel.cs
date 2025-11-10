@@ -3,7 +3,7 @@ using Unity.Collections;
 using Unity.Jobs;
 
 
-[BurstCompile(DisableSafetyChecks = true, OptimizeFor = OptimizeFor.Performance)]
+[BurstCompile(DisableSafetyChecks = true)]
 public struct IntArrayFillJobParallel : IJobParallelFor
 {
     [NativeDisableParallelForRestriction]
@@ -12,7 +12,7 @@ public struct IntArrayFillJobParallel : IJobParallelFor
     [WriteOnly][NoAlias] public int value;
 
 
-    [BurstCompile(DisableSafetyChecks = true, OptimizeFor = OptimizeFor.Performance)]
+    [BurstCompile(DisableSafetyChecks = true)]
     public void Execute(int index)
     {
         array[index] = value;
