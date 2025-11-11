@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 using Unity.Burst;
 using Unity.Mathematics;
@@ -24,4 +25,26 @@ public struct ColliderAABBStruct
         thicknessMultiplier = (half)1,
         audioTargetId = -1,
     };
+
+    public static bool operator ==(ColliderAABBStruct a, ColliderAABBStruct b)
+    {
+        return math.all(a.center == b.center) &&
+               math.all(a.size == b.size) &&
+               a.thicknessMultiplier == b.thicknessMultiplier &&
+               a.audioTargetId == b.audioTargetId;
+    }
+
+    public static bool operator !=(ColliderAABBStruct a, ColliderAABBStruct b)
+    {
+        return !(a == b);
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is ColliderAABBStruct other && this == other;
+    }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(center, size, thicknessMultiplier);
+    }
 }

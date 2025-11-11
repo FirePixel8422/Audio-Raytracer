@@ -7,6 +7,7 @@ public class AudioSphereCollider : AudioCollider
 {
     [Header("Sphere Collider: very fast > 10/10")]
     [SerializeField] private ColliderSphereStruct colliderStruct = ColliderSphereStruct.Default;
+    private ColliderSphereStruct lastColliderStruct;
 
 
     public override ColliderType GetColliderType()
@@ -14,25 +15,67 @@ public class AudioSphereCollider : AudioCollider
         return ColliderType.Sphere;
     }
 
-    public override void AddToAudioSystem(ref NativeList<ColliderAABBStruct> aabbStructs, ref NativeList<ColliderOBBStruct> obbStructs, ref NativeList<ColliderSphereStruct> sphereStructs)
+    public override void AddToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs)
     {
-        base.AddToAudioSystem(ref aabbStructs, ref obbStructs, ref sphereStructs);
+        base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
         ColliderSphereStruct colliderStruct = this.colliderStruct;
 
-        if (TryGetComponent(out AudioTargetRT rtTarget))
-        {
-            colliderStruct.audioTargetId = rtTarget.Id;
-        }
+        colliderStruct.audioTargetId = AudioTargetId;
 
         Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        Half.Multiply(colliderStruct.radius, math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z)), out half scaledRadius);
+        Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
         colliderStruct.radius = scaledRadius;
 
-        AudioColliderId = (short)sphereStructs.Length;
+        AudioColliderId = (short)sphereStructs.NextBatch.Length;
         sphereStructs.Add(colliderStruct);
+    }
+
+    public override void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs)
+    {
+        base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
+
+        ColliderSphereStruct colliderStruct = this.colliderStruct;
+
+        colliderStruct.audioTargetId = AudioTargetId;
+
+        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
+        colliderStruct.center = mergedPosition;
+
+        Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+        colliderStruct.radius = scaledRadius;
+
+        sphereStructs.Set(AudioColliderId, colliderStruct);
+    }
+
+    private half GetLargestPositionComponent(Vector3 input)
+    {
+        return (half)math.max(input.x, math.max(input.y, input.z));
+    }
+
+    protected override void CheckColliderTransformation()
+    {
+        if (transform.position != lastWorldPosition)
+        {
+            AudioColliderManager.UpdateColiderInSystem(this);
+        }
+        else if (transform.lossyScale != lastGlobalScale)
+        {
+            AudioColliderManager.UpdateColiderInSystem(this);
+        }
+        else if (colliderStruct != lastColliderStruct)
+        {
+            AudioColliderManager.UpdateColiderInSystem(this);
+        }
+        UpdateSavedData();
+    }
+
+    protected override void UpdateSavedData()
+    {
+        base.UpdateSavedData();
+        lastColliderStruct = colliderStruct;
     }
 
 
@@ -44,7 +87,7 @@ public class AudioSphereCollider : AudioCollider
         Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
-        Half.Multiply(colliderStruct.radius, math.max(transform.lossyScale.x, math.max(transform.lossyScale.y, transform.lossyScale.z)), out half scaledRadius);
+        Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
         colliderStruct.radius = scaledRadius;
 
         Gizmos.DrawWireSphere(colliderStruct.center.ToFloat3(), (float)colliderStruct.radius);

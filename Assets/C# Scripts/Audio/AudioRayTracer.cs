@@ -1,8 +1,10 @@
-using UnityEngine;
-using Unity.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
+using Unity.Collections;
 using Unity.Jobs;
+using Unity.Jobs.LowLevel.Unsafe;
+using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEngine;
 
 
 public class AudioRayTracer : MonoBehaviour
@@ -17,6 +19,8 @@ public class AudioRayTracer : MonoBehaviour
 
     [Range(0, 1000)]
     [SerializeField] float maxRayDist = 10;
+
+    [SerializeField] private NativeSampledAnimationCurve muffleFalloffCurve;
 
     private List<AudioTargetRT> audioTargets;
     private NativeArray<float3> audioTargetPositions;
@@ -77,7 +81,7 @@ public class AudioRayTracer : MonoBehaviour
     private void SetupAudioTargetData()
     {
         //get all audio targets
-        audioTargets = new List<AudioTargetRT>(this.FindObjectsOfType<AudioTargetRT>());
+        audioTargets = new List<AudioTargetRT>(this.FindObjectsOfType<AudioTargetRT>(false));
 
         int audioTargetCount = audioTargets.Count;
 
@@ -94,9 +98,9 @@ public class AudioRayTracer : MonoBehaviour
         tempTargetReturnPositions = new NativeArray<float3>(audioTargetCount, Allocator.Persistent);
         targetReturnCounts = new NativeArray<int>(audioTargetCount, Allocator.Persistent);
 
-        audioTargetSettings = new NativeArray<AudioSettings>(audioTargetCount, Allocator.Persistent);
+        audioTargetSettings = new NativeArray<AudioTargetData>(audioTargetCount, Allocator.Persistent);
 
-        muffleRayHits = new NativeArray<int>(audioTargetCount * maxBatchCount, Allocator.Persistent);
+        muffleRayHits = new NativeArray<int>(audioTargetCount * math.min(maxThreadCount, JobsUtility.JobWorkerCount), Allocator.Persistent);
     }
 
     #endregion
@@ -107,8 +111,7 @@ public class AudioRayTracer : MonoBehaviour
     [Header("WARNING: If false will block the main thread every frame until all rays are calculated")]
     [SerializeField] private bool computeAsync = true;
 
-    [SerializeField] private int batchSize = 4048;
-    [SerializeField] private int maxBatchCount = 3;
+    [SerializeField] private int maxThreadCount = 3;
 
     private AudioRayTracerJobParallelBatchedOld audioRayTraceJob;
     private ProcessAudioDataJob calculateAudioTargetDataJob;
@@ -119,7 +122,7 @@ public class AudioRayTracer : MonoBehaviour
     private NativeArray<float3> tempTargetReturnPositions;
     private NativeArray<int> targetReturnCounts;
 
-    private NativeArray<AudioSettings> audioTargetSettings;
+    private NativeArray<AudioTargetData> audioTargetSettings;
 
     private void OnUpdate()
     {
@@ -127,6 +130,7 @@ public class AudioRayTracer : MonoBehaviour
         if (computeAsync && mainJobHandle.IsCompleted == false) return;
 
         mainJobHandle.Complete();
+        AudioColliderManager.CycleToNextBatch();
 
 
 #if UNITY_EDITOR
@@ -158,6 +162,10 @@ public class AudioRayTracer : MonoBehaviour
             }
 
             Debug.LogWarning("You changed the max bounces/rayCount in the inspector. This will cause a crash in Builds, failsafe triggered: Recreated rayResults array with new capacity.");
+        }
+        if (maxThreadCount != muffleRayHits.Length)
+        {
+            muffleRayHits = new NativeArray<int>(audioTargets.Count * math.min(maxThreadCount, JobsUtility.JobWorkerCount), Allocator.Persistent);
         }
 
         if (rayResults.IsCreated && (drawRayHitsGizmos || drawRayTrailsGizmos))
@@ -204,6 +212,8 @@ public class AudioRayTracer : MonoBehaviour
             MuffleRayHits = muffleRayHits,
         };
 
+        int batchSize = (int)math.max(1, math.ceil((float)rayCount / math.min(maxThreadCount, JobsUtility.JobWorkerCount)));
+
         mainJobHandle = audioRayTraceJob.Schedule(rayCount, batchSize);
 
         #endregion
@@ -231,13 +241,13 @@ public class AudioRayTracer : MonoBehaviour
             rayCount = rayCount,
             rayOriginWorld = (float3)transform.position + rayOrigin,
 
-            totalAudioTargets = audioTargets.Count,
+            muffleRayHits = muffleRayHits,
 
-            listenerForwardDir = listenerForward,
             listenerRightDir = listenerRight,
 
+            totalAudioTargets = audioTargets.Count,
+            audioTargetPositions = audioTargetPositions,
             audioTargetSettings = audioTargetSettings,
-            muffleRayHits = muffleRayHits,
         };
 
         //start job and give mainJobHandle dependency, so it only start after the raytrace job is done.
@@ -255,7 +265,7 @@ public class AudioRayTracer : MonoBehaviour
         //update audio targets
         for (int audioTargetId = 0; audioTargetId < totalAudioTargets; audioTargetId++)
         {
-            AudioSettings settings = audioTargetSettings[audioTargetId];
+            AudioTargetData settings = audioTargetSettings[audioTargetId];
 
             if (settings.panStereo == -2)
             {

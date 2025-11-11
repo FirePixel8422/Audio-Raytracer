@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 
 
 
@@ -40,7 +41,8 @@ public struct halfQuaternion
             float wSquared = 1f - (xx * xx + yy * yy + zz * zz);
             float w = wSquared > 0f ? math.sqrt(wSquared) : 0f;
 
-            return new quaternion((float)x, (float)y, (float)z, w);
+            quaternion q = new quaternion(xx, yy, zz, w);
+            return math.normalize(q);
         }
         set
         {
@@ -58,5 +60,24 @@ public struct halfQuaternion
                 z = (half)q.value.z;
             }
         }
+    }
+
+    public static bool operator ==(halfQuaternion a, halfQuaternion b)
+    {
+        return a.x == b.x && a.y == b.y && a.z == b.z;
+    }
+
+    public static bool operator !=(halfQuaternion a, halfQuaternion b)
+    {
+        return !(a == b);
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is halfQuaternion other && this == other;
+    }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(x, y, z);
     }
 }

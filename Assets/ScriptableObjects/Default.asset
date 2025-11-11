@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910ca9ba4309bd74bb8255c3af0beedd, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSpatializerSettingsSO
+  settings:
+    panStrength: 0.8
+    rearAttenuationStrength: 0.225
+    distanceBasedPanning: 1
+    maxPanDistance: 15
+    distanceBasedRearAttenuation: 1
+    maxRearAttenuationDistance: 12
+    maxElevationEffectDistance: 15
+    lowPassCutoff:
+      min: 22000
+      max: 5000
+    highPassCutoff:
+      min: 20
+      max: 300
+    lowPassVolume: 0.85
+    highPassVolume: 1.15
+    muffleStrength: 0
+    muffleCutoff:
+      min: 8000
+      max: 75
+    maxReverbTime: 0.2
+    reverbDecay: 0.325

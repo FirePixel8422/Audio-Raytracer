@@ -4,12 +4,11 @@ using Unity.Jobs;
 
 
 [BurstCompile(DisableSafetyChecks = true)]
-public struct ArrayCopyJob<T> : IJob where T : unmanaged
+public struct ArrayCopyJob<T> : IJob
+    where T : unmanaged
 {
-    [NativeDisableParallelForRestriction]
     [NoAlias][ReadOnly] public NativeArray<T> source;
 
-    [NativeDisableParallelForRestriction]
     [NoAlias][WriteOnly] public NativeArray<T> destination;
 
 

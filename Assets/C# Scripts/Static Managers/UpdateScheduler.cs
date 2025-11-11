@@ -161,7 +161,7 @@ public static class UpdateScheduler
 
             if (OnLateDestroy != null)
             {
-                OnLateDestroy.Invoke();
+                OnLateDestroy?.Invoke();
                 OnLateDestroy = null;
             }
         }
@@ -177,7 +177,7 @@ public static class UpdateScheduler
             {
                 if (OnLateApplicationQuit != null)
                 {
-                    OnLateApplicationQuit.Invoke();
+                    OnLateApplicationQuit?.Invoke();
                     OnLateApplicationQuit = null;
                 }
             };

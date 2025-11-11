@@ -1,21 +1,39 @@
-﻿using Unity.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public abstract class AudioCollider : MonoBehaviour
 {
-    [Header("Set this to true if collider never changes at runtime")]
-    public bool IsStatic;
+    [Header("Set this to true if collider never moves at runtime")]
+    public bool IsStatic = true;
 
-    private bool initialized;
     public short AudioColliderId;
+    public short AudioTargetId;
+
+    protected Vector3 lastWorldPosition;
+    protected Vector3 lastGlobalScale;
 
 
-    private void Start()
+    private void Awake()
     {
-        if (initialized) return;
+        if (TryGetComponent(out AudioTargetRT audioTargetRT))
+        {
+            AudioTargetId = audioTargetRT.Id;
+        }
+        else
+        {
+            AudioTargetId = -1;
+        }
 
-        AudioColliderManager.AddColiderToSystem(this);
+        if (IsStatic == false)
+        {
+            UpdateSavedData();
+            AudioColliderManager.OnColliderUpdate += CheckColliderTransformation;
+        }
+    }
+    protected virtual void UpdateSavedData()
+    {
+        lastWorldPosition = transform.position;
+        lastGlobalScale = transform.lossyScale;
     }
 
 
@@ -27,10 +45,26 @@ public abstract class AudioCollider : MonoBehaviour
     /// <summary>
     /// Add audio collider as struct data into the corresponding native array at correct index and increment index
     /// </summary>
-    public virtual void AddToAudioSystem(ref NativeList<ColliderAABBStruct> aabbStructs, ref NativeList<ColliderOBBStruct> obbStructs, ref NativeList<ColliderSphereStruct> sphereStructs)
+    public virtual void AddToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs) { }
+
+    /// <summary>
+    /// Update audio collider as struct data into the corresponding native array at correct index based on assigned AudioColliderId
+    /// </summary>
+    public virtual void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs) { }
+
+    private void OnEnable() => AudioColliderManager.AddColiderToSystem(this);
+    //private void OnDisable() => AudioColliderManager.RemoveColiderFromSystem(this);
+    private void OnDestroy()
     {
-        initialized = true;
+        if (IsStatic == false)
+        {
+            AudioColliderManager.OnColliderUpdate -= CheckColliderTransformation;
+        }
+
+        AudioColliderManager.RemoveColiderFromSystem(this);
     }
+
+    protected virtual void CheckColliderTransformation() { }
 
 
 #if UNITY_EDITOR

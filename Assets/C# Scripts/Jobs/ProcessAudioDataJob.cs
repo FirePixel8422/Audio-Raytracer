@@ -26,12 +26,11 @@ public struct ProcessAudioDataJob : IJob
     [ReadOnly][NoAlias] public int rayCount;
     [ReadOnly][NoAlias] public float3 rayOriginWorld;
 
-    [ReadOnly][NoAlias] public int totalAudioTargets;
-
-    [ReadOnly][NoAlias] public float3 listenerForwardDir;
     [ReadOnly][NoAlias] public float3 listenerRightDir;
 
-    [WriteOnly][NoAlias] public NativeArray<AudioSettings> audioTargetSettings;
+    [ReadOnly][NoAlias] public int totalAudioTargets;
+    [ReadOnly][NoAlias] public NativeArray<float3> audioTargetPositions;
+    [WriteOnly][NoAlias] public NativeArray<AudioTargetData> audioTargetSettings;
 
 
 
@@ -148,7 +147,7 @@ public struct ProcessAudioDataJob : IJob
             }
 
             //update the audioTargetSettings for this audiotarget
-            audioTargetSettings[audioTargetId] = new AudioSettings(strength, muffle, pan);
+            audioTargetSettings[audioTargetId] = new AudioTargetData(strength, 1 - muffle, 0, 0, pan, audioTargetPositions[audioTargetId] - rayOriginWorld);
         }
     }
 }

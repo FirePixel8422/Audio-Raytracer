@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 
 
@@ -9,76 +11,113 @@ public class AudioColliderManager : MonoBehaviour
 {
     private static List<AudioCollider> colliders;
 
+    [Header("Start capacity of collider arrays")]
+    [SerializeField] private int startCapacity = 5;
+
     public static NativeListBatch<ColliderAABBStruct> AABBColliders { get; private set; }
     public static NativeListBatch<ColliderOBBStruct> OBBColliders { get; private set; }
     public static NativeListBatch<ColliderSphereStruct> SphereColliders { get; private set; }
 
+    public static Action OnColliderUpdate { get; set; }
 
 
+
+    
     private void Awake()
     {
-        // Fetch all AudioColliders in Scene
-        colliders = this.FindObjectsOfType<AudioCollider>().ToList();
-        int colliderCount = colliders.Count;
+        colliders = new List<AudioCollider>(startCapacity);
 
-        AABBColliders = new NativeListBatch<ColliderAABBStruct>(colliderCount, Allocator.Persistent);
-        OBBColliders = new NativeListBatch<ColliderOBBStruct>(colliderCount, Allocator.Persistent);
-        SphereColliders = new NativeListBatch<ColliderSphereStruct>(colliderCount, Allocator.Persistent);
-
-        DebugLogger.Throw("CRTICAL ERROR: The audio raytracer does NOT support more then more then 32767 audio colliders, audio system crashed", colliderCount > short.MaxValue);
-
-        for (short i = 0; i < colliderCount; i++)
-        {
-            colliders[i].AddToAudioSystem(ref AABBColliders.NextBatch, ref OBBColliders.NextBatch, ref SphereColliders.NextBatch);
-        }
+        AABBColliders = new NativeListBatch<ColliderAABBStruct>(startCapacity, Allocator.Persistent);
+        OBBColliders = new NativeListBatch<ColliderOBBStruct>(startCapacity, Allocator.Persistent);
+        SphereColliders = new NativeListBatch<ColliderSphereStruct>(startCapacity, Allocator.Persistent);
     }
 
     public static void AddColiderToSystem(AudioCollider targetCollider)
     {
-        targetCollider.AddToAudioSystem(ref AABBColliders.NextBatch, ref OBBColliders.NextBatch, ref SphereColliders.NextBatch);
+        targetCollider.AddToAudioSystem(AABBColliders, OBBColliders, SphereColliders);
         colliders.Add(targetCollider);
+    }
+    public static void UpdateColiderInSystem(AudioCollider targetCollider)
+    {
+        targetCollider.UpdateToAudioSystem(AABBColliders, OBBColliders, SphereColliders);
     }
     public static void RemoveColiderFromSystem(AudioCollider targetCollider)
     {
-        colliders.RemoveAtSwapBack(targetCollider.AudioColliderId);
-        short toRemoveId = targetCollider.AudioColliderId;
+        int toRemoveId = targetCollider.AudioColliderId;
 
-        switch (colliders[targetCollider.AudioColliderId].GetColliderType())
+        // Capture type first
+        ColliderType colliderType = targetCollider.GetColliderType();
+
+        // Remove from global list first
+        colliders.RemoveAtSwapBack(toRemoveId);
+
+        switch (colliderType)
         {
             case ColliderType.Sphere:
+                {
+                    NativeListBatch<ColliderSphereStruct> batch = SphereColliders;
+                    if (toRemoveId >= 0 && toRemoveId < batch.NextBatch.Length)
+                    {
+                        batch.NextBatch.RemoveAtSwapBack(toRemoveId);
 
-                SphereColliders.RemoveAtSwapBack(toRemoveId);
-
-                ColliderSphereStruct colliderSphereStruct = SphereColliders.NextBatch[toRemoveId];
-                colliderSphereStruct.audioTargetId = toRemoveId;
-
-                SphereColliders.NextBatch[toRemoveId] = colliderSphereStruct;
-                break;
+                        if (toRemoveId < batch.NextBatch.Length) // fix swapped struct
+                        {
+                            ColliderSphereStruct swapped = batch.NextBatch[toRemoveId];
+                            swapped.audioTargetId = (short)toRemoveId;
+                            batch.NextBatch[toRemoveId] = swapped;
+                        }
+                    }
+                    break;
+                }
 
             case ColliderType.AABB:
+                {
+                    NativeListBatch<ColliderAABBStruct> batch = AABBColliders;
+                    if (toRemoveId >= 0 && toRemoveId < batch.NextBatch.Length)
+                    {
+                        batch.NextBatch.RemoveAtSwapBack(toRemoveId);
 
-                SphereColliders.RemoveAtSwapBack(toRemoveId);
-
-                ColliderAABBStruct colliderAABBStruct = AABBColliders.NextBatch[toRemoveId];
-                colliderAABBStruct.audioTargetId = targetCollider.AudioColliderId;
-
-                AABBColliders.NextBatch[toRemoveId] = colliderAABBStruct;
-                break;
+                        if (toRemoveId < batch.NextBatch.Length)
+                        {
+                            ColliderAABBStruct swapped = batch.NextBatch[toRemoveId];
+                            swapped.audioTargetId = (short)toRemoveId;
+                            batch.NextBatch[toRemoveId] = swapped;
+                        }
+                    }
+                    break;
+                }
 
             case ColliderType.OBB:
+                {
+                    NativeListBatch<ColliderOBBStruct> batch = OBBColliders;
+                    if (toRemoveId >= 0 && toRemoveId < batch.NextBatch.Length)
+                    {
+                        batch.NextBatch.RemoveAtSwapBack(toRemoveId);
 
-                OBBColliders.RemoveAtSwapBack(toRemoveId);
-
-                ColliderOBBStruct colliderOBBStruct = OBBColliders.NextBatch[1];
-                colliderOBBStruct.audioTargetId = toRemoveId;
-
-                OBBColliders.NextBatch[toRemoveId] = colliderOBBStruct;
-                break;
+                        if (toRemoveId < batch.NextBatch.Length)
+                        {
+                            ColliderOBBStruct swapped = batch.NextBatch[toRemoveId];
+                            swapped.audioTargetId = (short)toRemoveId;
+                            batch.NextBatch[toRemoveId] = swapped;
+                        }
+                    }
+                    break;
+                }
 
             default:
                 DebugLogger.LogError("Null Collider detected");
                 break;
         }
+    }
+
+
+    public static void CycleToNextBatch()
+    {
+        OnColliderUpdate?.Invoke();
+
+        AABBColliders.CycleToNextBatch();
+        OBBColliders.CycleToNextBatch();
+        SphereColliders.CycleToNextBatch();
     }
     
 
@@ -89,6 +128,8 @@ public class AudioColliderManager : MonoBehaviour
 
     private void Dispose()
     {
+        OnColliderUpdate = null;
+
         AABBColliders.Dispose();
         OBBColliders.Dispose();
         SphereColliders.Dispose();
@@ -104,7 +145,7 @@ public class AudioColliderManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        AudioCollider[] colliders = this.FindObjectsOfType<AudioCollider>();
+        AudioCollider[] colliders = this.FindObjectsOfType<AudioCollider>(false);
 
         //green blue-ish color
         Gizmos.color = colliderGizmosColor;
@@ -118,5 +159,15 @@ public class AudioColliderManager : MonoBehaviour
             }
         }
     }
+
+    private void Update()
+    {
+        DEBUG_AABBColliders = AABBColliders;
+        DEBUG_OBBColliders = OBBColliders;
+        DEBUG_SphereColliders = SphereColliders;
+    }
+    public NativeListBatch<ColliderAABBStruct> DEBUG_AABBColliders;
+    public NativeListBatch<ColliderOBBStruct> DEBUG_OBBColliders;
+    public NativeListBatch<ColliderSphereStruct> DEBUG_SphereColliders;
 #endif
 }

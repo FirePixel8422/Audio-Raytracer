@@ -1,5 +1,4 @@
-﻿using Unity.Collections;
-using Unity.Mathematics;
+﻿using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -7,8 +6,9 @@ public class AudioOBBCollider : AudioCollider
 {
     [Header("Box Colliders with rotation: \nfast, but a little slower than an 'axisAlignedBox' > 6/10")]
     [SerializeField] private ColliderOBBStruct colliderStruct = ColliderOBBStruct.Default;
+    private ColliderOBBStruct lastColliderStruct;
 
-    [Header("Include gameObject rotation shorto the colliders final rotation")]
+    [Header("Include gameObject rotation to the colliders final rotation")]
     [SerializeField] private bool includeGameObjectRotation = true;
 
 
@@ -17,16 +17,13 @@ public class AudioOBBCollider : AudioCollider
         return ColliderType.OBB;
     }
 
-    public override void AddToAudioSystem(ref NativeList<ColliderAABBStruct> aabbStructs, ref NativeList<ColliderOBBStruct> obbStructs, ref NativeList<ColliderSphereStruct> sphereStructs)
+    public override void AddToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs)
     {
-        base.AddToAudioSystem(ref aabbStructs, ref obbStructs, ref sphereStructs);
+        base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
         ColliderOBBStruct colliderStruct = this.colliderStruct;
 
-        if (TryGetComponent(out AudioTargetRT rtTarget))
-        {
-            colliderStruct.audioTargetId = rtTarget.Id;
-        }
+        colliderStruct.audioTargetId = AudioTargetId;
 
         if (includeGameObjectRotation)
         {
@@ -39,8 +36,53 @@ public class AudioOBBCollider : AudioCollider
         Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
-        AudioColliderId = (short)obbStructs.Length;
+        AudioColliderId = (short)obbStructs.NextBatch.Length;
         obbStructs.Add(colliderStruct);
+    }
+
+    public override void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs)
+    {
+        base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
+
+        ColliderOBBStruct colliderStruct = this.colliderStruct;
+
+        colliderStruct.audioTargetId = AudioTargetId;
+
+        if (includeGameObjectRotation)
+        {
+            colliderStruct.Rotation *= transform.rotation;
+        }
+
+        Half3.Add(transform.rotation * colliderStruct.center.ToFloat3(), transform.position, out half3 mergedPosition);
+        colliderStruct.center = mergedPosition;
+
+        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
+        colliderStruct.size = scaledSize;
+
+        obbStructs.Set(AudioColliderId, colliderStruct);
+    }
+
+    protected override void CheckColliderTransformation()
+    {
+        if (transform.position != lastWorldPosition)
+        {
+            AudioColliderManager.UpdateColiderInSystem(this);
+        }
+        else if (transform.lossyScale != lastGlobalScale)
+        {
+            AudioColliderManager.UpdateColiderInSystem(this);
+        }
+        else if (colliderStruct != lastColliderStruct)
+        {
+            AudioColliderManager.UpdateColiderInSystem(this);
+        }
+        UpdateSavedData();
+    }
+
+    protected override void UpdateSavedData()
+    {
+        base.UpdateSavedData();
+        lastColliderStruct = colliderStruct;
     }
 
 
