@@ -43,66 +43,26 @@ public class AudioColliderManager : MonoBehaviour
     }
     public static void RemoveColiderFromSystem(AudioCollider targetCollider)
     {
-        int toRemoveId = targetCollider.AudioColliderId;
-
-        // Capture type first
+        short toRemoveId = targetCollider.AudioColliderId;
         ColliderType colliderType = targetCollider.GetColliderType();
 
-        // Remove from global list first
-        colliders.RemoveAtSwapBack(toRemoveId);
+        // Remove collider from global list
+        //colliders[^1].AudioColliderId = toRemoveId;
+        colliders.RemoveSwapBack(targetCollider);
 
         switch (colliderType)
         {
             case ColliderType.Sphere:
-                {
-                    NativeListBatch<ColliderSphereStruct> batch = SphereColliders;
-                    if (toRemoveId >= 0 && toRemoveId < batch.NextBatch.Length)
-                    {
-                        batch.NextBatch.RemoveAtSwapBack(toRemoveId);
-
-                        if (toRemoveId < batch.NextBatch.Length) // fix swapped struct
-                        {
-                            ColliderSphereStruct swapped = batch.NextBatch[toRemoveId];
-                            swapped.audioTargetId = (short)toRemoveId;
-                            batch.NextBatch[toRemoveId] = swapped;
-                        }
-                    }
+                    SphereColliders.RemoveAtSwapBack(toRemoveId);
                     break;
-                }
 
             case ColliderType.AABB:
-                {
-                    NativeListBatch<ColliderAABBStruct> batch = AABBColliders;
-                    if (toRemoveId >= 0 && toRemoveId < batch.NextBatch.Length)
-                    {
-                        batch.NextBatch.RemoveAtSwapBack(toRemoveId);
-
-                        if (toRemoveId < batch.NextBatch.Length)
-                        {
-                            ColliderAABBStruct swapped = batch.NextBatch[toRemoveId];
-                            swapped.audioTargetId = (short)toRemoveId;
-                            batch.NextBatch[toRemoveId] = swapped;
-                        }
-                    }
+                    AABBColliders.RemoveAtSwapBack(toRemoveId);
                     break;
-                }
 
             case ColliderType.OBB:
-                {
-                    NativeListBatch<ColliderOBBStruct> batch = OBBColliders;
-                    if (toRemoveId >= 0 && toRemoveId < batch.NextBatch.Length)
-                    {
-                        batch.NextBatch.RemoveAtSwapBack(toRemoveId);
-
-                        if (toRemoveId < batch.NextBatch.Length)
-                        {
-                            ColliderOBBStruct swapped = batch.NextBatch[toRemoveId];
-                            swapped.audioTargetId = (short)toRemoveId;
-                            batch.NextBatch[toRemoveId] = swapped;
-                        }
-                    }
+                    OBBColliders.RemoveAtSwapBack(toRemoveId);
                     break;
-                }
 
             default:
                 DebugLogger.LogError("Null Collider detected");

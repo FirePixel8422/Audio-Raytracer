@@ -1707,8 +1707,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179684357}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.096227825, y: -0.52935266, z: 0.8098594, w: 0.23378132}
+  m_LocalPosition: {x: 1.0197346, y: 0.31801057, z: -1.9119093}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1719,7 +1719,7 @@ Transform:
   - {fileID: 245504479}
   - {fileID: 146765637}
   m_Father: {fileID: 933763103}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 64.475, y: -12.279, z: 140.035}
 --- !u!1 &222297317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2115,7 +2115,6 @@ MonoBehaviour:
       x: 0
       y: 0
       z: 0
-  baseVolume: 0
   volumeUpdateSpeed: 0.5
   lowPassUpdateSpeed: 8500
   direction:
@@ -2970,7 +2969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &319567578
 Transform:
   m_ObjectHideFlags: 0
@@ -14256,8 +14255,8 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  rayCount: 314
-  maxBounces: 12
+  rayCount: 51
+  maxBounces: 5
   maxRayDist: 150
   muffleFalloffCurve:
     curve:
@@ -14269,7 +14268,7 @@ MonoBehaviour:
     valueMultiplier: 0
     sampleCount: 0
   computeAsync: 1
-  maxThreadCount: 2
+  maxThreadCount: 4
   drawRayHitsGizmos: 1
   drawRayTrailsGizmos: 1
   drawReturnRayDirectionGizmos: 0
@@ -14566,8 +14565,6 @@ GameObject:
   - component: {fileID: 2115961662}
   - component: {fileID: 2115961661}
   - component: {fileID: 2115961660}
-  - component: {fileID: 2115961659}
-  - component: {fileID: 2115961658}
   - component: {fileID: 2115961657}
   - component: {fileID: 2115961656}
   - component: {fileID: 2115961655}
@@ -14606,7 +14603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listenerTransform: {fileID: 2039623052}
-  soundPosTransform: {fileID: 0}
+  soundPosTransform: {fileID: 2115961654}
   panStrength: 1
   rearAttenuationStrength: 0.5
   overallGain: 2
@@ -14668,41 +14665,6 @@ AudioReverbFilter:
   m_LFReference: 250
   m_ReflectionsDelay: 0
   m_ReverbPreset: 27
---- !u!165 &2115961658
-AudioHighPassFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115961653}
-  m_Enabled: 1
-  m_CutoffFrequency: 10
-  m_HighpassResonanceQ: 1
---- !u!169 &2115961659
-AudioLowPassFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2115961653}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_LowpassResonanceQ: 1
-  lowpassLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &2115961660
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14848,7 +14810,6 @@ MonoBehaviour:
       x: 0
       y: 0
       z: 0
-  baseVolume: 0
   volumeUpdateSpeed: 0.5
   lowPassUpdateSpeed: 8500
   direction:

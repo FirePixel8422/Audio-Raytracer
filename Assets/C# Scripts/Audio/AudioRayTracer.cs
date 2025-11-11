@@ -3,7 +3,6 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -11,7 +10,7 @@ public class AudioRayTracer : MonoBehaviour
 {
     [SerializeField] private float3 rayOrigin;
 
-    [Range(1, 10000)]
+    [Range(1, 15000)]
     [SerializeField] int rayCount = 1000;
 
     [Range(0, 25)]
@@ -64,9 +63,7 @@ public class AudioRayTracer : MonoBehaviour
 
         JobHandle mainJobHandle = generateDirectionsJob.Schedule(rayCount, 64);
 
-
-        //do as much tasks here to give the sphere direcion job some time to complete before forcing it to complete.
-
+        // Do all other tasks here to give the sphere direcion job some time to complete before forcing it to complete.
         int maxRayResultsArrayLength = rayCount * (maxBounces + 1);
 
         rayResults = new NativeArray<AudioRayResult>(maxRayResultsArrayLength, Allocator.Persistent);

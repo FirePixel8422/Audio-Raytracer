@@ -42,7 +42,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     [BurstCompile]
     public void Execute(int rayStartIndex, int totalRays)
     {
-        int batchId = rayStartIndex / totalRays;
+        int batchId = rayStartIndex * MuffleRayHits.Length / RayDirections.Length;
 
         //save local copy of RayOrigin
         float3 cRayOrigin;
@@ -59,7 +59,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
         #region Reset Required Data
 
-        //reset return ray directions array completely before starting
+        // Reset return ray directions array completely before starting
         for (int i = 0; i < totalRays * MaxRayHits; i++)
         {
             int rayIndex = rayStartIndex + i;
@@ -67,7 +67,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
             EchoRayDirections[rayIndex] = float3.zero;
             Results[rayIndex] = AudioRayResult.Null;
         }
-        //reset muffleRayHit count assigned to this batch
+        // Reset muffleRayHit count assigned to this batch
         for (int i = 0; i < TotalAudioTargets; i++)
         {
             MuffleRayHits[batchId * TotalAudioTargets + i] = 0;
@@ -157,7 +157,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                     #endregion
 
 
-                    //check if ray is finished (if rayHits is more than MaxRayHits or totalDist is equal or exceeds MaxRayDist)
+                    // Check if ray is finished (if rayHits is more than MaxRayHits or totalDist is equal or exceeds MaxRayDist)
                     if (cRayHits >= MaxRayHits || totalDist >= MaxRayDist)
                     {
                         //if ray dies this iteration, give it the totalDist traveled value as its fullRayDistance

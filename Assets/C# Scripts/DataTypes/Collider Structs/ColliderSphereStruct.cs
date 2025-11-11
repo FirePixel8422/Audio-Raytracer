@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using Unity.Burst;
 using Unity.Mathematics;
@@ -17,7 +16,6 @@ public struct ColliderSphereStruct
     [Header("How thick is this wall for permeation calculations")]
     public half thicknessMultiplier;
 
-    [HideInInspector]
     public short audioTargetId;
 
     public static ColliderSphereStruct Default => new ColliderSphereStruct()

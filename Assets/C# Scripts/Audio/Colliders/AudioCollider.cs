@@ -36,7 +36,6 @@ public abstract class AudioCollider : MonoBehaviour
         lastGlobalScale = transform.lossyScale;
     }
 
-
     public virtual ColliderType GetColliderType()
     {
         return ColliderType.None;
@@ -53,15 +52,13 @@ public abstract class AudioCollider : MonoBehaviour
     public virtual void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs) { }
 
     private void OnEnable() => AudioColliderManager.AddColiderToSystem(this);
-    //private void OnDisable() => AudioColliderManager.RemoveColiderFromSystem(this);
+    private void OnDisable() => AudioColliderManager.RemoveColiderFromSystem(this);
     private void OnDestroy()
     {
         if (IsStatic == false)
         {
             AudioColliderManager.OnColliderUpdate -= CheckColliderTransformation;
         }
-
-        AudioColliderManager.RemoveColiderFromSystem(this);
     }
 
     protected virtual void CheckColliderTransformation() { }

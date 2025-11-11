@@ -26,7 +26,6 @@ public struct ColliderOBBStruct
     [Header("How thick is this wall for permeation calculations")]
     public half thicknessMultiplier;
 
-    [HideInInspector]
     public short audioTargetId;
 
 

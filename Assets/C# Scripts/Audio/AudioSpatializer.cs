@@ -77,7 +77,7 @@ public class AudioSpatializer : MonoBehaviour
 
     private void Start()
     {
-        sampleRate = UnityEngine.AudioSettings.outputSampleRate;
+        sampleRate = AudioSettings.outputSampleRate;
     }
 
 

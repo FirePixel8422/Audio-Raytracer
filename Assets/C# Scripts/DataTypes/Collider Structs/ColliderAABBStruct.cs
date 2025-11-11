@@ -16,7 +16,6 @@ public struct ColliderAABBStruct
     [Header("How thick is this wall for permeation calculations")]
     public half thicknessMultiplier;
 
-    [HideInInspector]
     public short audioTargetId;
 
     public static ColliderAABBStruct Default => new ColliderAABBStruct()
