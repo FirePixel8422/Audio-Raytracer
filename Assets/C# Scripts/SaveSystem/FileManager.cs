@@ -1,133 +1,95 @@
-using UnityEngine;
-using System.IO;
-using System.Threading.Tasks;
 using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using UnityEngine;
 
+
+/// <summary>
+/// Utility class for saving and loading any type of container or single values or arrays using ValueWrapperT> and ArrayWrapper<T>
+/// </summary>
 public static class FileManager
 {
-
-
     /// <summary>
     /// Method to get all file names of a specific type in a directory
     /// </summary>
-    public static (bool, string[]) GetAllFileNamesFromDirectory(string directoryPath, string fileExtension = ".json")
+    public static (bool Succes, string[] Output) GetDirectoryContentNames(string directoryPath, string fileExtension = ".json")
     {
-        // Construct the full path
-        string path = $"{Application.persistentDataPath}/{directoryPath}";
+        EnsurePersistentDataPath(ref directoryPath);
 
-        // Ensure the path ends with "/"
-        if (!path.EndsWith("/"))
-        {
-            path += "/";
-        }
-
-        if (Directory.Exists(path))
+        if (Directory.Exists(directoryPath))
         {
             // Get all file paths of the specified type in the directory
-            string[] filePaths = Directory.GetFiles(path, $"*{fileExtension}");
+            string[] filePaths = Directory.GetFiles(directoryPath, "*" + fileExtension);
 
             // Extract file names from the file paths
-            string[] fileNames = new string[filePaths.Length];
-            for (int i = 0; i < filePaths.Length; i++)
-            {
-                fileNames[i] = Path.GetFileName(filePaths[i]); // Get the file name from the path
-            }
+            string[] fileNames = Array.ConvertAll(filePaths, Path.GetFileName);
 
             return (true, fileNames);
         }
         else
         {
-            Debug.LogWarning("Directory does not exist: " + directoryPath);
-            return (false, new string[0]); // Returns false and an empty array if the directory doesn't exist
+            DebugLogger.LogWarning("Directory does not exist: " + directoryPath);
+            return (false, default); // Returns false and an empty array if the directory doesn't exist
         }
     }
 
-
-
     /// <summary>
-    /// Method to get all files and deserialize into a NativeArray of structs
+    /// Method to get all files and deserialize into an array of type T
     /// </summary>
-    public static async Task<(bool, T[])> GetAllFilesFromDirectoryAsync<T>(string directoryPath, string fileExtension = ".json")
+    public static async Task<(bool Succes, T[])> LoadDirectoryContentAsync<T>(string directoryPath, string fileExtension = ".json")
     {
         // Get all file names with the specified extension
-        (bool anyFileInDirectory, string[] fileNames) = GetAllFileNamesFromDirectory(directoryPath, fileExtension);
+        (bool anyFileInDirectory, string[] fileNames) = GetDirectoryContentNames(directoryPath, fileExtension);
 
-        //if atleast one file was found in the directory that has the correct fileExtensions
+        // If atleast one file was found in the directory that has the correct fileExtensions
         if (anyFileInDirectory)
         {
-            // Create an array for deserialized objects
-            T[] fileStructArray = new T[fileNames.Length];
+            var tasks = fileNames.Select(file =>
+                LoadInfoAsync<T>(Path.Combine(directoryPath, file))
+            );
 
-            int successCount = 0;
+            (bool, T)[] results = await Task.WhenAll(tasks);
 
-            for (int i = 0; i < fileNames.Length; i++)
-            {
-                string fullPath = $"{directoryPath}/{fileNames[i]}";
-
-                (bool success, T loadedStruct) = await LoadInfoAsync<T>(fullPath);
-
-                if (success)
-                {
-                    fileStructArray[successCount++] = loadedStruct; // Add object to the NativeArray
-                }
-                else
-                {
-                    Debug.LogWarning($"Failed to load or deserialize file: {fileNames[i]}");
-                }
-            }
-
-            // Resize the NativeArray if needed (there is no direct Resize; copy the valid items)
-            if (successCount != fileStructArray.Length)
-            {
-                Array.Resize(ref fileStructArray, successCount);
-            }
-
-            return (successCount > 0, fileStructArray);
+            T[] validResults = results.Where(r => r.Item1).Select(r => r.Item2).ToArray();
+            return (validResults.Length > 0, validResults);
         }
-        //no files found in directory with correct fileExtension
+        // No files found in directory with correct fileExtension
         else
         {
-            Debug.LogWarning($"No files with extension '{fileExtension}' found in directory: {directoryPath}");
-            return (false, new T[0]);
+            DebugLogger.LogWarning($"No files with extension '{fileExtension}' found in directory: {directoryPath}");
+            return (false, default);
         }
     }
 
 
-
     /// <summary>
-    /// Save method using JSON serialization
+    /// Save data using JSON serialization
     /// </summary>
-    public async static Task SaveInfoAsync<T>(T saveData, string pathPlusFileName, bool encryptFile = true)
+    public async static Task SaveInfoAsync<T>(T saveData, string path, bool obfuscateFile = false, bool encryptFile = false)
     {
         try
         {
-            if (pathPlusFileName.StartsWith("Assets/") == false)
-            {
-                pathPlusFileName = EnsurePersistentDataPath(pathPlusFileName);
-            }
+            EnsurePersistentDataPath(ref path);
+            EnsureFileExtension(ref path);
 
             // Separate the directory path and the file name from the provided directoryPlusFileName string
-            string directoryPath = Path.GetDirectoryName(pathPlusFileName);
+            string directoryPath = Path.GetDirectoryName(path);
+            string fileName = Path.GetFileName(path);
 
-            string fileName = Path.GetFileName(pathPlusFileName);
-
-
-            fileName = EnsureFileExtension(fileName);
-
-            // if directory path doesnt exist, create it
+            // If directory path doesnt exist, create it
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
 
-
-            string path = $"{directoryPath}/{fileName}";
-
-
             // Serialize the data to JSON format
             string outputData = JsonUtility.ToJson(saveData);
 
-
+            if (obfuscateFile)
+            {
+                outputData = ObfuscationUtility.Obfuscate(outputData);
+            }
             if (encryptFile)
             {
                 //encrypt if marked for encryption
@@ -140,22 +102,17 @@ public static class FileManager
         }
         catch (Exception ex)
         {
-            Debug.LogError("Failed to save game data: " + ex.Message);
+            DebugLogger.LogError("Failed to save game data: " + ex.Message);
         }
     }
 
-
-
     /// <summary>
-    /// Load method using JSON deserialization
+    /// Load data using JSON deserialization
     /// </summary>
-    public async static Task<(bool, T)> LoadInfoAsync<T>(string path, bool decryptFile = true)
+    public async static Task<(bool Succes, T Value)> LoadInfoAsync<T>(string path, bool deObfuscateFile = false, bool decryptFile = false)
     {
-        if (path.StartsWith("Assets/") == false)
-        {
-            path = EnsurePersistentDataPath(path);
-        }
-        path = EnsureFileExtension(path);
+        EnsurePersistentDataPath(ref path);
+        EnsureFileExtension(ref path);
 
         if (File.Exists(path))
         {
@@ -164,11 +121,20 @@ public static class FileManager
                 // Read the encrypted data from the file
                 string outputData = await File.ReadAllTextAsync(path);
 
-
                 if (decryptFile)
                 {
                     // decrypt the data if marked for decryption
                     outputData = await EncryptionUtility.DecryptAsync(outputData);
+                }
+                if (deObfuscateFile)
+                {
+                    bool deObfuscationSucces;
+                    (deObfuscationSucces, outputData) = ObfuscationUtility.DeObfuscate(outputData);
+
+                    if (deObfuscationSucces == false)
+                    {
+                        return (false, default);
+                    }
                 }
 
                 T loadedData = JsonUtility.FromJson<T>(outputData);
@@ -177,13 +143,13 @@ public static class FileManager
             }
             catch (Exception ex)
             {
-                Debug.LogError("Failed to load game data: " + ex.Message);
+                DebugLogger.LogError("Failed to load file: " + ex.Message);
                 return (false, default);
             }
         }
         else
         {
-            Debug.LogWarning("No save file found at: " + path);
+            DebugLogger.LogWarning("No file found at: " + path);
             return (false, default);
         }
     }
@@ -192,10 +158,11 @@ public static class FileManager
     /// <summary>
     /// Delete a File
     /// </summary>
-    public static bool DeleteFile(string path)
+    /// <returns>Whether the deletion was succesfull</returns>
+    public static bool TryDeleteFile(string path)
     {
-        path = EnsurePersistentDataPath(path);
-        path = EnsureFileExtension(path);
+        EnsurePersistentDataPath(ref path);
+        EnsureFileExtension(ref path);
 
         try
         {
@@ -206,93 +173,165 @@ public static class FileManager
             }
             else
             {
-                Debug.LogWarning($"File not found: {path}");
+                DebugLogger.LogWarning($"File not found: {path}");
                 return false;
             }
         }
         catch (IOException ex)
         {
-            Debug.LogError($"Failed to delete file {path}: {ex.Message}");
+            DebugLogger.LogError($"Failed to delete file {path}: {ex.Message}");
             return false;
         }
     }
 
-
     /// <summary>
     /// Delete a Directory (Folder)
     /// </summary>
-    public static bool DeleteDirectory(string directoryPath)
+    /// <returns>Wether the deletion was succesfull</returns>
+    public static bool TryDeleteDirectory(string directoryPath)
     {
-        directoryPath = EnsurePersistentDataPath(directoryPath);
+        EnsurePersistentDataPath(ref directoryPath);
 
         try
         {
             if (Directory.Exists(directoryPath))
             {
-                Directory.Delete(directoryPath); // Deletes the directory
+                Directory.Delete(directoryPath, true); // Deletes the directory
 
-                Debug.Log($"Directory deleted: {directoryPath}");
+                DebugLogger.Log($"Directory deleted: {directoryPath}");
                 return true;
             }
             else
             {
-                Debug.LogWarning($"Directory not found: {directoryPath}");
+                DebugLogger.LogWarning($"Directory not found: {directoryPath}");
                 return false;
             }
         }
         catch (IOException ex)
         {
-            Debug.LogError($"Failed to delete directory {directoryPath}: {ex.Message}");
+            DebugLogger.LogError($"Failed to delete directory {directoryPath}: {ex.Message}");
             return false;
         }
     }
 
 
 
-    private static string EnsurePersistentDataPath(string path)
+    /// <summary>
+    /// Ensure the file path starts with "Application.persistentDataPath".
+    /// </summary>
+    private static void EnsurePersistentDataPath(ref string path)
     {
         //if path doesnt start with "Application.persistentDataPath", add it, because all files are preferably located in a fixed path
         if (path.StartsWith(Application.persistentDataPath) == false)
         {
-            return $"{Application.persistentDataPath}/{path}";
-        }
-        else
-        {
-            return path;
+            path = Path.Combine(Application.persistentDataPath, path.TrimStart('/', '\\'));
         }
     }
 
-    private static string EnsureFileExtension(string path)
+    /// <summary>
+    /// Ensure the file path has a valid file extension.
+    /// </summary>
+    private static void EnsureFileExtension(ref string path)
     {
-        // if the "directoryPlusFileName" string doesnt have an extension (.json, .txt, etc) add .json automatically
+        // if the "path" string doesnt have an extension (.json, .txt, etc) add .json automatically
         if (string.IsNullOrEmpty(Path.GetExtension(path)))
         {
-            return path + ".json";
-        }
-        else
-        {
-            return path;
+            path += ".json";
         }
     }
+
+
+
+#if UNITY_EDITOR
+    private static string GetEditorPath(string path)
+    {
+        string folder = Path.Combine(Application.dataPath, "Editor");
+        if (!Directory.Exists(folder))
+            Directory.CreateDirectory(folder);
+
+        string fileName = Path.GetFileName(path);
+        if (!fileName.EndsWith(".json"))
+            fileName += ".json";
+
+        return Path.Combine(folder, fileName);
+    }
+
+    /// <summary>
+    /// Save data to Assets/Editor Folder using JSON serialization
+    /// </summary>
+    public static async Task SaveInfoToEditorAsync<T>(T data, string fileName)
+    {
+        string path = GetEditorPath(fileName);
+        try
+        {
+            string json = JsonUtility.ToJson(data, true);
+            await File.WriteAllTextAsync(path, json);
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.LogError($"Failed to save editor file: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Load data from Assets/Editor Folder using JSON deserialization
+    /// </summary>
+    public static async Task<(bool Succes, T Value)> LoadInfoFromEditorAsync<T>(string fileName)
+    {
+        string path = GetEditorPath(fileName);
+        if (!File.Exists(path))
+        {
+            DebugLogger.LogWarning($"Editor file not found: {path}");
+            return (false, default);
+        }
+
+        try
+        {
+            string json = await File.ReadAllTextAsync(path);
+            T loadedData = JsonUtility.FromJson<T>(json);
+
+            return (true, loadedData);
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.LogError($"Failed to load editor file: {ex.Message}");
+            return (false, default);
+        }
+    }
+#endif
 }
 
 
+[System.Serializable]
 public struct ValueWrapper<T>
 {
-    public T value;
+    public T Value;
 
     public ValueWrapper(T _value)
     {
-        value = _value;
+        Value = _value;
     }
 }
 
+[System.Serializable]
 public struct ArrayWrapper<T>
 {
-    public T[] values;
+    public T[] Array;
 
     public ArrayWrapper(T[] _values)
     {
-        values = _values;
+        Array = _values;
     }
+    public ArrayWrapper(int length)
+    {
+        Array = new T[length];
+    }
+
+    public T this[int index]
+    {
+        get => Array[index];
+        set => Array[index] = value;
+    }
+
+    public int Length => Array?.Length ?? 0;
 }
