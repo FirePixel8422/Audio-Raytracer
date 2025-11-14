@@ -1,10 +1,14 @@
 using Unity.Burst;
+using Unity.Mathematics;
 using UnityEngine;
 
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckLength = 0.5f;
 
     [SerializeField] Transform camTransform;
     [SerializeField] private float mouseSensitivity = 100f;
@@ -36,8 +40,34 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
+
         Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
-        rb.linearVelocity = transform.TransformDirection(moveDir) * moveSpeed + new Vector3(0f, rb.linearVelocity.y, 0f);
+        Vector3 velocity = transform.TransformDirection(moveDir) * moveSpeed + new Vector3(0f, rb.linearVelocity.y, 0f);
+        
+
+        if (rb.linearVelocity.y > -0.1f && Physics.Raycast(groundCheck.position, Vector3.down, out RaycastHit hit, groundCheckLength))
+        {
+            velocity = AlignVelocityToRamp(velocity, hit.normal);
+        }
+
+        rb.linearVelocity = velocity;
+    }
+
+    private float3 AlignVelocityToRamp(float3 velocity, float3 normal)
+    {
+        float3 n = math.normalize(normal);
+
+        // Remove the component pushing into the ramp
+        float3 projected = velocity - n * math.dot(velocity, n);
+
+        float mag = math.length(projected);
+        if (mag < 1e-5f)
+        {
+            // Velocity is basically perpendicular to the ramp
+            return float3.zero;
+        }
+
+        return projected * (math.length(velocity) / mag);
     }
 
     private void LookAround()
