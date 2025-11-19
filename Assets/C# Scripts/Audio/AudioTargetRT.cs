@@ -16,6 +16,13 @@ public class AudioTargetRT : MonoBehaviour
     private AudioSource source;
     private AudioSpatializer spatializer;
 
+#if UNITY_EDITOR
+    [Header("DEBUG")]
+    [SerializeField] private int totalUpdates;
+    [SerializeField] private int updateFPS;
+    [SerializeField] private int updateFrameTime;
+#endif
+
 
     private void Awake()
     {
@@ -33,6 +40,12 @@ public class AudioTargetRT : MonoBehaviour
 
         //0 = 100% muffled audio
         spatializer.muffleStrength = newSettings.muffle;
+
+#if UNITY_EDITOR
+        totalUpdates += 1;
+        updateFPS = (int)math.floor(totalUpdates / Time.time);
+        updateFrameTime = (int)math.floor(1f / updateFPS * 1000);
+#endif
     }
 
     public float3 direction;

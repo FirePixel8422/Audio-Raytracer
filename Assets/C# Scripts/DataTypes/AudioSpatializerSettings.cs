@@ -8,6 +8,9 @@ public struct AudioSpatializerSettings
     [Range(0f, 1f)]
     public float panStrength;
 
+    [Range(0.25f, 10f)]
+    public float overallGain;
+
     [Header("Rear Attenuation")]
     [Range(0f, 1f)]
     public float rearAttenuationStrength;
@@ -52,6 +55,7 @@ public struct AudioSpatializerSettings
     {
         panStrength = 0.8f,
 
+        overallGain = 1,
         rearAttenuationStrength = 0.25f,
 
         distanceBasedPanning = true,

@@ -52,9 +52,9 @@ public class AudioSpatializer : MonoBehaviour
     [SerializeField] private float maxMuffleCutoff = 22000f;
     [SerializeField] private float minMuffleCutoff = 1000f;
 
-    private float3 cachedLocalDir;
-    private float3 listenerPosition;
-    private float3 soundPosition;
+    [SerializeField] private float3 cachedLocalDir;
+    [SerializeField] private float3 listenerPosition;
+    [SerializeField] private float3 soundPosition;
 
     // Filter state
     private float previousLeftLP;
@@ -70,9 +70,16 @@ public class AudioSpatializer : MonoBehaviour
 
     private int sampleRate;
 
+#if UNITY_EDITOR
+    [Header("DEBUG")]
+    [SerializeField] private int totalAudioFrames;
+    [SerializeField] private int audioFPS;
+    [SerializeField] private int audioFrameTime;
+#endif
 
-    private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
-    private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
+
+    private void OnEnable() => UpdateScheduler.RegisterLateUpdate(OnLateUpdate);
+    private void OnDisable() => UpdateScheduler.UnRegisterLateUpdate(OnLateUpdate);
 
 
     private void Start()
@@ -81,7 +88,7 @@ public class AudioSpatializer : MonoBehaviour
     }
 
 
-    private void OnUpdate()
+    private void OnLateUpdate()
     {
         if (soundPosTransform != null)
             soundPosition = soundPosTransform.position;
@@ -94,12 +101,21 @@ public class AudioSpatializer : MonoBehaviour
             float3 worldDir = soundPosition - (float3)listenerTransform.position;
             cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
         }
+
+#if UNITY_EDITOR
+        audioFPS = (int)math.floor(totalAudioFrames / Time.time);
+        audioFrameTime = (int)math.floor(1f / audioFPS * 1000);
+#endif
     }
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
         if (channels != 2)
             return;
+
+#if UNITY_EDITOR
+        totalAudioFrames += 1;
+#endif
 
         float3 localDir = cachedLocalDir;
         float distanceToListener = math.length(listenerPosition - soundPosition);
