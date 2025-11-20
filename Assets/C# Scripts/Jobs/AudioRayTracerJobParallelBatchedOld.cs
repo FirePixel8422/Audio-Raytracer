@@ -42,7 +42,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     [BurstCompile]
     public void Execute(int rayStartIndex, int totalRays)
     {
-        int batchId = rayStartIndex * MuffleRayHits.Length / RayDirections.Length;
+        int batchId = (int)math.round(rayStartIndex * (float)(MuffleRayHits.Length / TotalAudioTargets) / RayDirections.Length);
 
         //save local copy of RayOrigin
         float3 cRayOrigin;

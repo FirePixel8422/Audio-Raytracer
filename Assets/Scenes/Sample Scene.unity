@@ -2113,38 +2113,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b3420e086475d4186a567aa090ef93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsSO: {fileID: 11400000, guid: 81648bed7a60bc64cba8d807aede91b3, type: 2}
+  settings:
+    panStrength: 0
+    rearAttenuationStrength: 0
+    distanceBasedPanning: 0
+    maxPanDistance: 0
+    distanceBasedRearAttenuation: 0
+    maxRearAttenuationDistance: 0
+    maxElevationEffectDistance: 0
+    lowPassCutoff:
+      min: 0
+      max: 0
+    lowPassVolume: 0
+    highPassCutoff:
+      min: 0
+      max: 0
+    highPassVolume: 0
+    muffleCutoff:
+      min: 0
+      max: 0
+    maxReverbTime: 0
+    reverbDecay: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 241768773}
-  panStrength: 0.8
-  rearAttenuationStrength: 0.2
-  overallGain: 2
-  distanceBasedPanning: 1
-  maxPanDistance: 5
-  distanceBasedRearAttenuation: 0
-  maxRearAttenuationDistance: 15
-  maxElevationEffectDistance: 12
-  maxLowPassCutoff: 22000
-  minLowPassCutoff: 5000
-  minHighPassCutoff: 25
-  maxHighPassCutoff: 150
-  lowPassVolume: 0.85
-  highPassVolume: 1.15
+  volumeMultiplier: 1
   muffleStrength: 0.97574717
-  maxMuffleCutoff: 8000
-  minMuffleCutoff: 75
   cachedLocalDir:
     x: 0
     y: 0
     z: 0
-  listenerPosition:
-    x: 0
-    y: 0
-    z: 0
-  soundPosition:
-    x: 0
-    y: 0
-    z: 0
-  totalAudioFrames: 0
+  cachedListenerDistance: 0
+  totalAudioFrames: 764
   audioFPS: 0
   audioFrameTime: 0
 --- !u!114 &241768784
@@ -14275,7 +14275,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039623046}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d14e0eebbfc9f5b4685365d70167ab2b, type: 3}
   m_Name: 
@@ -14284,7 +14284,7 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  rayCount: 314
+  rayCount: 305
   maxBounces: 5
   maxRayDist: 150
   muffleFalloffCurve:
@@ -14631,37 +14631,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b3420e086475d4186a567aa090ef93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsSO: {fileID: 0}
+  settings:
+    panStrength: 0
+    rearAttenuationStrength: 0
+    distanceBasedPanning: 0
+    maxPanDistance: 0
+    distanceBasedRearAttenuation: 0
+    maxRearAttenuationDistance: 0
+    maxElevationEffectDistance: 0
+    lowPassCutoff:
+      min: 0
+      max: 0
+    lowPassVolume: 0
+    highPassCutoff:
+      min: 0
+      max: 0
+    highPassVolume: 0
+    muffleCutoff:
+      min: 0
+      max: 0
+    maxReverbTime: 0
+    reverbDecay: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 2115961654}
-  panStrength: 1
-  rearAttenuationStrength: 0.5
-  overallGain: 2
-  distanceBasedPanning: 0
-  maxPanDistance: 5
-  distanceBasedRearAttenuation: 0
-  maxRearAttenuationDistance: 10
-  maxElevationEffectDistance: 15
-  maxLowPassCutoff: 22000
-  minLowPassCutoff: 5000
-  minHighPassCutoff: 20
-  maxHighPassCutoff: 500
-  lowPassVolume: 0.85
-  highPassVolume: 0.85
+  volumeMultiplier: 1
   muffleStrength: 0
-  maxMuffleCutoff: 22000
-  minMuffleCutoff: 1000
   cachedLocalDir:
     x: 0
     y: 0
     z: 0
-  listenerPosition:
-    x: 0
-    y: 0
-    z: 0
-  soundPosition:
-    x: 0
-    y: 0
-    z: 0
+  cachedListenerDistance: 0
   totalAudioFrames: 0
   audioFPS: 0
   audioFrameTime: 0

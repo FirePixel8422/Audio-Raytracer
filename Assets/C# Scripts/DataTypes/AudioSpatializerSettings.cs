@@ -8,9 +8,6 @@ public struct AudioSpatializerSettings
     [Range(0f, 1f)]
     public float panStrength;
 
-    [Range(0.25f, 10f)]
-    public float overallGain;
-
     [Header("Rear Attenuation")]
     [Range(0f, 1f)]
     public float rearAttenuationStrength;
@@ -27,18 +24,18 @@ public struct AudioSpatializerSettings
     public float maxElevationEffectDistance;
 
     [Space(5)]
-    public MinMaxFloat lowPassCutoff;
-    public MinMaxFloat highPassCutoff;
 
-    [Space(5)]
+    public MinMaxFloat lowPassCutoff;
     [Range(0f, 2f)]
     public float lowPassVolume;
+
+    [Space(2.5f)]
+
+    public MinMaxFloat highPassCutoff;
     [Range(0f, 2f)]
     public float highPassVolume;
 
     [Header("Muffle Effect")]
-    [Range(0f, 1f)]
-    public float muffleStrength;
     public MinMaxFloat muffleCutoff;
 
     [Header("Reverb Effect")]
@@ -55,24 +52,22 @@ public struct AudioSpatializerSettings
     {
         panStrength = 0.8f,
 
-        overallGain = 1,
-        rearAttenuationStrength = 0.25f,
+        rearAttenuationStrength = 0.2f,
 
         distanceBasedPanning = true,
-        maxPanDistance = 12,
+        maxPanDistance = 5,
 
         distanceBasedRearAttenuation = true,
-        maxRearAttenuationDistance = 10f,
+        maxRearAttenuationDistance = 15,
 
-        maxElevationEffectDistance = 15f,
+        maxElevationEffectDistance = 12,
 
-        lowPassCutoff = new MinMaxFloat(22000f, 5000f),
-        highPassCutoff = new MinMaxFloat(20f, 500f),
+        lowPassCutoff = new MinMaxFloat(5000, 22000),
+        highPassCutoff = new MinMaxFloat(25, 150),
         lowPassVolume = 0.85f,
-        highPassVolume = 0.85f,
+        highPassVolume = 1.15f,
 
-        muffleStrength = 0f,
-        muffleCutoff = new MinMaxFloat(22000f, 0),
+        muffleCutoff = new MinMaxFloat(75, 8000),
 
         maxReverbTime = 0.2f,
         reverbDecay = 0.1f,

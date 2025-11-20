@@ -14,23 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioSpatializerSettingsSO
   settings:
     panStrength: 0.8
-    rearAttenuationStrength: 0.225
+    rearAttenuationStrength: 0.2
     distanceBasedPanning: 1
-    maxPanDistance: 15
+    maxPanDistance: 5
     distanceBasedRearAttenuation: 1
-    maxRearAttenuationDistance: 12
-    maxElevationEffectDistance: 15
+    maxRearAttenuationDistance: 15
+    maxElevationEffectDistance: 12
     lowPassCutoff:
-      min: 22000
-      max: 5000
-    highPassCutoff:
-      min: 20
-      max: 300
+      min: 5000
+      max: 22000
     lowPassVolume: 0.85
+    highPassCutoff:
+      min: 25
+      max: 150
     highPassVolume: 1.15
-    muffleStrength: 0
     muffleCutoff:
-      min: 8000
-      max: 75
+      min: 75
+      max: 8000
     maxReverbTime: 0.2
-    reverbDecay: 0.325
+    reverbDecay: 0.1

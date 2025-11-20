@@ -13,7 +13,7 @@ public abstract class AudioCollider : MonoBehaviour
     protected Vector3 lastGlobalScale;
 
 
-    private void Awake()
+    private void Start()
     {
         if (TryGetComponent(out AudioTargetRT audioTargetRT))
         {

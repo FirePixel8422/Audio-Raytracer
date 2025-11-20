@@ -38,7 +38,7 @@ public class AudioRayTracer : MonoBehaviour
     private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
     private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
 
-    private void Start()
+    private void Awake()
     {
         InitializeAudioRaytraceSystem();
 
@@ -61,7 +61,7 @@ public class AudioRayTracer : MonoBehaviour
             directions = rayDirections
         };
 
-        JobHandle mainJobHandle = generateDirectionsJob.Schedule(rayCount, 64);
+        JobHandle mainJobHandle = generateDirectionsJob.Schedule(rayCount, 512);
 
         // Do all other tasks here to give the sphere direcion job some time to complete before forcing it to complete.
         int maxRayResultsArrayLength = rayCount * (maxBounces + 1);
