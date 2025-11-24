@@ -31,5 +31,4 @@ MonoBehaviour:
     muffleCutoff:
       min: 75
       max: 8000
-    maxReverbTime: 0.2
-    reverbDecay: 0.1
+    maxReverbTime: 0.5

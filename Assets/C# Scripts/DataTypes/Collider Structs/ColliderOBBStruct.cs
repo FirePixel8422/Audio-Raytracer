@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [BurstCompile]
-[System.Serializable]
+[Serializable]
 [StructLayout(LayoutKind.Sequential, Pack = 4)]
 public struct ColliderOBBStruct
 {
@@ -25,6 +25,8 @@ public struct ColliderOBBStruct
 
     [Header("How thick is this wall for permeation calculations")]
     public half thicknessMultiplier;
+    [Header("How much power of the audioRays hitting this surface gets consumed")]
+    public half absorptionValue;
 
     public short audioTargetId;
 

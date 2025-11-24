@@ -39,7 +39,7 @@ public class AudioTargetRT : MonoBehaviour
         settings = newSettings;
 
         //0 = 100% muffled audio
-        spatializer.muffleStrength = newSettings.muffle;
+        spatializer.MuffleStrength = newSettings.muffle;
 
 #if UNITY_EDITOR
         totalUpdates += 1;

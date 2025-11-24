@@ -1,6 +1,8 @@
-using UnityEngine;
-using Unity.Mathematics;
 using System;
+using System.Runtime.CompilerServices;
+using Unity.Collections;
+using Unity.Mathematics;
+using UnityEngine;
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -12,27 +14,26 @@ public class AudioSpatializer : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform listenerTransform, soundPosTransform;
 
-    [Range(0.25f, 10f)]
-    public float volumeMultiplier = 1;
-    [Range(0f, 1f)]
-    public float muffleStrength;
+    [Range(0, 5)]
+    [SerializeField] private float volumeMultiplier = 1;
 
-    [SerializeField] private float3 cachedLocalDir;
-    [SerializeField] private float cachedListenerDistance;
+    [Range(0, 1)]
+    public float MuffleStrength;
 
+    [Range(0, 1)]
+    [SerializeField] private float reverbBlend;
+
+    private float3 cachedLocalDir;
+    private float cachedListenerDistance;
+    
     private int sampleRate;
+    
+    private const float DoublePI = 2f * math.PI;
 
-#if UNITY_EDITOR
-    [Header("DEBUG")]
-    [SerializeField] private int totalAudioFrames;
-    [SerializeField] private int audioFPS;
-    [SerializeField] private int audioFrameTime;
-#endif
 
 
     private void OnEnable() => UpdateScheduler.RegisterLateUpdate(OnLateUpdate);
     private void OnDisable() => UpdateScheduler.UnRegisterLateUpdate(OnLateUpdate);
-
 
     private void Awake()
     {
@@ -58,18 +59,12 @@ public class AudioSpatializer : MonoBehaviour
     #region Audio Processing (On Audio Thread)
 
     // Filter state
-    private float previousLeftLP;
-    private float previousRightLP;
-    private float previousLeftHP;
-    private float previousRightHP;
-    private float previousLeftInput;
-    private float previousRightInput;
+    private StereoFloat previousLP;
+    private StereoFloat previousHP;
+    private StereoFloat previousInput;
 
     // New muffle pass filter state
-    private float previousLeftMuffle;
-    private float previousRightMuffle;
-
-    private const float DoublePI = 2f * math.PI;
+    private StereoFloat previousMuffle;
 
 
     private void OnAudioFilterRead(float[] data, int channels)
@@ -85,6 +80,9 @@ public class AudioSpatializer : MonoBehaviour
         float distanceToListener = cachedListenerDistance;
         float azimuth = math.degrees(math.atan2(localDir.x, localDir.z));
 
+
+        #region Panning Calculation
+
         float effectivePanStrength = settings.panStrength;
         if (settings.distanceBasedPanning)
         {
@@ -96,6 +94,11 @@ public class AudioSpatializer : MonoBehaviour
         float leftGain = math.sqrt(0.5f * (1f - pan));
         float rightGain = math.sqrt(0.5f * (1f + pan));
 
+        #endregion
+
+
+        #region Rear Attenuation (Based on Azimuth and Distance)
+
         float frontFactor = math.max(0f, math.cos(math.radians(azimuth)));
         float rearAtten = math.lerp(1f - settings.rearAttenuationStrength, 1f, frontFactor);
 
@@ -104,19 +107,28 @@ public class AudioSpatializer : MonoBehaviour
             rearAtten = math.clamp(rearAtten * math.saturate(1f - (distanceToListener / settings.maxRearAttenuationDistance)), 1f - settings.rearAttenuationStrength, 1f);
         }
 
-        // Create a falloff factor based on elevation (localDir.y)
+        #endregion
+
+
+        #region Sound Multiplier based on Elevation
+
+        // Modify sound volume based on if targetr is above or below the listener
         float volumeFalloff = 1f;
         if (localDir.y <= 0f)
         {
-            // Lowpass: as the sound goes below the horizon, reduce volume more
-            volumeFalloff = math.lerp(1f, settings.lowPassVolume, math.saturate(-localDir.y)); // More lowpass = less volume
+            // Volume modifier for Lowpass
+            volumeFalloff = math.lerp(1f, settings.lowPassVolume, math.saturate(-localDir.y));
         }
         else
         {
-            // Highpass: as the sound goes above the horizon, reduce volume more
-            volumeFalloff = math.lerp(1f, settings.highPassVolume, math.saturate(localDir.y)); // More highpass = less volume
+            // Volume modifier for Highpass
+            volumeFalloff = math.lerp(1f, settings.highPassVolume, math.saturate(localDir.y));
         }
 
+        #endregion
+
+
+        // Apply modifications to every sample of current audiosample buffer
         for (int i = 0; i < data.Length; i += 2)
         {
             float leftSample = data[i];
@@ -126,36 +138,47 @@ public class AudioSpatializer : MonoBehaviour
             float processedLeft = leftSample * leftGain * rearAtten * volumeMultiplier * volumeFalloff;
             float processedRight = rightSample * rightGain * rearAtten * volumeMultiplier * volumeFalloff;
 
+
+            #region LowPass/HighPass based on elevation
+
             // Apply Lowpass if elevation is below horizon
             if (localDir.y <= 0f)
             {
                 float lowPassCutoff = math.lerp(settings.lowPassCutoff.max, settings.lowPassCutoff.min, math.saturate(-localDir.y)) * (1f - 0.5f * math.saturate(distanceToListener / settings.maxElevationEffectDistance));
 
-                processedLeft = LowPass(processedLeft, ref previousLeftLP, lowPassCutoff, sampleRate);
-                processedRight = LowPass(processedRight, ref previousRightLP, lowPassCutoff, sampleRate);
+                processedLeft = LowPass(processedLeft, ref previousLP.Left, lowPassCutoff, sampleRate);
+                processedRight = LowPass(processedRight, ref previousLP.Right, lowPassCutoff, sampleRate);
             }
             // Apply Highpass if elevation is above horizon
             else
             {
                 float highPassCutoff = math.lerp(settings.highPassCutoff.min, settings.highPassCutoff.max, math.saturate(localDir.y)) * (1f + 0.5f * math.saturate(distanceToListener / settings.maxElevationEffectDistance));
 
-                processedLeft = HighPass(processedLeft, ref previousLeftInput, ref previousLeftHP, highPassCutoff, sampleRate);
-                processedRight = HighPass(processedRight, ref previousRightInput, ref previousRightHP, highPassCutoff, sampleRate);
+                processedLeft = HighPass(processedLeft, ref previousInput.Left, ref previousHP.Left, highPassCutoff, sampleRate);
+                processedRight = HighPass(processedRight, ref previousInput.Right, ref previousHP.Right, highPassCutoff, sampleRate);
             }
 
-            // Apply additional muffle lowpass based on muffleStrength
-            if (muffleStrength > 0f)
+            #endregion
+
+
+            #region Muffle (Lowpass based on MuffleStrength)
+
+            // Apply additional muffle lowpass based on MuffleStrength
+            if (MuffleStrength > 0f)
             {
-                float muffleCutoff = math.lerp(settings.muffleCutoff.max, settings.muffleCutoff.min, muffleStrength);
-                processedLeft = LowPass(processedLeft, ref previousLeftMuffle, muffleCutoff, sampleRate);
-                processedRight = LowPass(processedRight, ref previousRightMuffle, muffleCutoff, sampleRate);
+                float muffleCutoff = math.lerp(settings.muffleCutoff.max, settings.muffleCutoff.min, MuffleStrength);
+                processedLeft = LowPass(processedLeft, ref previousMuffle.Left, muffleCutoff, sampleRate);
+                processedRight = LowPass(processedRight, ref previousMuffle.Right, muffleCutoff, sampleRate);
             }
+
+            #endregion
 
             data[i] = processedLeft;
             data[i + 1] = processedRight;
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private float LowPass(float input, ref float previousOutput, float cutoff, float sampleRate)
     {
         float RC = 1.0f / (cutoff * DoublePI);
@@ -165,6 +188,7 @@ public class AudioSpatializer : MonoBehaviour
         return previousOutput;
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private float HighPass(float input, ref float previousInput, ref float previousOutput, float cutoff, float sampleRate)
     {
         float RC = 1.0f / (cutoff * DoublePI);
@@ -177,4 +201,23 @@ public class AudioSpatializer : MonoBehaviour
     }
 
     #endregion
+
+
+
+#if UNITY_EDITOR
+    [SerializeField] private bool DEBUG_SyncSettingsWithSO;
+
+    [Header("DEBUG")]
+    [SerializeField] private int totalAudioFrames;
+    [SerializeField] private int audioFPS;
+    [SerializeField] private int audioFrameTime;
+
+    private void OnValidate()
+    {
+        if (DEBUG_SyncSettingsWithSO && settingsSO != null)
+        {
+            settings = settingsSO.settings;
+        }
+    }
+#endif
 }

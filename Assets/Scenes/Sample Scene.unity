@@ -186,6 +186,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &8522048
@@ -311,6 +313,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!65 &49560624
 BoxCollider:
@@ -450,6 +454,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &64998088
 MeshRenderer:
@@ -573,6 +579,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &73095047
@@ -697,6 +705,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &74003203
 MeshRenderer:
@@ -820,6 +830,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &74819114
 MeshRenderer:
@@ -938,6 +950,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &122325304
 MeshRenderer:
@@ -1061,6 +1075,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &133238652
 MeshRenderer:
@@ -1186,6 +1202,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!65 &146765639
@@ -1358,6 +1376,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &153961498
 MeshRenderer:
@@ -1482,6 +1502,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!65 &158516855
 BoxCollider:
@@ -1626,6 +1648,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &176565373
 MeshRenderer:
@@ -1864,6 +1888,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &241768771
@@ -1882,6 +1908,7 @@ GameObject:
   - component: {fileID: 241768772}
   - component: {fileID: 241768780}
   - component: {fileID: 241768783}
+  - component: {fileID: 241768785}
   m_Layer: 0
   m_Name: MusicBox
   m_TagString: Untagged
@@ -2134,17 +2161,13 @@ MonoBehaviour:
       min: 0
       max: 0
     maxReverbTime: 0
-    reverbDecay: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 241768773}
   volumeMultiplier: 1
-  muffleStrength: 0.97574717
-  cachedLocalDir:
-    x: 0
-    y: 0
-    z: 0
-  cachedListenerDistance: 0
-  totalAudioFrames: 764
+  MuffleStrength: 0
+  reverbBlend: 0
+  DEBUG_SyncSettingsWithSO: 0
+  totalAudioFrames: 0
   audioFPS: 0
   audioFrameTime: 0
 --- !u!114 &241768784
@@ -2179,8 +2202,22 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
+--- !u!114 &241768785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241768771}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc0ba70f2bfb8c4681ae4d4089a5695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp-firstpass::NativeAudioSpatializer
 --- !u!1 &241897082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2284,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &241897085
 MeshRenderer:
@@ -2372,6 +2411,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!65 &245504481
@@ -2601,6 +2642,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!65 &259388603
 BoxCollider:
@@ -2689,6 +2732,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &275938311
 MeshRenderer:
@@ -2892,6 +2937,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &313471228
 MeshRenderer:
@@ -3132,6 +3179,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &357030085
 GameObject:
@@ -3200,6 +3249,8 @@ MonoBehaviour:
         value: 17664
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!64 &357030088
 MeshCollider:
@@ -3385,6 +3436,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &380856631
 MeshRenderer:
@@ -3556,6 +3609,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &439600013
@@ -3680,6 +3735,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &448504443
 MeshRenderer:
@@ -3803,6 +3860,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &484438590
 MeshRenderer:
@@ -3926,6 +3985,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &501485405
@@ -4050,6 +4111,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &512757049
 MeshRenderer:
@@ -4251,6 +4314,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &523996051
 GameObject:
@@ -4318,6 +4383,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &523996054
 MeshRenderer:
@@ -4441,6 +4508,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &537168692
 MeshRenderer:
@@ -4564,6 +4633,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &543297345
 MeshRenderer:
@@ -4743,6 +4814,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &564666611
 GameObject:
@@ -4810,6 +4883,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &564666614
@@ -4936,6 +5011,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!65 &569555417
@@ -5134,6 +5211,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &669964760
 MeshRenderer:
@@ -5313,6 +5392,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &748782457
 GameObject:
@@ -5380,6 +5461,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &748782460
 MeshRenderer:
@@ -5575,6 +5658,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &908917257
 MeshRenderer:
@@ -5698,6 +5783,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &918638344
 MeshRenderer:
@@ -5860,6 +5947,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &955285342
 MeshRenderer:
@@ -6034,6 +6123,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &963382059
 GameObject:
@@ -6101,6 +6192,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &963382062
 MeshRenderer:
@@ -6224,6 +6317,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &978338727
@@ -6348,6 +6443,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &984981302
 MeshRenderer:
@@ -6529,6 +6626,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!65 &1056975620
@@ -6779,6 +6878,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1067560548
 GameObject:
@@ -6902,6 +7003,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1074138734
 GameObject:
@@ -7025,6 +7128,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1084042695
@@ -7093,6 +7198,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1084042698
 MeshRenderer:
@@ -7211,6 +7318,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1124770072
 MeshRenderer:
@@ -7334,6 +7443,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1130263307
 MeshRenderer:
@@ -7457,6 +7568,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1142450322
 MeshRenderer:
@@ -7580,6 +7693,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1164137359
 MeshRenderer:
@@ -7781,6 +7896,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1172320429
@@ -7849,6 +7966,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1172320432
@@ -8051,6 +8170,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1175644724
@@ -8119,6 +8240,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1175644727
 MeshRenderer:
@@ -8242,6 +8365,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1217067796
 MeshRenderer:
@@ -8360,6 +8485,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1250829648
 MeshRenderer:
@@ -8539,6 +8666,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1282826396
 GameObject:
@@ -8608,6 +8737,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!65 &1282826399
@@ -8780,6 +8911,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1284498637
@@ -8904,6 +9037,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1288249362
@@ -9028,6 +9163,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1321373483
 MeshRenderer:
@@ -9207,6 +9344,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1344651899
 GameObject:
@@ -9314,6 +9453,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1357833411
 MeshRenderer:
@@ -9437,6 +9578,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1366608763
 MeshRenderer:
@@ -9638,6 +9781,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1388011533
 GameObject:
@@ -9705,6 +9850,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1388011536
 MeshRenderer:
@@ -9884,6 +10031,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1446888946
@@ -9947,6 +10096,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1446888949
 MeshRenderer:
@@ -10148,6 +10299,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1458572894
 GameObject:
@@ -10215,6 +10368,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1458572897
@@ -10339,6 +10494,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1480549146
 MeshRenderer:
@@ -10518,6 +10675,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1488041906
 GameObject:
@@ -10663,6 +10822,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1490143452
 GameObject:
@@ -10730,6 +10891,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1490143455
 MeshRenderer:
@@ -10853,6 +11016,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1521558292
 MeshRenderer:
@@ -10976,6 +11141,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1548262623
 MeshRenderer:
@@ -11099,6 +11266,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1622227800
@@ -11301,6 +11470,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1653812445
@@ -11507,6 +11678,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!65 &1658346142
 BoxCollider:
@@ -11651,6 +11824,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1667491496
@@ -11776,6 +11951,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!65 &1691937633
 BoxCollider:
@@ -11998,6 +12175,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!1 &1731490741
@@ -12066,6 +12245,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1731490744
 MeshRenderer:
@@ -12189,6 +12370,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1733781817
 MeshRenderer:
@@ -12313,6 +12496,8 @@ MonoBehaviour:
         value: 17664
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!64 &1744947564
 MeshCollider:
@@ -12458,6 +12643,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1746649117
 MeshRenderer:
@@ -12581,6 +12768,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &1792104911
@@ -12707,6 +12896,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!65 &1810182911
@@ -12879,6 +13070,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1874891145
 MeshRenderer:
@@ -12997,6 +13190,8 @@ MonoBehaviour:
       value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1879247004
 MeshRenderer:
@@ -13200,6 +13395,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1903047786
 MeshRenderer:
@@ -13401,6 +13598,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1913924451
 GameObject:
@@ -13468,6 +13667,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &1913924454
 MeshRenderer:
@@ -13669,6 +13870,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &1941546987
 GameObject:
@@ -13863,6 +14066,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!23 &2001859808
@@ -14065,6 +14270,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &2038491569
 GameObject:
@@ -14275,7 +14482,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2039623046}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d14e0eebbfc9f5b4685365d70167ab2b, type: 3}
   m_Name: 
@@ -14284,8 +14491,8 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  rayCount: 305
-  maxBounces: 5
+  rayCount: 314
+  maxBounces: 3
   maxRayDist: 150
   muffleFalloffCurve:
     curve:
@@ -14297,12 +14504,12 @@ MonoBehaviour:
     valueMultiplier: 0
     sampleCount: 0
   computeAsync: 1
-  maxThreadCount: 2
+  maxThreadCount: 1
   drawRayHitsGizmos: 1
   drawRayTrailsGizmos: 1
-  drawReturnRayDirectionGizmos: 0
-  drawReturnRayLastDirectionGizmos: 0
-  drawReturnRaysAvgDirectionGizmos: 0
+  drawReturnRayDirectionGizmos: 1
+  drawReturnRayLastDirectionGizmos: 1
+  drawReturnRaysAvgDirectionGizmos: 1
   originColor: {r: 0, g: 1, b: 0, a: 1}
   rayHitColor: {r: 0, g: 1, b: 1, a: 1}
   rayTrailColor: {r: 0, g: 1, b: 0, a: 0.15}
@@ -14378,6 +14585,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!23 &2075243382
 MeshRenderer:
@@ -14579,6 +14788,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
 --- !u!1 &2115961653
 GameObject:
@@ -14652,16 +14863,12 @@ MonoBehaviour:
       min: 0
       max: 0
     maxReverbTime: 0
-    reverbDecay: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 2115961654}
   volumeMultiplier: 1
-  muffleStrength: 0
-  cachedLocalDir:
-    x: 0
-    y: 0
-    z: 0
-  cachedListenerDistance: 0
+  MuffleStrength: 0
+  reverbBlend: 0
+  DEBUG_SyncSettingsWithSO: 0
   totalAudioFrames: 0
   audioFPS: 0
   audioFrameTime: 0
@@ -14830,6 +15037,8 @@ MonoBehaviour:
         value: 14336
     thicknessMultiplier:
       value: 15360
+    absorptionValue:
+      value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
 --- !u!114 &2115961662

@@ -264,18 +264,6 @@ public class AudioRayTracer : MonoBehaviour
         {
             AudioTargetData settings = audioTargetSettings[audioTargetId];
 
-            if (settings.panStereo == -2)
-            {
-                // Calculate direction from listener to sound source (target direction)
-                float3 targetDir = math.normalize((float3)transform.position + rayOrigin - audioTargetPositions[audioTargetId]); // Direction from listener to sound source
-
-                // Project the target direction onto the horizontal plane (ignore y-axis)
-                targetDir.y = 0f;
-
-                // Calculate pan as a value between -1 (left) and 1 (right)
-                settings.panStereo = math.clamp(math.dot(targetDir, transform.right), -1, 1);
-            }
-
             audioTargets[audioTargetId].UpdateAudioSource(settings);
         }
     }
