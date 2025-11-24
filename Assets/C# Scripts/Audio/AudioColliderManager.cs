@@ -60,7 +60,7 @@ public class AudioColliderManager : MonoBehaviour
     {
         if (target == null) return;
 
-        short removeId = target.AudioColliderId;
+        short roRemoveId = target.AudioColliderId;
         ColliderType type = target.GetColliderType();
 
         // Remove from master list
@@ -70,34 +70,34 @@ public class AudioColliderManager : MonoBehaviour
         switch (type)
         {
             case ColliderType.Sphere:
-                SwapRemove(SphereColliders, sphereColliderRefs, removeId);
+                SwapRemove(SphereColliders, sphereColliderRefs, roRemoveId);
                 break;
 
             case ColliderType.AABB:
-                SwapRemove(AABBColliders, aabbColliderRefs, removeId);
+                SwapRemove(AABBColliders, aabbColliderRefs, roRemoveId);
                 break;
 
             case ColliderType.OBB:
-                SwapRemove(OBBColliders, obbColliderRefs, removeId);
+                SwapRemove(OBBColliders, obbColliderRefs, roRemoveId);
                 break;
         }
     }
 
-    private static void SwapRemove<T>(NativeListBatch<T> nativeList, List<AudioCollider> refList, short removeId) where T : unmanaged
+    private static void SwapRemove<T>(NativeListBatch<T> nativeList, List<AudioCollider> refList, short roRemoveId) where T : unmanaged
     {
-        if (removeId < 0 || removeId >= refList.Count || removeId >= nativeList.NextBatch.Length)
+        if (roRemoveId < 0 || roRemoveId >= refList.Count || roRemoveId >= nativeList.NextBatch.Length)
             return; // skip invalid remove
 
         int lastIndex = refList.Count - 1;
 
-        if (removeId != lastIndex)
+        if (roRemoveId != lastIndex)
         {
-            refList[removeId] = refList[lastIndex];
-            refList[removeId].AudioColliderId = removeId;
+            refList[roRemoveId] = refList[lastIndex];
+            refList[roRemoveId].AudioColliderId = roRemoveId;
         }
 
         refList.RemoveAt(lastIndex);
-        nativeList.RemoveAtSwapBack(removeId);
+        nativeList.RemoveAtSwapBack(roRemoveId);
     }
 
 

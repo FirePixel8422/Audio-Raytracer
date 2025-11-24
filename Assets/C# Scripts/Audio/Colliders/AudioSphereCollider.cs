@@ -57,15 +57,9 @@ public class AudioSphereCollider : AudioCollider
 
     protected override void CheckColliderTransformation()
     {
-        if (transform.position != lastWorldPosition)
-        {
-            AudioColliderManager.UpdateColiderInSystem(this);
-        }
-        else if (transform.lossyScale != lastGlobalScale)
-        {
-            AudioColliderManager.UpdateColiderInSystem(this);
-        }
-        else if (colliderStruct != lastColliderStruct)
+        if (transform.position != lastWorldPosition ||
+            transform.lossyScale != lastGlobalScale ||
+            colliderStruct != lastColliderStruct)
         {
             AudioColliderManager.UpdateColiderInSystem(this);
         }

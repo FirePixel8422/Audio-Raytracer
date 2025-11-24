@@ -7,6 +7,7 @@ public class AudioOBBCollider : AudioCollider
     [Header("Box Colliders with rotation: \nfast, but a little slower than an 'axisAlignedBox' > 6/10")]
     [SerializeField] private ColliderOBBStruct colliderStruct = ColliderOBBStruct.Default;
     private ColliderOBBStruct lastColliderStruct;
+    private Quaternion lastWorldRotation;
 
     [Header("Include gameObject rotation to the colliders final rotation")]
     [SerializeField] private bool includeGameObjectRotation = true;
@@ -64,15 +65,10 @@ public class AudioOBBCollider : AudioCollider
 
     protected override void CheckColliderTransformation()
     {
-        if (transform.position != lastWorldPosition)
-        {
-            AudioColliderManager.UpdateColiderInSystem(this);
-        }
-        else if (transform.lossyScale != lastGlobalScale)
-        {
-            AudioColliderManager.UpdateColiderInSystem(this);
-        }
-        else if (colliderStruct != lastColliderStruct)
+        if (transform.position != lastWorldPosition ||
+            transform.lossyScale != lastGlobalScale ||
+            transform.rotation != lastWorldRotation ||
+            colliderStruct != lastColliderStruct)
         {
             AudioColliderManager.UpdateColiderInSystem(this);
         }
@@ -82,6 +78,7 @@ public class AudioOBBCollider : AudioCollider
     protected override void UpdateSavedData()
     {
         base.UpdateSavedData();
+        lastWorldRotation = transform.rotation;
         lastColliderStruct = colliderStruct;
     }
 

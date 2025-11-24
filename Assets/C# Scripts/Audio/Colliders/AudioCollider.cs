@@ -13,7 +13,7 @@ public abstract class AudioCollider : MonoBehaviour
     protected Vector3 lastGlobalScale;
 
 
-    private void Start()
+    private void Awake()
     {
         if (TryGetComponent(out AudioTargetRT audioTargetRT))
         {
@@ -51,8 +51,10 @@ public abstract class AudioCollider : MonoBehaviour
     /// </summary>
     public virtual void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs) { }
 
+
     private void OnEnable() => AudioColliderManager.AddColiderToSystem(this);
     private void OnDisable() => AudioColliderManager.RemoveColiderFromSystem(this);
+
     private void OnDestroy()
     {
         if (IsStatic == false)
