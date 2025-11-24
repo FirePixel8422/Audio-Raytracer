@@ -31,4 +31,6 @@ MonoBehaviour:
     muffleCutoff:
       min: 75
       max: 8000
-    maxReverbTime: 0.5
+    reverbDecayFactor: 0.805
+    reverbAllpassGain: 0.7
+    wetBoostMultiplier: 1.5

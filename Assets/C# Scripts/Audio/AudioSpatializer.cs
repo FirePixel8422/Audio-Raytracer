@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.CompilerServices;
-using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -21,7 +20,8 @@ public class AudioSpatializer : MonoBehaviour
     public float MuffleStrength;
 
     [Range(0, 1)]
-    [SerializeField] private float reverbBlend;
+    public float ReverbBlend;
+    private SimpleReverb reverb;
 
     private float3 cachedLocalDir;
     private float cachedListenerDistance;
@@ -38,13 +38,15 @@ public class AudioSpatializer : MonoBehaviour
     private void Awake()
     {
         settings = settingsSO == null ? AudioSpatializerSettings.Default : settingsSO.settings;
+
         sampleRate = AudioSettings.outputSampleRate;
+        reverb = new SimpleReverb(sampleRate, settings.reverbDecayFactor, settings.reverbAllpassGain);
     }
 
 
     private void OnLateUpdate()
     {
-        float3 worldDir = soundPosTransform.position - listenerTransform.position;
+        float3 worldDir = listenerTransform.position - soundPosTransform.position;
         cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
 
         cachedListenerDistance = math.length(soundPosTransform.position - listenerTransform.position);
@@ -173,6 +175,24 @@ public class AudioSpatializer : MonoBehaviour
 
             #endregion
 
+
+            #region Reverb
+            
+            if (ReverbBlend > 0)
+            {
+                float dryL = processedLeft;
+                float dryR = processedRight;
+
+                float wetL = reverb.Process(dryL) * settings.wetBoostMultiplier;
+                float wetR = reverb.Process(dryR) * settings.wetBoostMultiplier;
+
+                processedLeft = math.lerp(dryL, wetL, ReverbBlend);
+                processedRight = math.lerp(dryR, wetR, ReverbBlend);
+            }
+            
+            #endregion
+
+
             data[i] = processedLeft;
             data[i + 1] = processedRight;
         }
@@ -205,7 +225,7 @@ public class AudioSpatializer : MonoBehaviour
 
 
 #if UNITY_EDITOR
-    [SerializeField] private bool DEBUG_SyncSettingsWithSO;
+    [SerializeField] private bool DEBUG_SyncSettingsToSO;
 
     [Header("DEBUG")]
     [SerializeField] private int totalAudioFrames;
@@ -214,9 +234,9 @@ public class AudioSpatializer : MonoBehaviour
 
     private void OnValidate()
     {
-        if (DEBUG_SyncSettingsWithSO && settingsSO != null)
+        if (settings.wetBoostMultiplier != 0 && Application.isPlaying && DEBUG_SyncSettingsToSO && settingsSO != null)
         {
-            settings = settingsSO.settings;
+            settingsSO.settings = settings;
         }
     }
 #endif

@@ -4,16 +4,8 @@ using UnityEngine;
 
 public class AudioTargetRT : MonoBehaviour
 {
-    [Header("Audio Settings:")]
-    [Space(6)]
-    [SerializeField] private AudioTargetData settings;
-
-    [SerializeField] private float volumeUpdateSpeed = 0.5f;
-    [SerializeField] private float lowPassUpdateSpeed = 8500;
-
     public short Id { get; set; }
 
-    private AudioSource source;
     private AudioSpatializer spatializer;
 
 #if UNITY_EDITOR
@@ -26,7 +18,6 @@ public class AudioTargetRT : MonoBehaviour
 
     private void Awake()
     {
-        source = GetComponent<AudioSource>();
         spatializer = GetComponent<AudioSpatializer>();
     }
 
@@ -36,10 +27,8 @@ public class AudioTargetRT : MonoBehaviour
     /// </summary>
     public void UpdateAudioSource(AudioTargetData newSettings)
     {
-        settings = newSettings;
-
-        //0 = 100% muffled audio
         spatializer.MuffleStrength = newSettings.muffle;
+
 
 #if UNITY_EDITOR
         totalUpdates += 1;
@@ -47,6 +36,4 @@ public class AudioTargetRT : MonoBehaviour
         updateFrameTime = (int)math.floor(1f / updateFPS * 1000);
 #endif
     }
-
-    public float3 direction;
 }

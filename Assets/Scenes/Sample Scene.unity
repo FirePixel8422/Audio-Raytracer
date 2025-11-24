@@ -1908,7 +1908,6 @@ GameObject:
   - component: {fileID: 241768772}
   - component: {fileID: 241768780}
   - component: {fileID: 241768783}
-  - component: {fileID: 241768785}
   m_Layer: 0
   m_Name: MusicBox
   m_TagString: Untagged
@@ -2160,13 +2159,15 @@ MonoBehaviour:
     muffleCutoff:
       min: 0
       max: 0
-    maxReverbTime: 0
+    reverbDecayFactor: 0
+    reverbAllpassGain: 0
+    wetBoostMultiplier: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 241768773}
   volumeMultiplier: 1
   MuffleStrength: 0
-  reverbBlend: 0
-  DEBUG_SyncSettingsWithSO: 0
+  ReverbBlend: 0
+  DEBUG_SyncSettingsToSO: 1
   totalAudioFrames: 0
   audioFPS: 0
   audioFrameTime: 0
@@ -2182,7 +2183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
+  IsStatic: 0
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -2206,18 +2207,6 @@ MonoBehaviour:
       value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
---- !u!114 &241768785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241768771}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efc0ba70f2bfb8c4681ae4d4089a5695, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp-firstpass::NativeAudioSpatializer
 --- !u!1 &241897082
 GameObject:
   m_ObjectHideFlags: 0
@@ -11355,7 +11344,7 @@ Transform:
   m_GameObject: {fileID: 1648640012}
   serializedVersion: 2
   m_LocalRotation: {x: 0.56098396, y: -0.43045968, z: -0.43045926, w: 0.560987}
-  m_LocalPosition: {x: 21.75, y: 1.75, z: -8}
+  m_LocalPosition: {x: 20.99, y: 1.82, z: -8}
   m_LocalScale: {x: 0.1, y: 4, z: 12.999187}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12060,7 +12049,7 @@ Transform:
   m_GameObject: {fileID: 1729863502}
   serializedVersion: 2
   m_LocalRotation: {x: 0.61237085, y: -0.35355404, z: -0.35355327, w: 0.61237377}
-  m_LocalPosition: {x: 21.75, y: 3.25, z: 8}
+  m_LocalPosition: {x: 21.65, y: 3.26, z: 8}
   m_LocalScale: {x: 0.1, y: 4, z: 12.999187}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14507,9 +14496,9 @@ MonoBehaviour:
   maxThreadCount: 1
   drawRayHitsGizmos: 1
   drawRayTrailsGizmos: 1
-  drawReturnRayDirectionGizmos: 1
-  drawReturnRayLastDirectionGizmos: 1
-  drawReturnRaysAvgDirectionGizmos: 1
+  drawReturnRayDirectionGizmos: 0
+  drawReturnRayLastDirectionGizmos: 0
+  drawReturnRaysAvgDirectionGizmos: 0
   originColor: {r: 0, g: 1, b: 0, a: 1}
   rayHitColor: {r: 0, g: 1, b: 1, a: 1}
   rayTrailColor: {r: 0, g: 1, b: 0, a: 0.15}
@@ -14862,13 +14851,15 @@ MonoBehaviour:
     muffleCutoff:
       min: 0
       max: 0
-    maxReverbTime: 0
+    reverbDecayFactor: 0
+    reverbAllpassGain: 0
+    wetBoostMultiplier: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 2115961654}
   volumeMultiplier: 1
   MuffleStrength: 0
-  reverbBlend: 0
-  DEBUG_SyncSettingsWithSO: 0
+  ReverbBlend: 0
+  DEBUG_SyncSettingsToSO: 0
   totalAudioFrames: 0
   audioFPS: 0
   audioFrameTime: 0

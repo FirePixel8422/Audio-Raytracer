@@ -39,8 +39,12 @@ public struct AudioSpatializerSettings
     public MinMaxFloat muffleCutoff;
 
     [Header("Reverb Effect")]
-    [Range(0, 5)]
-    public float maxReverbTime;
+    [Range(0, 1)]
+    public float reverbDecayFactor;
+    [Range(0, 1)]
+    public float reverbAllpassGain;
+    [Range(0, 2)]
+    public float wetBoostMultiplier;
 
 
     /// <summary>
@@ -67,6 +71,8 @@ public struct AudioSpatializerSettings
 
         muffleCutoff = new MinMaxFloat(75, 8000),
 
-        maxReverbTime = 0.2f,
+        reverbDecayFactor = 0.805f,
+        reverbAllpassGain = 0.7f,
+        wetBoostMultiplier = 0,
     };
 }

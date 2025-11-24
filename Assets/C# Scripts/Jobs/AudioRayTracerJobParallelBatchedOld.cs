@@ -116,7 +116,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
                     #region Check if hit ray point can return to original origin point (Blue Echo rays to player)
 
-                    float3 offsettedRayHitWorldPoint = cRayOrigin - cRayDir * Epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
+                    float3 offsettedRayHitWorldPoint = cRayOrigin;// - cRayDir * Epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
 
                     //shoot a return ray to the original origin
                     float3 returnRayDir = math.normalize(RayOrigin - offsettedRayHitWorldPoint);
@@ -262,15 +262,15 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
     [BurstCompile]
-    private bool RayIntersectsAABB(float3 RayOrigin, float3 rayDir, float3 center, float3 halfExtents, out float distance)
+    private bool RayIntersectsAABB(float3 rayOrigin, float3 rayDir, float3 center, float3 halfExtents, out float distance)
     {
         float3 min = center - halfExtents;
         float3 max = center + halfExtents;
 
         float3 invDir = 1.0f / rayDir;
 
-        float3 t0 = (min - RayOrigin) * invDir;
-        float3 t1 = (max - RayOrigin) * invDir;
+        float3 t0 = (min - rayOrigin) * invDir;
+        float3 t1 = (max - rayOrigin) * invDir;
 
         float3 tmin = math.min(t0, t1);
         float3 tmax = math.max(t0, t1);
@@ -290,10 +290,10 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
     [BurstCompile]
-    private bool RayIntersectsOBB(float3 RayOrigin, float3 rayDir, float3 center, float3 halfExtents, quaternion rotation, out float distance)
+    private bool RayIntersectsOBB(float3 rayOrigin, float3 rayDir, float3 center, float3 halfExtents, quaternion rotation, out float distance)
     {
         quaternion invRotation = math.inverse(rotation);
-        float3 localOrigin = math.mul(invRotation, RayOrigin - center);
+        float3 localOrigin = math.mul(invRotation, rayOrigin - center);
         float3 localDir = math.mul(invRotation, rayDir);
 
         // Use your existing AABB intersection function on the local ray
@@ -302,9 +302,9 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
 
     [BurstCompile]
-    private bool RayIntersectsSphere(float3 RayOrigin, float3 rayDir, float3 center, float radius, out float distance)
+    private bool RayIntersectsSphere(float3 rayOrigin, float3 rayDir, float3 center, float radius, out float distance)
     {
-        float3 oc = RayOrigin - center;
+        float3 oc = rayOrigin - center;
         float a = math.dot(rayDir, rayDir);
         float b = 2.0f * math.dot(oc, rayDir);
         float c = math.dot(oc, oc) - radius * radius;
@@ -343,7 +343,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     /// Check if world point is visible from the ray origin, meaning no colliders are in the way.
     /// </summary>
     [BurstCompile]
-    private bool CanRaySeePoint(float3 RayOrigin, float3 rayDir, float distToTarget)
+    private bool CanRaySeePoint(float3 rayOrigin, float3 rayDir, float distToTarget)
     {
         float dist;
 
@@ -351,7 +351,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         for (int i = 0; i < AABBColliders.Length; i++)
         {
             var tempAABB = AABBColliders[i];
-            if (RayIntersectsAABB(RayOrigin, rayDir, tempAABB.center, tempAABB.size, out dist) && dist < distToTarget)
+            if (RayIntersectsAABB(rayOrigin, rayDir, tempAABB.center, tempAABB.size, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -360,7 +360,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         for (int i = 0; i < OBBColliders.Length; i++)
         {
             var tempOBB = OBBColliders[i];
-            if (RayIntersectsOBB(RayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < distToTarget)
+            if (RayIntersectsOBB(rayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -369,7 +369,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
         for (int i = 0; i < SphereColliders.Length; i++)
         {
             var tempSphere = SphereColliders[i];
-            if (RayIntersectsSphere(RayOrigin, rayDir, tempSphere.center, tempSphere.radius, out dist) && dist < distToTarget)
+            if (RayIntersectsSphere(rayOrigin, rayDir, tempSphere.center, tempSphere.radius, out dist) && dist < distToTarget)
             {
                 return false;
             }
@@ -383,7 +383,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     /// Identical to CanRaySeePoint, but skips hits against the colliders of the audioTarget
     /// </summary>
     [BurstCompile]
-    private bool CanRaySeeAudioTarget(float3 RayOrigin, float3 rayDir, float distToOriginalOrigin, int audioTargetId)
+    private bool CanRaySeeAudioTarget(float3 rayOrigin, float3 rayDir, float distToOriginalOrigin, int audioTargetId)
     {
         //check against AABBs
         for (int i = 0; i < AABBColliders.Length; i++)
@@ -396,7 +396,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsAABB(RayOrigin, rayDir, collider.center, collider.size, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsAABB(rayOrigin, rayDir, collider.center, collider.size, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
@@ -412,7 +412,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsOBB(RayOrigin, rayDir, collider.center, collider.size, collider.Rotation, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsOBB(rayOrigin, rayDir, collider.center, collider.size, collider.Rotation, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
@@ -428,7 +428,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 continue;
             }
 
-            if (RayIntersectsSphere(RayOrigin, rayDir, collider.center, collider.radius, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsSphere(rayOrigin, rayDir, collider.center, collider.radius, out float dist) && dist < distToOriginalOrigin)
             {
                 return false;
             }
