@@ -31,7 +31,7 @@ public class AudioOBBCollider : AudioCollider
             colliderStruct.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * colliderStruct.center.ToFloat3(), transform.position, out half3 mergedPosition);
+        Half3.Add(transform.rotation * (float3)colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
         Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
@@ -54,7 +54,7 @@ public class AudioOBBCollider : AudioCollider
             colliderStruct.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * colliderStruct.center.ToFloat3(), transform.position, out half3 mergedPosition);
+        Half3.Add(transform.rotation * (float3)colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
         Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
@@ -93,13 +93,13 @@ public class AudioOBBCollider : AudioCollider
             colliderStruct.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * colliderStruct.center.ToFloat3(), transform.position, out half3 mergedPosition);
+        Half3.Add(transform.rotation * (float3)colliderStruct.center, transform.position, out half3 mergedPosition);
         colliderStruct.center = mergedPosition;
 
         Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
-        Gizmos.DrawWireMesh(GlobalMeshes.cube, colliderStruct.center.ToFloat3(), colliderStruct.Rotation, colliderStruct.size.ToFloat3() * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStruct.center, colliderStruct.Rotation, (float3)colliderStruct.size * 2);
     }
 #endif
 }

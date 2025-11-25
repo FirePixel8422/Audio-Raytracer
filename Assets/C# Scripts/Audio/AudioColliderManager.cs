@@ -6,20 +6,21 @@ using System;
 
 public class AudioColliderManager : MonoBehaviour
 {
+    [Header("Start capacity of collider arrays")]
+    [SerializeField] private int startCapacity = 5;
+
     private static List<AudioCollider> colliders;
 
     private static List<AudioCollider> sphereColliderRefs;
     private static List<AudioCollider> aabbColliderRefs;
     private static List<AudioCollider> obbColliderRefs;
 
-    [Header("Start capacity of collider arrays")]
-    [SerializeField] private int startCapacity = 5;
-
     public static NativeListBatch<ColliderAABBStruct> AABBColliders { get; private set; }
     public static NativeListBatch<ColliderOBBStruct> OBBColliders { get; private set; }
     public static NativeListBatch<ColliderSphereStruct> SphereColliders { get; private set; }
 
     public static Action OnColliderUpdate { get; set; }
+
 
     private void Awake()
     {
@@ -60,7 +61,7 @@ public class AudioColliderManager : MonoBehaviour
     {
         if (target == null) return;
 
-        short roRemoveId = target.AudioColliderId;
+        short toRemoveId = target.AudioColliderId;
         ColliderType type = target.GetColliderType();
 
         // Remove from master list
@@ -70,34 +71,34 @@ public class AudioColliderManager : MonoBehaviour
         switch (type)
         {
             case ColliderType.Sphere:
-                SwapRemove(SphereColliders, sphereColliderRefs, roRemoveId);
+                SwapRemove(SphereColliders, sphereColliderRefs, toRemoveId);
                 break;
 
             case ColliderType.AABB:
-                SwapRemove(AABBColliders, aabbColliderRefs, roRemoveId);
+                SwapRemove(AABBColliders, aabbColliderRefs, toRemoveId);
                 break;
 
             case ColliderType.OBB:
-                SwapRemove(OBBColliders, obbColliderRefs, roRemoveId);
+                SwapRemove(OBBColliders, obbColliderRefs, toRemoveId);
                 break;
         }
     }
 
-    private static void SwapRemove<T>(NativeListBatch<T> nativeList, List<AudioCollider> refList, short roRemoveId) where T : unmanaged
+    private static void SwapRemove<T>(NativeListBatch<T> nativeList, List<AudioCollider> refList, short toRemoveId) where T : unmanaged
     {
-        if (roRemoveId < 0 || roRemoveId >= refList.Count || roRemoveId >= nativeList.NextBatch.Length)
+        if (toRemoveId < 0 || toRemoveId >= refList.Count || toRemoveId >= nativeList.NextBatch.Length)
             return; // skip invalid remove
 
         int lastIndex = refList.Count - 1;
 
-        if (roRemoveId != lastIndex)
+        if (toRemoveId != lastIndex)
         {
-            refList[roRemoveId] = refList[lastIndex];
-            refList[roRemoveId].AudioColliderId = roRemoveId;
+            refList[toRemoveId] = refList[lastIndex];
+            refList[toRemoveId].AudioColliderId = toRemoveId;
         }
 
         refList.RemoveAt(lastIndex);
-        nativeList.RemoveAtSwapBack(roRemoveId);
+        nativeList.RemoveAtSwapBack(toRemoveId);
     }
 
 

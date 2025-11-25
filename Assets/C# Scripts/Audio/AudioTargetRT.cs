@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class AudioTargetRT : MonoBehaviour
 {
-    public short Id { get; set; }
+    [SerializeField] private bool IsStatic = true;
+
+    public short Id;
 
     private AudioSpatializer spatializer;
+    private Vector3 lastWorldPosition;
+
 
 #if UNITY_EDITOR
     [Header("DEBUG")]
@@ -19,13 +23,44 @@ public class AudioTargetRT : MonoBehaviour
     private void Awake()
     {
         spatializer = GetComponent<AudioSpatializer>();
+        lastWorldPosition = transform.position;
+    }
+
+
+    private void OnEnable() => AudioTargetManager.AddAudioTargetToSystem(this);
+    private void OnDisable() => AudioTargetManager.RemoveAudioTargetFromSystem(this);
+
+    private void OnDestroy()
+    {
+        if (IsStatic == false)
+        {
+            AudioTargetManager.OnAudioTargetUpdate -= CheckTransformation;
+        }
+    }
+
+    public void AddToAudioSystem(NativeListBatch<float3> audioTargetPositions)
+    {
+        audioTargetPositions.Add(transform.position);
+    }
+    public void UpdateToAudioSystem(NativeListBatch<float3> audioTargetPositions)
+    {
+        audioTargetPositions.Set(Id, transform.position);
+    }
+
+    private void CheckTransformation()
+    {
+        if (transform.position != lastWorldPosition)
+        {
+            AudioTargetManager.UpdateColiderInSystem(this);
+        }
+        lastWorldPosition = transform.position;
     }
 
 
     /// <summary>
     /// Update AudioTarget at realtime based on the AudioRaytracer's data
     /// </summary>
-    public void UpdateAudioSource(AudioTargetData newSettings)
+    public void UpdateAudioSource(AudioTargetSettings newSettings)
     {
         spatializer.MuffleStrength = newSettings.muffle;
 

@@ -6,19 +6,23 @@ using Unity.Mathematics;
 [BurstCompile]
 public struct AudioRayResult
 {
-    public float distance;
-    public float fullRayDistance;
-    public int audioTargetId;
+    public half Distance;
+    public half FullRayDistance;
+    public short AudioTargetId;
 
-    public bool IsNull => distance == -1;
+    /// <summary>
+    /// If distance == -1, return true (is null)
+    /// </summary>
+    public bool IsNull => Distance == -1;
 
     public static AudioRayResult Null => new AudioRayResult
     {
-        distance = -1,
-        audioTargetId = -1,
+        Distance = (half)(-1),
+        AudioTargetId = -1,
     };
 
+
 #if UNITY_EDITOR
-    public float3 point;
+    public half3 DEBUG_HitPoint;
 #endif
 }

@@ -84,7 +84,7 @@ public class AudioSphereCollider : AudioCollider
         Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
         colliderStruct.radius = scaledRadius;
 
-        Gizmos.DrawWireSphere(colliderStruct.center.ToFloat3(), (float)colliderStruct.radius);
+        Gizmos.DrawWireSphere((float3)colliderStruct.center, (float)colliderStruct.radius);
     }
 #endif
 }

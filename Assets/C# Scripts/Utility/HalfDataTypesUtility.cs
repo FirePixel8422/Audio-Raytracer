@@ -14,10 +14,6 @@ public static class HalfDataTypesUtility
     {
         return new half3((half)value.x, (half)value.y, (half)value.z);
     }
-    public static float3 ToFloat3(this half3 value)
-    {
-        return new float3((float)value.x, (float)value.y, (float)value.z);
-    }
 
     [BurstCompile]
     public static void ConvertToHalf3(in this Vector3 value, out half3 output)
@@ -60,6 +56,12 @@ public struct Half3
     public static void Multiply(in float3 a, in float3 b, out half3 output)
     {
         output = new half3((half)(a.x * b.x), (half)(a.y * b.y), (half)(a.z * b.z));
+    }
+
+    [BurstCompile]
+    public static void Divide(in half3 a, in half3 b, out half3 output)
+    {
+        output = new half3((half)(a.x / b.x), (half)(a.y / b.y), (half)(a.z / b.z));
     }
 }
 [BurstCompile]

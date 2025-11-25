@@ -8,7 +8,7 @@ using Unity.Mathematics;
 public struct FibonacciDirectionsJobParallel : IJobParallelFor
 {
     [NativeDisableParallelForRestriction]
-    [WriteOnly][NoAlias] public NativeArray<float3> directions;
+    [WriteOnly][NoAlias] public NativeArray<half3> directions;
 
 
     [BurstCompile]
@@ -31,6 +31,6 @@ public struct FibonacciDirectionsJobParallel : IJobParallelFor
         float x = math.cos(theta) * radius;
         float z = math.sin(theta) * radius;
 
-        directions[i] = math.normalize(new float3(x, y, z));
+        directions[i] = (half3)math.normalize(new float3(x, y, z));
     }
 }

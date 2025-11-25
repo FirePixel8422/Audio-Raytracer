@@ -78,7 +78,7 @@ public class AudioAABBCollider : AudioCollider
         Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
         colliderStruct.size = scaledSize;
 
-        Gizmos.DrawWireMesh(GlobalMeshes.cube, colliderStruct.center.ToFloat3(), Quaternion.identity, colliderStruct.size.ToFloat3() * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStruct.center, Quaternion.identity, (float3)colliderStruct.size * 2);
     }
 #endif
 }
