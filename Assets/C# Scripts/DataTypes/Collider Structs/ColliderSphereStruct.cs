@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
@@ -7,7 +6,6 @@ using UnityEngine;
 
 [BurstCompile]
 [Serializable]
-[StructLayout(LayoutKind.Sequential, Pack = 4)]
 public struct ColliderSphereStruct
 {
     public half3 center;

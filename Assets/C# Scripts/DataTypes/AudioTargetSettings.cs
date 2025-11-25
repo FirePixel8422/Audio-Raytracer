@@ -5,7 +5,7 @@ using Unity.Mathematics;
 
 [System.Serializable]
 [BurstCompile]
-public struct AudioTargetData
+public struct AudioTargetSettings
 {
     public float volume;
     public float muffle;
@@ -16,7 +16,7 @@ public struct AudioTargetData
     public float panStereo;
     public float3 position;
 
-    public AudioTargetData(float volume, float muffle, float echoStrength, float echoTime, float panStereo, float3 position)
+    public AudioTargetSettings(float volume, float muffle, float echoStrength, float echoTime, float panStereo, float3 position)
     {
         this.volume = volume;
         this.muffle = muffle;
@@ -29,7 +29,7 @@ public struct AudioTargetData
         this.panStereo = panStereo;
     }
 
-    public AudioTargetData(AudioTargetData newSettings)
+    public AudioTargetSettings(AudioTargetSettings newSettings)
     {
         volume = newSettings.volume;
         muffle = newSettings.muffle;
