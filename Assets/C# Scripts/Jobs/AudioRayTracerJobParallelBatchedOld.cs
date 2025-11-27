@@ -1,7 +1,9 @@
+using System.Runtime.InteropServices;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine.Rendering;
 
 
 [BurstCompile]
@@ -41,7 +43,8 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     [BurstCompile]
     public void Execute(int rayStartIndex, int totalRays)
     {
-        int batchId = (int)math.round(rayStartIndex * (float)(MuffleRayHits.Length / TotalAudioTargets) / RayDirections.Length);
+        int batchCount = MuffleRayHits.Length / TotalAudioTargets;
+        int batchId = rayStartIndex * batchCount / RayDirections.Length;
 
         //save local copy of RayOrigin
         float3 cRayOrigin;
@@ -67,7 +70,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
             Results[rayIndex] = AudioRayResult.Null;
         }
         // Reset muffleRayHit count assigned to this batch
-        for (int i = 0; i < TotalAudioTargets; i++)
+        for (short i = 0; i < TotalAudioTargets; i++)
         {
             MuffleRayHits[batchId * TotalAudioTargets + i] = 0;
         }

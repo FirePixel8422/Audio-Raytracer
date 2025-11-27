@@ -12,6 +12,7 @@ public class AudioRaytracersManager : MonoBehaviour
     
 
     [Header("Run Raytracing async on background threads in parallel")]
+    [Space(-5)]
     [Header("WARNING: If false will block the main thread every frame until all rays are calculated")]
     [SerializeField] private bool computeAsync = true;
     public static bool ComputeAsync => Instance.computeAsync;
