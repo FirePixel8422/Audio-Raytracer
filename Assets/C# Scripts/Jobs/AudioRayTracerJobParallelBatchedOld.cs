@@ -69,6 +69,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
             EchoRayDirections[rayIndex] = half3.zero;
             Results[rayIndex] = AudioRayResult.Null;
         }
+
         // Reset muffleRayHit count assigned to this batch
         for (short i = 0; i < TotalAudioTargets; i++)
         {

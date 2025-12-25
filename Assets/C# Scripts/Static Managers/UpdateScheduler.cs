@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public static class UpdateScheduler
 {
-#pragma warning disable UDR000
+#pragma warning disable UDR0002
     private static Action OnUpdate;
     private static Action OnLateUpdate;
     private static Action OnFixedUpdate;
@@ -171,6 +171,13 @@ public static class UpdateScheduler
             OnFixedUpdate?.Invoke();
         }
 
+        private void OnDestroy()
+        {
+            OnUpdate = null;
+            OnLateUpdate = null;
+            OnFixedUpdate = null;
+        }
+
         private void OnApplicationQuit()
         {
             OnLateUpdate += () =>
@@ -181,12 +188,6 @@ public static class UpdateScheduler
                     OnLateApplicationQuit = null;
                 }
             };
-        }
-        private void OnDestroy()
-        {
-            OnUpdate = null;
-            OnLateUpdate = null;
-            OnFixedUpdate = null;
         }
     }
 }

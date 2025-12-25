@@ -132,7 +132,7 @@ public class AudioRayTracer : MonoBehaviour
             DEBUG_rayResultCounts = rayResultCounts.ToArray();
 
             DEBUG_echoRayDirections = echoRayDirections.ToArray();
-            DEBUG_muffleRayHits = AudioTargetManager.MuffleRayHits.CurrentBatch.AsArray().ToArray();
+            DEBUG_muffleRayHits = AudioTargetManager.MuffleRayHits.ToArray();
         }
 #endif
 
@@ -158,14 +158,14 @@ public class AudioRayTracer : MonoBehaviour
 
             MaxRayHits = maxBounces + 1,
             MaxRayDist = maxRayDist,
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount,
+            TotalAudioTargets = AudioTargetManager.AudioTargetCount_CurrentBatch,
 
             Results = rayResults,
             ResultCounts = rayResultCounts,
 
             EchoRayDirections = echoRayDirections,
             
-            MuffleRayHits = AudioTargetManager.MuffleRayHits.CurrentBatch.AsArray(),
+            MuffleRayHits = AudioTargetManager.MuffleRayHits,
         };
 
         int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracersManager.ToUseThreadCount));
@@ -186,11 +186,11 @@ public class AudioRayTracer : MonoBehaviour
 
             EchoRayDirections = echoRayDirections,
 
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount,
+            TotalAudioTargets = AudioTargetManager.AudioTargetCount_CurrentBatch,
             AudioTargetPositions = AudioTargetManager.AudioTargetPositions.CurrentBatch.AsArray(),
             AudioTargetRTData = AudioTargetManager.AudioTargetRTData.CurrentBatch.AsArray(),
 
-            MuffleRayHits = AudioTargetManager.MuffleRayHits.CurrentBatch.AsArray(),
+            MuffleRayHits = AudioTargetManager.MuffleRayHits,
 
             MaxRayHits = maxBounces + 1,
             RayCount = rayCount,

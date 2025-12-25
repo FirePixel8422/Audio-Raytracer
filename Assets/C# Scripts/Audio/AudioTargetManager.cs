@@ -3,6 +3,8 @@ using Unity.Collections;
 using UnityEngine;
 using System;
 using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEngine.Rendering;
 
 
 public class AudioTargetManager : MonoBehaviour
@@ -11,13 +13,13 @@ public class AudioTargetManager : MonoBehaviour
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioTargetRT> audioTargets;
-    public static int AudioTargetCount => math.min(AudioTargetRTData.CurrentBatchLength, audioTargets.Count);
+    public static int AudioTargetCount_CurrentBatch => math.min(AudioTargetRTData.CurrentBatchLength, audioTargets.Count);
 
-    private static NativeList<bool> usedIds;
+    private static NativeArray<bool> usedIds;
 
     public static NativeListBatch<AudioTargetRTData> AudioTargetRTData { get; private set; }
     public static NativeListBatch<float3> AudioTargetPositions { get; private set; }
-    public static NativeListBatch<ushort> MuffleRayHits { get; private set; }
+    public static NativeArray<ushort> MuffleRayHits { get; private set; }
 
     public static Action OnAudioTargetUpdate { get; set; }
 
@@ -26,13 +28,12 @@ public class AudioTargetManager : MonoBehaviour
     {
         audioTargets = new List<AudioTargetRT>(startCapacity);
 
-        usedIds = new NativeList<bool>(startCapacity, Allocator.Persistent);
+        usedIds = new NativeArray<bool>(startCapacity, Allocator.Persistent);
 
         AudioTargetRTData = new NativeListBatch<AudioTargetRTData>(startCapacity, Allocator.Persistent);
         AudioTargetPositions = new NativeListBatch<float3>(startCapacity, Allocator.Persistent);
 
-        MuffleRayHits = new NativeListBatch<ushort>(startCapacity, Allocator.Persistent);
-        MuffleRayHits.NextBatch.Length = startCapacity;
+        MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
     }
 
 
@@ -44,31 +45,35 @@ public class AudioTargetManager : MonoBehaviour
 
         AudioTargetRTData.Add(new AudioTargetRTData());
         target.AddToAudioSystem(AudioTargetPositions, AllocateId());
-
-        int muffleRayHitsCapacity = AudioTargetCount * AudioRaytracersManager.ToUseThreadCount;
-
-        // Resize MuffleRayHits array if needed
-        if (muffleRayHitsCapacity > MuffleRayHits.NextBatch.Capacity)
-        {
-            MuffleRayHits.NextBatch.Resize(muffleRayHitsCapacity, NativeArrayOptions.UninitializedMemory);
-            MuffleRayHits.NextBatch.Length = muffleRayHitsCapacity;
-        }
     }
+
+    /// <summary>
+    /// Get a short id based on a list that tracks used and free ids.
+    /// </summary>
+    /// <returns></returns>
     private static short AllocateId()
     {
-        for (short i = 0; i < usedIds.Length; i++)
+        short idCount = (short)usedIds.Length;
+
+        for (short i = 0; i < idCount; i++)
         {
-            if (!usedIds[i])
+            // Check for first free Id
+            if (usedIds[i] == false)
             {
                 usedIds[i] = true;
                 return i;
             }
         }
-        short newId = (short)usedIds.Length;
 
-        usedIds.Add(true);
+        // Resize array if we ran out of ids
+        NativeArray<bool> old = usedIds;
+        usedIds = new NativeArray<bool>(idCount * 2, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
 
-        return newId;
+        NativeArray<bool>.Copy(old, usedIds, old.Length);
+        old.Dispose();
+
+        usedIds[idCount] = true;
+        return idCount;
     }
     private static void FreeId(short id)
     {
@@ -77,30 +82,22 @@ public class AudioTargetManager : MonoBehaviour
 
     public static void RemoveAudioTargetFromSystem(AudioTargetRT target)
     {
-        if (target == null) return;
+        if (target == null || audioTargets.Count == 0) return;
 
         short targetId = target.Id;
-
-        // Validate the ID
-        if (targetId < 0 || targetId >= audioTargets.Count)
-        {
-            DebugLogger.LogWarning($"Tried to remove AudioTarget with invalid Id {targetId}");
-            return;
-        }
-
         int lastIndex = audioTargets.Count - 1;
 
-        // Remove elements from lists
-        audioTargets.RemoveAtSwapBack(targetId);
         AudioTargetRTData.RemoveAtSwapBack(targetId);
         AudioTargetPositions.RemoveAtSwapBack(targetId);
 
-        // Only update swapped element if we actually swapped
         if (targetId != lastIndex)
         {
-            audioTargets[targetId].Id = targetId;
+            AudioTargetRT swapped = audioTargets[lastIndex];
+            audioTargets[targetId] = swapped;
+            swapped.Id = targetId;
         }
 
+        audioTargets.RemoveAt(lastIndex);
         FreeId(targetId);
     }
 
@@ -119,12 +116,20 @@ public class AudioTargetManager : MonoBehaviour
 
         AudioTargetPositions.CycleToNextBatch();
         AudioTargetRTData.CycleToNextBatch();
-        MuffleRayHits.CycleToNextBatch();
+
+        int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracersManager.ToUseThreadCount;
+
+        // Resize MuffleRayHits array if needed
+        if (muffleRayHitsCapacity > MuffleRayHits.Length)
+        {
+            MuffleRayHits.Dispose();
+            MuffleRayHits = new NativeArray<ushort>(muffleRayHitsCapacity * 2, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        }
     }
     public static void UpdateAudioTargetSettings()
     {
         // Update audio targets
-        for (short audioTargetId = 0; audioTargetId < AudioTargetCount; audioTargetId++)
+        for (short audioTargetId = 0; audioTargetId < AudioTargetCount_CurrentBatch; audioTargetId++)
         {
             AudioTargetSettings settings = AudioTargetRTData.CurrentBatch[audioTargetId].AudioTargetSettings;
 

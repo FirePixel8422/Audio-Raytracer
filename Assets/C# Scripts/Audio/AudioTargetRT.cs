@@ -24,6 +24,11 @@ public class AudioTargetRT : MonoBehaviour
     {
         spatializer = GetComponent<AudioSpatializer>();
         lastWorldPosition = transform.position;
+
+        if (IsStatic == false)
+        {
+            AudioTargetManager.OnAudioTargetUpdate += CheckTransformation;
+        }
     }
 
 
