@@ -27,8 +27,10 @@ public struct ColliderSphereStruct
 
     public static bool operator ==(ColliderSphereStruct a, ColliderSphereStruct b)
     {
-        return math.all(a.center == b.center) &&
-               a.radius == b.radius &&
+        return a.center.x.value == b.center.x.value &&
+               a.center.y.value == b.center.y.value &&
+               a.center.z.value == b.center.z.value &&
+               a.radius.value == b.radius.value &&
                a.thicknessMultiplier == b.thicknessMultiplier &&
                a.audioTargetId == b.audioTargetId;
     }

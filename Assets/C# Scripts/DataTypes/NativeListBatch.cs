@@ -1,9 +1,9 @@
 ﻿using Unity.Collections;
-using Unity.Jobs;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Mathematics;
 
 
-public class NativeListBatch<T> where T : unmanaged
+public unsafe class NativeListBatch<T> where T : unmanaged
 {
     private NativeList<T> batch1;
     private NativeList<T> batch2;
@@ -40,24 +40,23 @@ public class NativeListBatch<T> where T : unmanaged
         NextBatch[id] = value;
     }
 
-    public void CycleToNextBatch()
+    public unsafe void CycleToNextBatch()
     {
-        if (CurrentBatch.Capacity != NextBatch.Capacity)
+        // Ensure CurrentBatch can hold NextBatch
+        if (CurrentBatch.Capacity < NextBatch.Length)
         {
-            CurrentBatch.Capacity = NextBatch.Capacity;
+            CurrentBatch.Capacity = NextBatch.Length;
         }
+
         CurrentBatch.Length = NextBatch.Length;
 
-        // Create and Instantly complete Copy Job
-        // Copy new array into old array
-        // Afterwards "old" arraybecomes new array
-        new ArrayCopyJob<T>()
-        {
-            destination = CurrentBatch.AsArray(),
-            source = NextBatch.AsArray()
-        }.Run();
+        UnsafeUtility.MemCpy(
+            CurrentBatch.GetUnsafePtr(),
+            NextBatch.GetUnsafePtr(),
+            NextBatch.Length * UnsafeUtility.SizeOf<T>());
 
-        cBatchId ^= 1; // Flip between 0 and 1
+        // Flip batches
+        cBatchId ^= 1;
 
         CurrentBatchLength = CurrentBatch.Length;
     }

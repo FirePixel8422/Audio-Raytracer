@@ -5,35 +5,37 @@ public abstract class AudioCollider : MonoBehaviour
 {
     [Header("Set this to true if collider never moves at runtime")]
     public bool IsStatic = true;
+    [Header("Collider doesnt update with scale if true (improves performance)")]
+    public bool IgnoreScale = true;
 
     public short AudioColliderId;
     public short AudioTargetId;
 
+    protected Transform cachedTransform;
     protected Vector3 lastWorldPosition;
     protected Vector3 lastGlobalScale;
 
 
     private void Awake()
     {
-        if (TryGetComponent(out AudioTargetRT audioTargetRT))
-        {
-            AudioTargetId = audioTargetRT.Id;
-        }
-        else
-        {
-            AudioTargetId = -1;
-        }
+        cachedTransform = transform;
+
+        bool hasAudioTargetRT = TryGetComponent(out AudioTargetRT audioTargetRT);
+
+        AudioTargetId = hasAudioTargetRT ? audioTargetRT.Id : (short)-1;
 
         if (IsStatic == false)
         {
-            UpdateSavedData();
+            UpdateSavedData(cachedTransform.position, IgnoreScale ? Vector3.zero : cachedTransform.lossyScale);
             AudioColliderManager.OnColliderUpdate += CheckColliderTransformation;
         }
     }
-    protected virtual void UpdateSavedData()
+    protected virtual void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
-        lastWorldPosition = transform.position;
-        lastGlobalScale = transform.lossyScale;
+        lastWorldPosition = cWorldPosition;
+
+        if (IgnoreScale) return;
+        lastGlobalScale = cGlobalScale;
     }
 
     public virtual ColliderType GetColliderType()

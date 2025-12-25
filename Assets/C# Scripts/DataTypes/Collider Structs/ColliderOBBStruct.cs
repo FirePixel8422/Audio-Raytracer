@@ -39,10 +39,14 @@ public struct ColliderOBBStruct
 
     public static bool operator ==(ColliderOBBStruct a, ColliderOBBStruct b)
     {
-        return math.all(a.center == b.center) &&
-               math.all(a.size == b.size) &&
+        return a.center.x.value == b.center.x.value &&
+               a.center.y.value == b.center.y.value &&
+               a.center.z.value == b.center.z.value &&
+               a.size.x.value == b.size.x.value &&
+               a.size.y.value == b.size.y.value &&
+               a.size.z.value == b.size.z.value &&
                a.rotation == b.rotation &&
-               a.thicknessMultiplier == b.thicknessMultiplier &&
+               a.thicknessMultiplier.value == b.thicknessMultiplier.value &&
                a.audioTargetId == b.audioTargetId;
     }
 

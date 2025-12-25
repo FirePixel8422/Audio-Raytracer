@@ -65,20 +65,24 @@ public class AudioOBBCollider : AudioCollider
 
     protected override void CheckColliderTransformation()
     {
-        if (transform.position != lastWorldPosition ||
-            transform.lossyScale != lastGlobalScale ||
-            transform.rotation != lastWorldRotation ||
+        cachedTransform.GetPositionAndRotation(out Vector3 cWorldPosition, out Quaternion cWorldRotation);
+        Vector3 cGlobalScale = IgnoreScale ? Vector3.zero : cachedTransform.lossyScale;
+
+        if (cWorldPosition != lastWorldPosition ||
+            cWorldRotation != lastWorldRotation ||
+            (IgnoreScale == false && cGlobalScale != lastGlobalScale) ||
             colliderStruct != lastColliderStruct)
         {
             AudioColliderManager.UpdateColiderInSystem(this);
+
+            UpdateSavedData(cWorldPosition, cGlobalScale);
+            lastWorldRotation = cWorldRotation;
         }
-        UpdateSavedData();
     }
 
-    protected override void UpdateSavedData()
+    protected override void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
-        base.UpdateSavedData();
-        lastWorldRotation = transform.rotation;
+        base.UpdateSavedData(cWorldPosition, cGlobalScale);
         lastColliderStruct = colliderStruct;
     }
 

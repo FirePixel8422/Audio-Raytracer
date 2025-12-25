@@ -51,18 +51,22 @@ public class AudioAABBCollider : AudioCollider
 
     protected override void CheckColliderTransformation()
     {
-        if (transform.position != lastWorldPosition ||
-            transform.lossyScale != lastGlobalScale ||
+        Vector3 cWorldPosition = cachedTransform.position;
+        Vector3 cGlobalScale = IgnoreScale ? Vector3.zero : cachedTransform.lossyScale;
+
+        if (cWorldPosition != lastWorldPosition ||
+            (IgnoreScale == false && cGlobalScale != lastGlobalScale) ||
             colliderStruct != lastColliderStruct)
         {
             AudioColliderManager.UpdateColiderInSystem(this);
+
+            UpdateSavedData(cWorldPosition, cGlobalScale);
         }
-        UpdateSavedData();
     }
 
-    protected override void UpdateSavedData()
+    protected override void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
-        base.UpdateSavedData();
+        base.UpdateSavedData(cWorldPosition, cGlobalScale);
         lastColliderStruct = colliderStruct;
     }
 

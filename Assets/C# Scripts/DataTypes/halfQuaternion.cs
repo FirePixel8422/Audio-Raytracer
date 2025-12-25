@@ -64,7 +64,7 @@ public struct halfQuaternion
 
     public static bool operator ==(halfQuaternion a, halfQuaternion b)
     {
-        return a.x == b.x && a.y == b.y && a.z == b.z;
+        return a.x.value == b.x.value && a.y.value == b.y.value && a.z.value == b.z.value;
     }
 
     public static bool operator !=(halfQuaternion a, halfQuaternion b)
