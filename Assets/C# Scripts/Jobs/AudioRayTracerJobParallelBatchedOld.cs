@@ -119,7 +119,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
                     #region Check if hit ray point can return to original origin point (Blue Echo rays to player)
 
-                    float3 offsettedRayHitWorldPoint = cRayOrigin;// - cRayDir * Epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
+                    float3 offsettedRayHitWorldPoint = cRayOrigin - cRayDir * Epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
 
                     //shoot a return ray to the original origin
                     float3 returnRayDir = math.normalize(RayOrigin - offsettedRayHitWorldPoint);
@@ -141,14 +141,16 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                     // Raycast to each AudioTarget position
                     for (short i = 0; i < TotalAudioTargets; i++)
                     {
+                        offsettedRayHitWorldPoint = cRayOrigin - cRayDir * Epsilon; //offset the hit point a bit so it doesnt intersect with same collider again
+
                         float3 audioTargetPosition = AudioTargetPositions[i]; // Get the position of the current audio target
-                        float3 rayToTargetDir = math.normalize(audioTargetPosition - cRayOrigin); // Direction to the audio target
+                        float3 rayToTargetDir = math.normalize(audioTargetPosition - offsettedRayHitWorldPoint); // Direction to the audio target
 
                         // Calculate distance to the audio target
-                        float distToTarget = math.distance(cRayOrigin, audioTargetPosition);
+                        float distToTarget = math.distance(offsettedRayHitWorldPoint, audioTargetPosition);
 
                         // Cast a ray from the hit point to the audio target
-                        if (CanRaySeeAudioTarget(cRayOrigin, rayToTargetDir, distToTarget, i))
+                        if (CanRaySeeAudioTarget(offsettedRayHitWorldPoint, rayToTargetDir, distToTarget, i))
                         {
                             // If the ray to the audio target is clear, increment the appropriate entry in MuffleRayHits
                             MuffleRayHits[batchId * TotalAudioTargets + i] += 1;

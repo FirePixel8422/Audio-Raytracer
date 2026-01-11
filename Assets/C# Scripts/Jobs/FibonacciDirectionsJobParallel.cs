@@ -15,11 +15,11 @@ public struct FibonacciDirectionsJobParallel : IJobParallelFor
     public void Execute(int i)
     {
         //if (i != 0) return;
-        //
-        //directions[0] = new float3(0.2f, 0, 1);
-        //directions[1] = new float3(0.25f, 0, 1);
-        //directions[2] = new float3(0.3f, 0, 1);
-        //
+
+        //directions[0] = new half3((half)0.2f, (half)0, (half)1);
+        //directions[1] = new half3((half)0.25f, (half)0, (half)1);
+        //directions[2] = new half3((half)0.3f, (half)0, (half)1);
+
         //return;
 
         int count = directions.Length;

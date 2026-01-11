@@ -46,7 +46,7 @@ public class AudioSpatializer : MonoBehaviour
 
     private void OnLateUpdate()
     {
-        float3 worldDir = listenerTransform.position - soundPosTransform.position;
+        float3 worldDir = soundPosTransform.position - listenerTransform.position;
         cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
 
         cachedListenerDistance = math.length(soundPosTransform.position - listenerTransform.position);

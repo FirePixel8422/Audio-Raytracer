@@ -2026,11 +2026,11 @@ Transform:
   m_GameObject: {fileID: 241768771}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000004470348, y: 0.23887236, z: -0, w: 0.971051}
-  m_LocalPosition: {x: 28.75, y: 4.5362, z: -1.7200003}
+  m_LocalPosition: {x: 30.34, y: -1.7238002, z: -2.5600002}
   m_LocalScale: {x: 1, y: 1.9696999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 429698494}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 27.64, z: 0}
 --- !u!23 &241768778
 MeshRenderer:
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   MuffleStrength: 0
   ReverbBlend: 0
   DEBUG_SyncSettingsToSO: 1
-  totalAudioFrames: 0
+  totalAudioFrames: 442
   audioFPS: 0
   audioFrameTime: 0
 --- !u!114 &241768784
@@ -3537,7 +3537,6 @@ Transform:
   - {fileID: 1648640013}
   - {fileID: 1173208417}
   - {fileID: 1166970477}
-  - {fileID: 241768773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439600010
@@ -14544,7 +14543,7 @@ Transform:
   m_GameObject: {fileID: 2039623046}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.23887235, z: -0, w: 0.971051}
-  m_LocalPosition: {x: 17.11, y: -2.1, z: 0.18}
+  m_LocalPosition: {x: 16.979, y: -2.1, z: -0.069}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14585,14 +14584,14 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  rayCount: 1
+  rayCount: 314
   maxBounces: 5
   maxRayDist: 150
-  drawRayHitsGizmos: 0
-  drawRayTrailsGizmos: 0
-  drawReturnRayDirectionGizmos: 0
-  drawReturnRayLastDirectionGizmos: 0
-  drawReturnRaysAvgDirectionGizmos: 0
+  drawRayHitsGizmos: 1
+  drawRayTrailsGizmos: 1
+  drawReturnRayDirectionGizmos: 1
+  drawReturnRayLastDirectionGizmos: 1
+  drawReturnRaysAvgDirectionGizmos: 1
   originColor: {r: 0, g: 1, b: 0, a: 1}
   rayHitColor: {r: 0, g: 1, b: 1, a: 1}
   rayTrailColor: {r: 0, g: 1, b: 0, a: 0.15}
@@ -15210,6 +15209,7 @@ SceneRoots:
   - {fileID: 1941546989}
   - {fileID: 319567578}
   - {fileID: 429698494}
+  - {fileID: 241768773}
   - {fileID: 933763103}
   - {fileID: 2039623052}
   - {fileID: 1030950979}
