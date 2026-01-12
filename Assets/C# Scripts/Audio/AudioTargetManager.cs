@@ -11,13 +11,13 @@ public class AudioTargetManager : MonoBehaviour
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioTargetRT> audioTargets;
-    public static int AudioTargetCount_CurrentBatch => math.min(AudioTargetRTData.CurrentBatch.Length, audioTargets.Count);
+    public static int AudioTargetCount_JobBatch => math.min(AudioTargetRTData.JobBatch.Length, audioTargets.Count);
     public static int AudioTargetCount_NextBatch => math.min(AudioTargetRTData.NextBatch.Length, audioTargets.Count);
 
     private static NativeArray<bool> usedIds;
 
-    public static NativeListBatch<AudioTargetRTData> AudioTargetRTData { get; private set; }
-    public static NativeListBatch<float3> AudioTargetPositions { get; private set; }
+    public static NativeJobBatch<AudioTargetRTData> AudioTargetRTData { get; private set; }
+    public static NativeJobBatch<float3> AudioTargetPositions { get; private set; }
     public static NativeArray<ushort> MuffleRayHits { get; private set; }
 
     public static Action OnAudioTargetUpdate { get; set; }
@@ -29,8 +29,8 @@ public class AudioTargetManager : MonoBehaviour
 
         usedIds = new NativeArray<bool>(startCapacity, Allocator.Persistent);
 
-        AudioTargetRTData = new NativeListBatch<AudioTargetRTData>(startCapacity, Allocator.Persistent);
-        AudioTargetPositions = new NativeListBatch<float3>(startCapacity, Allocator.Persistent);
+        AudioTargetRTData = new NativeJobBatch<AudioTargetRTData>(startCapacity, Allocator.Persistent);
+        AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
 
         MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
     }
@@ -135,9 +135,9 @@ public class AudioTargetManager : MonoBehaviour
     public static void UpdateAudioTargetSettings()
     {
         // Update audio targets
-        for (short audioTargetId = 0; audioTargetId < AudioTargetCount_CurrentBatch; audioTargetId++)
+        for (short audioTargetId = 0; audioTargetId < AudioTargetCount_JobBatch; audioTargetId++)
         {
-            AudioTargetSettings settings = AudioTargetRTData.CurrentBatch[audioTargetId].AudioTargetSettings;
+            AudioTargetSettings settings = AudioTargetRTData.JobBatch[audioTargetId].AudioTargetSettings;
 
             audioTargets[audioTargetId].UpdateAudioSource(settings);
         }

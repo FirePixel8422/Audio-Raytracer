@@ -46,12 +46,12 @@ public abstract class AudioCollider : MonoBehaviour
     /// <summary>
     /// Add audio collider as struct data into the corresponding native array at correct index and increment index
     /// </summary>
-    public virtual void AddToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs) { }
+    public virtual void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs) { }
 
     /// <summary>
     /// Update audio collider as struct data into the corresponding native array at correct index based on assigned AudioColliderId
     /// </summary>
-    public virtual void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs) { }
+    public virtual void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs) { }
 
 
     private void OnEnable() => AudioColliderManager.AddColiderToSystem(this);

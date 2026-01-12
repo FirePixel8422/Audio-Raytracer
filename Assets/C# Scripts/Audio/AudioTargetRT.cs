@@ -35,12 +35,12 @@ public class AudioTargetRT : MonoBehaviour
         }
     }
 
-    public void AddToAudioSystem(NativeListBatch<float3> audioTargetPositions, short assignedId)
+    public void AddToAudioSystem(NativeJobBatch<float3> audioTargetPositions, short assignedId)
     {
         audioTargetPositions.Add(transform.position);
         Id = assignedId;
     }
-    public void UpdateToAudioSystem(NativeListBatch<float3> audioTargetPositions)
+    public void UpdateToAudioSystem(NativeJobBatch<float3> audioTargetPositions)
     {
         audioTargetPositions.Set(Id, transform.position);
     }

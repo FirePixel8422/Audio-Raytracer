@@ -133,7 +133,7 @@ public class AudioRayTracer : MonoBehaviour
 
             DEBUG_echoRayDirections = echoRayDirections.ToArray();
             DEBUG_muffleRayHits = AudioTargetManager.MuffleRayHits.ToArray();
-            DEBUG_AudioTargetPositions = AudioTargetManager.AudioTargetPositions.CurrentBatch.AsArray().ToArray();
+            DEBUG_AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray().ToArray();
         }
 #endif
 
@@ -146,20 +146,20 @@ public class AudioRayTracer : MonoBehaviour
             RayOrigin = (float3)transform.position + rayOrigin,
             RayDirections = rayDirections,
 
-            AABBColliders = AudioColliderManager.AABBColliders.CurrentBatch.AsArray(),
-            AABBCount = AudioColliderManager.AABBColliders.CurrentBatch.Length,
+            AABBColliders = AudioColliderManager.AABBColliders.JobBatchAsArray(),
+            AABBCount = AudioColliderManager.AABBColliders.JobBatch.Length,
 
-            OBBColliders = AudioColliderManager.OBBColliders.CurrentBatch.AsArray(),
-            OBBCount = AudioColliderManager.OBBColliders.CurrentBatch.Length,
+            OBBColliders = AudioColliderManager.OBBColliders.JobBatchAsArray(),
+            OBBCount = AudioColliderManager.OBBColliders.JobBatch.Length,
 
-            SphereColliders = AudioColliderManager.SphereColliders.CurrentBatch.AsArray(),
-            SphereCount = AudioColliderManager.SphereColliders.CurrentBatch.Length,
+            SphereColliders = AudioColliderManager.SphereColliders.JobBatchAsArray(),
+            SphereCount = AudioColliderManager.SphereColliders.JobBatch.Length,
 
-            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.CurrentBatch.AsArray(),
+            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray(),
 
             MaxRayHits = maxBounces + 1,
             MaxRayDist = maxRayDist,
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount_CurrentBatch,
+            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
 
             Results = rayResults,
             ResultCounts = rayResultCounts,
@@ -185,9 +185,9 @@ public class AudioRayTracer : MonoBehaviour
 
             EchoRayDirections = echoRayDirections,
 
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount_CurrentBatch,
-            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.CurrentBatch.AsArray(),
-            AudioTargetRTData = AudioTargetManager.AudioTargetRTData.CurrentBatch.AsArray(),
+            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
+            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray(),
+            AudioTargetRTData = AudioTargetManager.AudioTargetRTData.JobBatchAsArray(),
 
             MuffleRayHits = AudioTargetManager.MuffleRayHits,
 

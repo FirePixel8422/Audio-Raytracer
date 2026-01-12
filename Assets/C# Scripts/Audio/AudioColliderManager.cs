@@ -15,9 +15,9 @@ public class AudioColliderManager : MonoBehaviour
     private static List<AudioCollider> aabbColliderRefs;
     private static List<AudioCollider> obbColliderRefs;
 
-    public static NativeListBatch<ColliderAABBStruct> AABBColliders { get; private set; }
-    public static NativeListBatch<ColliderOBBStruct> OBBColliders { get; private set; }
-    public static NativeListBatch<ColliderSphereStruct> SphereColliders { get; private set; }
+    public static NativeJobBatch<ColliderAABBStruct> AABBColliders { get; private set; }
+    public static NativeJobBatch<ColliderOBBStruct> OBBColliders { get; private set; }
+    public static NativeJobBatch<ColliderSphereStruct> SphereColliders { get; private set; }
 
     public static Action OnColliderUpdate { get; set; }
 
@@ -30,9 +30,9 @@ public class AudioColliderManager : MonoBehaviour
         aabbColliderRefs = new List<AudioCollider>(startCapacity);
         obbColliderRefs = new List<AudioCollider>(startCapacity);
 
-        AABBColliders = new NativeListBatch<ColliderAABBStruct>(startCapacity, Allocator.Persistent);
-        OBBColliders = new NativeListBatch<ColliderOBBStruct>(startCapacity, Allocator.Persistent);
-        SphereColliders = new NativeListBatch<ColliderSphereStruct>(startCapacity, Allocator.Persistent);
+        AABBColliders = new NativeJobBatch<ColliderAABBStruct>(startCapacity, Allocator.Persistent);
+        OBBColliders = new NativeJobBatch<ColliderOBBStruct>(startCapacity, Allocator.Persistent);
+        SphereColliders = new NativeJobBatch<ColliderSphereStruct>(startCapacity, Allocator.Persistent);
     }
 
     public static void AddColiderToSystem(AudioCollider target)
@@ -84,7 +84,7 @@ public class AudioColliderManager : MonoBehaviour
         }
     }
 
-    private static void SwapRemove<T>(NativeListBatch<T> nativeList, List<AudioCollider> refList, short toRemoveId) where T : unmanaged
+    private static void SwapRemove<T>(NativeJobBatch<T> nativeList, List<AudioCollider> refList, short toRemoveId) where T : unmanaged
     {
         if (toRemoveId < 0 || toRemoveId >= refList.Count || toRemoveId >= nativeList.NextBatch.Length)
             return; // skip invalid remove
@@ -158,9 +158,9 @@ public class AudioColliderManager : MonoBehaviour
         DEBUG_SphereColliders = SphereColliders;
     }
 
-    public NativeListBatch<ColliderAABBStruct> DEBUG_AABBColliders;
-    public NativeListBatch<ColliderOBBStruct> DEBUG_OBBColliders;
-    public NativeListBatch<ColliderSphereStruct> DEBUG_SphereColliders;
+    public NativeJobBatch<ColliderAABBStruct> DEBUG_AABBColliders;
+    public NativeJobBatch<ColliderOBBStruct> DEBUG_OBBColliders;
+    public NativeJobBatch<ColliderSphereStruct> DEBUG_SphereColliders;
 #endif
 
 }

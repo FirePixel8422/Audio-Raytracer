@@ -14,7 +14,7 @@ public class AudioSphereCollider : AudioCollider
         return ColliderType.Sphere;
     }
 
-    public override void AddToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs)
+    public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
@@ -32,7 +32,7 @@ public class AudioSphereCollider : AudioCollider
         sphereStructs.Add(colliderStruct);
     }
 
-    public override void UpdateToAudioSystem(NativeListBatch<ColliderAABBStruct> aabbStructs, NativeListBatch<ColliderOBBStruct> obbStructs, NativeListBatch<ColliderSphereStruct> sphereStructs)
+    public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
