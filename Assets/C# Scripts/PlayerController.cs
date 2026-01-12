@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : UpdateMonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
 
@@ -18,17 +18,14 @@ public class PlayerController : MonoBehaviour
     private float yRotation = 0f;
 
 
-    private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
-    private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    private void OnUpdate()
+    protected override void OnUpdate()
     {
         Move();
 
@@ -40,10 +37,8 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
-
         Vector3 moveDir = new Vector3(moveX, 0f, moveZ).normalized;
         Vector3 velocity = transform.TransformDirection(moveDir) * moveSpeed + new Vector3(0f, rb.linearVelocity.y, 0f);
-        
 
         if (rb.linearVelocity.y > -0.1f && Physics.Raycast(groundCheck.position, Vector3.down, out RaycastHit hit, groundCheckLength))
         {

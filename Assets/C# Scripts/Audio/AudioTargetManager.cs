@@ -3,6 +3,7 @@ using Unity.Collections;
 using UnityEngine;
 using System;
 using Unity.Mathematics;
+using Fire_Pixel.Utility;
 
 
 public class AudioTargetManager : MonoBehaviour

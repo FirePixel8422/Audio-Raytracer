@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-public class DebugDataDisplay : MonoBehaviour
+public class DebugDataDisplay : UpdateMonoBehaviour
 {
     [SerializeField, Tooltip("Average over this many seconds")]
     private float avgTime = 1f;
@@ -43,18 +43,12 @@ public class DebugDataDisplay : MonoBehaviour
 
     private readonly Queue<FrameData> frameTimes = new Queue<FrameData>();
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        UpdateScheduler.RegisterUpdate(OnUpdate);
+        base.OnEnable();
         ReloadExpensiveStats(); // Initial load of expensive stats
     }
-
-    private void OnDisable()
-    {
-        UpdateScheduler.UnRegisterUpdate(OnUpdate);
-    }
-
-    private void OnUpdate()
+    protected override void OnUpdate()
     {
         float currentTime = Time.time;
         float deltaTime = Time.deltaTime;
