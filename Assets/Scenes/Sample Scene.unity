@@ -170,7 +170,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -566,7 +566,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -693,7 +693,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -819,7 +819,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1066,7 +1066,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1194,7 +1194,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1369,7 +1369,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1496,7 +1496,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1643,7 +1643,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1884,7 +1884,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -1921,8 +1921,9 @@ GameObject:
   - component: {fileID: 241768772}
   - component: {fileID: 241768780}
   - component: {fileID: 241768783}
+  - component: {fileID: 241768785}
   m_Layer: 0
-  m_Name: MusicBox
+  m_Name: MusicBox A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2095,7 +2096,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241768771}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 63e5deebb58a6304682ca4e72b0217d0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2121,7 +2122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f869e5abad9be74eb03b92dfe49c6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStatic: 1
+  IsStatic: 0
   Id: 0
 --- !u!114 &241768783
 MonoBehaviour:
@@ -2160,7 +2161,7 @@ MonoBehaviour:
     wetBoostMultiplier: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 241768773}
-  volumeMultiplier: 1.5
+  volumeMultiplier: 0.65
   MuffleStrength: 0
   ReverbBlend: 0
   DEBUG_SyncSettingsToSO: 1
@@ -2180,7 +2181,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -2201,6 +2202,33 @@ MonoBehaviour:
       value: 0
     audioTargetId: -1
   includeGameObjectRotation: 1
+--- !u!54 &241768785
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241768771}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &241897082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,7 +2279,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -2379,7 +2407,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -2611,7 +2639,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -2702,7 +2730,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -2908,7 +2936,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -2994,7 +3022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 319567578}
   m_Layer: 0
-  m_Name: collider jank 9 * 4 (static + dyn)
+  m_Name: collider jank 9 * 8 (static + dyn)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3151,7 +3179,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -3222,7 +3250,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -3232,11 +3260,11 @@ MonoBehaviour:
         value: 0
     size:
       x:
-        value: 17664
+        value: 14336
       y:
-        value: 8479
+        value: 14336
       z:
-        value: 17664
+        value: 14336
     thicknessMultiplier:
       value: 15360
     absorptionValue:
@@ -3410,7 +3438,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -3583,7 +3611,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -3710,7 +3738,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -3836,7 +3864,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -3962,7 +3990,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4089,7 +4117,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4293,7 +4321,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4363,7 +4391,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4489,7 +4517,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4615,7 +4643,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4797,7 +4825,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4867,7 +4895,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -4996,7 +5024,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -5379,7 +5407,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -5449,7 +5477,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -5647,7 +5675,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -5773,7 +5801,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -5938,7 +5966,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -6185,7 +6213,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -6311,7 +6339,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -6438,7 +6466,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -6576,7 +6604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioRaytracersManager
   computeAsync: 1
-  maxThreadCount: 1
+  maxThreadCount: 3
 --- !u!114 &1030950981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6642,7 +6670,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -6895,7 +6923,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7021,7 +7049,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7147,7 +7175,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7218,7 +7246,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7465,7 +7493,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7591,7 +7619,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7717,7 +7745,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7921,7 +7949,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -7992,7 +8020,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -8197,7 +8225,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -8268,7 +8296,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -8362,7 +8390,7 @@ GameObject:
   - component: {fileID: 1187604155}
   - component: {fileID: 1187604154}
   m_Layer: 0
-  m_Name: MusicBox (1)
+  m_Name: MusicBox B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8432,7 +8460,7 @@ MonoBehaviour:
     wetBoostMultiplier: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 1187604162}
-  volumeMultiplier: 2
+  volumeMultiplier: 0.35
   MuffleStrength: 0
   ReverbBlend: 0
   DEBUG_SyncSettingsToSO: 1
@@ -8562,7 +8590,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -8662,7 +8690,7 @@ Transform:
   m_GameObject: {fileID: 1187604153}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000004470348, y: 0.23887236, z: -0, w: 0.971051}
-  m_LocalPosition: {x: 9.83, y: -1.72, z: 15.5}
+  m_LocalPosition: {x: 9.829998, y: -1.72, z: 15.500001}
   m_LocalScale: {x: 1, y: 1.9696999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8718,7 +8746,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9021,7 +9049,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9093,7 +9121,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9268,7 +9296,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9395,7 +9423,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9522,7 +9550,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9704,7 +9732,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9814,7 +9842,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -9940,7 +9968,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -10144,7 +10172,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -10214,7 +10242,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -10396,7 +10424,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -10666,7 +10694,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -10736,7 +10764,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -10863,7 +10891,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11045,7 +11073,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11193,7 +11221,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11263,7 +11291,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11389,7 +11417,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11515,7 +11543,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11641,7 +11669,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -11846,7 +11874,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12055,7 +12083,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12202,7 +12230,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12330,7 +12358,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12555,7 +12583,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12626,7 +12654,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12752,7 +12780,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12879,7 +12907,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -12889,11 +12917,11 @@ MonoBehaviour:
         value: 0
     size:
       x:
-        value: 17664
+        value: 14336
       y:
-        value: 8479
+        value: 14336
       z:
-        value: 17664
+        value: 14336
     thicknessMultiplier:
       value: 15360
     absorptionValue:
@@ -13027,7 +13055,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -13153,7 +13181,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -13282,7 +13310,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -13457,7 +13485,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -13784,7 +13812,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -13988,7 +14016,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -14058,7 +14086,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -14262,7 +14290,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -14459,7 +14487,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -14664,7 +14692,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -14861,7 +14889,7 @@ Transform:
   m_GameObject: {fileID: 2039623046}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.23887235, z: -0, w: 0.971051}
-  m_LocalPosition: {x: 15.7, y: -2.1, z: -0.069}
+  m_LocalPosition: {x: 8.25, y: -2.1, z: 1.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14902,10 +14930,10 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  rayCount: 314
-  maxBounces: 5
-  maxRayDist: 150
-  drawRayHitsGizmos: 1
+  rayCount: 1500
+  maxBounces: 12
+  maxRayLife: 75
+  drawRayHitsGizmos: 0
   drawRayTrailsGizmos: 0
   drawReturnRayDirectionGizmos: 0
   drawReturnRayLastDirectionGizmos: 0
@@ -14971,7 +14999,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -15175,7 +15203,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -15424,7 +15452,7 @@ MonoBehaviour:
   IgnoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
-  colliderStruct:
+  colliderStructCopy:
     center:
       x:
         value: 0
@@ -15522,8 +15550,8 @@ SceneRoots:
   - {fileID: 1941546989}
   - {fileID: 319567578}
   - {fileID: 429698494}
-  - {fileID: 241768773}
   - {fileID: 1187604162}
+  - {fileID: 241768773}
   - {fileID: 933763103}
   - {fileID: 2039623052}
   - {fileID: 1030950979}

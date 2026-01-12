@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-public class AudioRayTracer : MonoBehaviour
+public class AudioRayTracer : UpdateMonoBehaviour
 {
     [SerializeField] private float3 rayOrigin;
 
@@ -15,7 +15,7 @@ public class AudioRayTracer : MonoBehaviour
     [SerializeField] int maxBounces = 3;
 
     [Range(0, 1000)]
-    [SerializeField] float maxRayDist = 10;
+    [SerializeField] float maxRayLife = 10;
 
     //[SerializeField] private NativeSampledAnimationCurve muffleFalloffCurve;
 
@@ -25,10 +25,6 @@ public class AudioRayTracer : MonoBehaviour
     private NativeArray<AudioRayResult> rayResults;
     private NativeArray<byte> rayResultCounts;
 
-
-
-    private void OnEnable() => UpdateScheduler.RegisterUpdate(OnUpdate);
-    private void OnDisable() => UpdateScheduler.UnRegisterUpdate(OnUpdate);
 
     private void Awake()
     {
@@ -73,7 +69,7 @@ public class AudioRayTracer : MonoBehaviour
     private ProcessAudioDataJob calculateAudioTargetDataJob;
     private JobHandle mainJobHandle;
 
-    private void OnUpdate()
+    protected override void OnUpdate()
     {
         //if computeAsync is true skip a frame if job is not done yet
         if ((AudioRaytracersManager.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
@@ -158,7 +154,7 @@ public class AudioRayTracer : MonoBehaviour
             AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray(),
 
             MaxRayHits = maxBounces + 1,
-            MaxRayDist = maxRayDist,
+            MaxRayLife = maxRayLife,
             TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
 
             Results = rayResults,
