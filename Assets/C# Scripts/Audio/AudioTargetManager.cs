@@ -49,7 +49,6 @@ public class AudioTargetManager : MonoBehaviour
     /// <summary>
     /// Get a short id based on a list that tracks used and free ids.
     /// </summary>
-    /// <returns></returns>
     private static short AllocateId()
     {
         short idCount = (short)usedIds.Length;
@@ -147,7 +146,6 @@ public class AudioTargetManager : MonoBehaviour
     {
         UpdateScheduler.CreateLateOnApplicationQuitCallback(Dispose);
     }
-
     private void Dispose()
     {
         OnAudioTargetUpdate = null;

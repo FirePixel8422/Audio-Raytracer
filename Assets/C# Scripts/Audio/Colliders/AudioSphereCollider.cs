@@ -18,35 +18,41 @@ public class AudioSphereCollider : AudioCollider
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
-        ColliderSphereStruct colliderStruct = this.colliderStruct;
+        ColliderSphereStruct colliderStructCopyCopy = colliderStruct;
 
-        colliderStruct.audioTargetId = AudioTargetId;
+        colliderStructCopyCopy.audioTargetId = AudioTargetId;
 
-        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
-        colliderStruct.center = mergedPosition;
+        Half3.Add(colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopyCopy.center = mergedPosition;
 
-        Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
-        colliderStruct.radius = scaledRadius;
+        if (IgnoreScale == false)
+        {
+            Half.Multiply(colliderStructCopyCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+            colliderStructCopyCopy.radius = scaledRadius;
+        }
 
         AudioColliderId = (short)sphereStructs.NextBatch.Length;
-        sphereStructs.Add(colliderStruct);
+        sphereStructs.Add(colliderStructCopyCopy);
     }
 
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
-        ColliderSphereStruct colliderStruct = this.colliderStruct;
+        ColliderSphereStruct colliderStructCopy = colliderStruct;
 
-        colliderStruct.audioTargetId = AudioTargetId;
+        colliderStructCopy.audioTargetId = AudioTargetId;
 
-        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
-        colliderStruct.center = mergedPosition;
+        Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.center = mergedPosition;
 
-        Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
-        colliderStruct.radius = scaledRadius;
+        if (IgnoreScale == false)
+        {
+            Half.Multiply(colliderStructCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+            colliderStructCopy.radius = scaledRadius;
+        }
 
-        sphereStructs.Set(AudioColliderId, colliderStruct);
+        sphereStructs.Set(AudioColliderId, colliderStructCopy);
     }
 
     private half GetLargestPositionComponent(Vector3 input)
@@ -79,15 +85,18 @@ public class AudioSphereCollider : AudioCollider
 #if UNITY_EDITOR
     public override void DrawColliderGizmo()
     {
-        ColliderSphereStruct colliderStruct = this.colliderStruct;
+        ColliderSphereStruct colliderStructCopy = colliderStruct;
 
-        Half3.Add(colliderStruct.center, transform.position, out half3 mergedPosition);
-        colliderStruct.center = mergedPosition;
+        Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.center = mergedPosition;
 
-        Half.Multiply(colliderStruct.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
-        colliderStruct.radius = scaledRadius;
+        if (IgnoreScale == false)
+        {
+            Half.Multiply(colliderStructCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+            colliderStructCopy.radius = scaledRadius;
+        }
 
-        Gizmos.DrawWireSphere((float3)colliderStruct.center, (float)colliderStruct.radius);
+        Gizmos.DrawWireSphere((float3)colliderStructCopy.center, (float)colliderStructCopy.radius);
     }
 #endif
 }

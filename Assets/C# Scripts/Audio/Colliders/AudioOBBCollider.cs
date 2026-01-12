@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioOBBCollider : AudioCollider
 {
     [Header("Box Colliders with rotation: \nfast, but a little slower than an 'axisAlignedBox' > 6/10")]
-    [SerializeField] private ColliderOBBStruct colliderStruct = ColliderOBBStruct.Default;
+    [SerializeField] private ColliderOBBStruct colliderStructCopy = ColliderOBBStruct.Default;
     private ColliderOBBStruct lastColliderStruct;
     private Quaternion lastWorldRotation;
 
@@ -22,45 +22,51 @@ public class AudioOBBCollider : AudioCollider
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
-        ColliderOBBStruct colliderStruct = this.colliderStruct;
+        ColliderOBBStruct colliderStructCopyCopy = colliderStructCopy;
 
-        colliderStruct.audioTargetId = AudioTargetId;
+        colliderStructCopyCopy.audioTargetId = AudioTargetId;
 
         if (includeGameObjectRotation)
         {
-            colliderStruct.Rotation *= transform.rotation;
+            colliderStructCopyCopy.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * (float3)colliderStruct.center, transform.position, out half3 mergedPosition);
-        colliderStruct.center = mergedPosition;
+        Half3.Add(transform.rotation * (float3)colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopyCopy.center = mergedPosition;
 
-        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
-        colliderStruct.size = scaledSize;
+        if (IgnoreScale == false)
+        {
+            Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopyCopy.size = scaledSize;
+        }
 
         AudioColliderId = (short)obbStructs.NextBatch.Length;
-        obbStructs.Add(colliderStruct);
+        obbStructs.Add(colliderStructCopyCopy);
     }
 
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
-        ColliderOBBStruct colliderStruct = this.colliderStruct;
+        ColliderOBBStruct colliderStructCopyCopy = colliderStructCopy;
 
-        colliderStruct.audioTargetId = AudioTargetId;
+        colliderStructCopyCopy.audioTargetId = AudioTargetId;
 
         if (includeGameObjectRotation)
         {
-            colliderStruct.Rotation *= transform.rotation;
+            colliderStructCopyCopy.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * (float3)colliderStruct.center, transform.position, out half3 mergedPosition);
-        colliderStruct.center = mergedPosition;
+        Half3.Add(transform.rotation * (float3)colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopyCopy.center = mergedPosition;
 
-        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
-        colliderStruct.size = scaledSize;
+        if (IgnoreScale == false)
+        {
+            Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopyCopy.size = scaledSize;
+        }
 
-        obbStructs.Set(AudioColliderId, colliderStruct);
+        obbStructs.Set(AudioColliderId, colliderStructCopyCopy);
     }
 
     protected override void CheckColliderTransformation()
@@ -71,7 +77,7 @@ public class AudioOBBCollider : AudioCollider
         if (cWorldPosition != lastWorldPosition ||
             cWorldRotation != lastWorldRotation ||
             (IgnoreScale == false && cGlobalScale != lastGlobalScale) ||
-            colliderStruct != lastColliderStruct)
+            colliderStructCopy != lastColliderStruct)
         {
             AudioColliderManager.UpdateColiderInSystem(this);
 
@@ -83,27 +89,30 @@ public class AudioOBBCollider : AudioCollider
     protected override void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
         base.UpdateSavedData(cWorldPosition, cGlobalScale);
-        lastColliderStruct = colliderStruct;
+        lastColliderStruct = colliderStructCopy;
     }
 
 
 #if UNITY_EDITOR
     public override void DrawColliderGizmo()
     {
-        ColliderOBBStruct colliderStruct = this.colliderStruct;
+        ColliderOBBStruct colliderStructCopyCopy = colliderStructCopy;
 
         if (includeGameObjectRotation)
         {
-            colliderStruct.Rotation *= transform.rotation;
+            colliderStructCopyCopy.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * (float3)colliderStruct.center, transform.position, out half3 mergedPosition);
-        colliderStruct.center = mergedPosition;
+        Half3.Add(transform.rotation * (float3)colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopyCopy.center = mergedPosition;
 
-        Half3.Multiply(colliderStruct.size, transform.lossyScale, out half3 scaledSize);
-        colliderStruct.size = scaledSize;
+        if (IgnoreScale == false)
+        {
+            Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopyCopy.size = scaledSize;
+        }
 
-        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStruct.center, colliderStruct.Rotation, (float3)colliderStruct.size * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStructCopyCopy.center, colliderStructCopyCopy.Rotation, (float3)colliderStructCopyCopy.size * 2);
     }
 #endif
 }
