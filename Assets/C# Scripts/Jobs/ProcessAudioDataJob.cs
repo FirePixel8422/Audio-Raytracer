@@ -23,14 +23,12 @@ public struct ProcessAudioDataJob : IJob
     [ReadOnly][NoAlias] public int RayCount;
     [ReadOnly][NoAlias] public float3 RayOriginWorld;
 
-    [ReadOnly][NoAlias] public float3 ListenerRightDir;
-
 
 
     [BurstCompile]
     public void Execute()
     {
-        int totalRayResults = 0;
+        //int totalRayResults = 0;
 
         for (int i = 0; i < TotalAudioTargets; i++)
         {
@@ -42,10 +40,11 @@ public struct ProcessAudioDataJob : IJob
             AudioTargetRTData[i] = data;
         }
 
-        int resultSetSize;
-        AudioRayResult result;
-        int lastRayAudioTargetId;
+        //int resultSetSize;
+        //AudioRayResult result;
+        //int lastRayAudioTargetId;
 
+        /*
         //collect hit counts, direction sums, and return positions
         for (int i = 0; i < RayCount; i++)
         {
@@ -58,14 +57,14 @@ public struct ProcessAudioDataJob : IJob
             {
                 result = RayResults[i * MaxRayHits + bounceIndex];
 
-                //if hitting any target increase hit count for that target id by 1
-                if (result.AudioTargetId != -1)
-                {
-                    // >>> CHANGED: write into struct
-                    var d = AudioTargetRTData[result.AudioTargetId];
-                    d.TargetHitCounts += 1;
-                    AudioTargetRTData[result.AudioTargetId] = d;
-                }
+                //// If hitting any target, increase hit count for that target id by 1
+                //if (result.AudioTargetId != -1)
+                //{
+                //    // >>> CHANGED: write into struct
+                //    AudioTargetRTData temp = AudioTargetRTData[result.AudioTargetId];
+                //    temp.TargetHitCounts += 1;
+                //    AudioTargetRTData[result.AudioTargetId] = temp;
+                //}
 
                 //final bounce of this ray their hit targetId (could be nothing aka -1)
                 lastRayAudioTargetId = RayResults[i * MaxRayHits + resultSetSize - 1].AudioTargetId;
@@ -104,10 +103,9 @@ public struct ProcessAudioDataJob : IJob
                 data.TempTargetReturnPositions = float3.zero;
                 AudioTargetRTData[audioTargetId] = data;
             }
-        }
+        }//*/
 
         float strength;
-        float pan;
         float muffle;
 
         float hitFraction;
@@ -151,14 +149,6 @@ public struct ProcessAudioDataJob : IJob
 
                 // Project the target direction onto the horizontal plane (ignore y-axis)
                 targetDir.y = 0f;
-
-                // Calculate pan as a value between -1 (left) and 1 (right)
-                pan = math.clamp(math.dot(targetDir, ListenerRightDir), -1, 1);
-            }
-            else
-            {
-                // Set value to -2 >> Null
-                pan = -2;
             }
 
             // >>> CHANGED: write settings inside struct
@@ -167,7 +157,6 @@ public struct ProcessAudioDataJob : IJob
                 1 - muffle,
                 0,
                 0,
-                pan,
                 AudioTargetPositions[audioTargetId] - RayOriginWorld
             );
 

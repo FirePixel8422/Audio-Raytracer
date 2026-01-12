@@ -12,14 +12,6 @@ public class AudioTargetRT : MonoBehaviour
     private Vector3 lastWorldPosition;
 
 
-#if UNITY_EDITOR
-    [Header("DEBUG")]
-    [SerializeField] private int totalUpdates;
-    [SerializeField] private int updateFPS;
-    [SerializeField] private int updateFrameTime;
-#endif
-
-
     private void Awake()
     {
         spatializer = GetComponent<AudioSpatializer>();
@@ -55,6 +47,8 @@ public class AudioTargetRT : MonoBehaviour
 
     private void CheckTransformation()
     {
+        if (gameObject.activeInHierarchy == false) return;
+
         if (transform.position != lastWorldPosition)
         {
             AudioTargetManager.UpdateColiderInSystem(this);
@@ -69,12 +63,5 @@ public class AudioTargetRT : MonoBehaviour
     public void UpdateAudioSource(AudioTargetSettings newSettings)
     {
         spatializer.MuffleStrength = newSettings.muffle;
-
-
-#if UNITY_EDITOR
-        totalUpdates += 1;
-        updateFPS = (int)math.floor(totalUpdates / Time.time);
-        updateFrameTime = (int)math.floor(1f / updateFPS * 1000);
-#endif
     }
 }

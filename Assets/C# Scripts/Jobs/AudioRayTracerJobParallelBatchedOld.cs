@@ -1,9 +1,7 @@
-using System.Runtime.InteropServices;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEngine.Rendering;
 
 
 [BurstCompile]
@@ -67,7 +65,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
             int rayIndex = rayStartIndex + i;
 
             EchoRayDirections[rayIndex] = half3.zero;
-            Results[rayIndex] = AudioRayResult.Null;
+            Results[rayIndex] = new AudioRayResult();
         }
 
         // Reset muffleRayHit count assigned to this batch
@@ -89,14 +87,14 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
 
             byte cRayHits = 0;
             float totalDist = 0;
-            bool rayAlive = true;
+            bool isRayAlive = true;
 
 
             //loop of ray has bounces and life left
-            while (rayAlive)
+            while (isRayAlive)
             {
                 closestDist = float.MaxValue;
-                rayResult = AudioRayResult.Null;
+                rayResult = new AudioRayResult();
                 hitColliderType = ColliderType.None;
 
 
@@ -155,7 +153,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                             // If the ray to the audio target is clear, increment the appropriate entry in MuffleRayHits
                             MuffleRayHits[batchId * TotalAudioTargets + i] += 1;
 
-                            rayResult.AudioTargetId = i; // Set the audio target Id in the result
+                            //rayResult.AudioTargetId = i; // Set the audio target Id in the result
                         }
                     }
 
@@ -168,7 +166,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                         // If ray dies this iteration, give it the totalDist traveled value as its fullRayDistance
                         rayResult.FullRayDistance = (half)totalDist;
 
-                        rayAlive = false; // Ray wont bounce another time.
+                        isRayAlive = false; // Ray wont bounce another time.
                     }
                     else
                     {
@@ -205,7 +203,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
     {
         float dist;
         closestDist = float.MaxValue;
-        rayResult = AudioRayResult.Null;
+        rayResult = new AudioRayResult();
 
         hitColliderType = ColliderType.None;
         hitAABB = new ColliderAABBStruct();
@@ -224,7 +222,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 hitAABB = tempAABB;
                 closestDist = dist;
 
-                rayResult.AudioTargetId = tempAABB.audioTargetId;
+                //rayResult.AudioTargetId = tempAABB.audioTargetId;
             }
         }
         //rotated box intersections (OBB)
@@ -239,7 +237,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 hitOBB = tempOBB;
                 closestDist = dist;
 
-                rayResult.AudioTargetId = tempOBB.audioTargetId;
+                //rayResult.AudioTargetId = tempOBB.audioTargetId;
             }
         }
         //sphere intersections
@@ -254,7 +252,7 @@ public struct AudioRayTracerJobParallelBatchedOld : IJobParallelForBatch
                 hitSphere = tempSphere;
                 closestDist = dist;
 
-                rayResult.AudioTargetId = tempSphere.audioTargetId;
+                //rayResult.AudioTargetId = tempSphere.audioTargetId;
             }
         }
 

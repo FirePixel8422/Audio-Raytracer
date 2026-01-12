@@ -76,7 +76,7 @@ public class AudioRayTracer : MonoBehaviour
     private void OnUpdate()
     {
         //if computeAsync is true skip a frame if job is not done yet
-        if (AudioRaytracersManager.ComputeAsync && mainJobHandle.IsCompleted == false) return;
+        if ((AudioRaytracersManager.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
         
         mainJobHandle.Complete();
 
@@ -133,6 +133,7 @@ public class AudioRayTracer : MonoBehaviour
 
             DEBUG_echoRayDirections = echoRayDirections.ToArray();
             DEBUG_muffleRayHits = AudioTargetManager.MuffleRayHits.ToArray();
+            DEBUG_AudioTargetPositions = AudioTargetManager.AudioTargetPositions.CurrentBatch.AsArray().ToArray();
         }
 #endif
 
@@ -177,8 +178,6 @@ public class AudioRayTracer : MonoBehaviour
 
         #region Calculate Audio Target Data Job
 
-        float3 listenerRight = math.normalize(transform.right); // Player Cam Right direction (for panning)
-
         calculateAudioTargetDataJob = new ProcessAudioDataJob
         {
             RayResults = rayResults,
@@ -195,8 +194,6 @@ public class AudioRayTracer : MonoBehaviour
             MaxRayHits = maxBounces + 1,
             RayCount = rayCount,
             RayOriginWorld = (float3)transform.position + rayOrigin,
-
-            ListenerRightDir = listenerRight,
         };
 
         //start job and give mainJobHandle dependency, so it only start after the raytrace job is done.
@@ -249,6 +246,7 @@ public class AudioRayTracer : MonoBehaviour
     private byte[] DEBUG_rayResultCounts;
 
     private half3[] DEBUG_echoRayDirections;
+    [SerializeField] private float3[] DEBUG_AudioTargetPositions;
 
     [SerializeField] private ushort[] DEBUG_muffleRayHits;
 
@@ -269,7 +267,7 @@ public class AudioRayTracer : MonoBehaviour
 
         if (DEBUG_rayResults != null && DEBUG_rayResults.Length != 0 && (drawRayHitsGizmos || drawRayTrailsGizmos || drawReturnRayDirectionGizmos || drawReturnRaysAvgDirectionGizmos))
         {
-            AudioRayResult prevResult = AudioRayResult.Null;
+            AudioRayResult prevResult = new AudioRayResult();
 
             int maxRayHits = DEBUG_rayResults.Length / DEBUG_rayResultCounts.Length;
 
@@ -325,22 +323,22 @@ public class AudioRayTracer : MonoBehaviour
                 {
                     Gizmos.color = rayReturnDirectionColor;
 
-                    //get all ray origins that returned to the original origin and save last ray that did this
-                    for (int i2 = 0; i2 < maxRayHits; i2++)
-                    {
-                        returningRayDir = DEBUG_echoRayDirections[i * maxRayHits + i2];
+                    ////get all ray origins that returned to the original origin and save last ray that did this
+                    //for (int i2 = 0; i2 < maxRayHits; i2++)
+                    //{
+                    //    returningRayDir = DEBUG_echoRayDirections[i * maxRayHits + i2];
 
-                        if (cSetResultCount != 0 && DEBUG_rayResults[i * maxRayHits + cSetResultCount - 1].AudioTargetId == 0 && math.distance(returningRayDir, float3.zero) != 0)
-                        {
-                            lastReturningRayOrigin = (float3)DEBUG_rayResults[i * maxRayHits + i2].DEBUG_HitPoint / (DEBUG_rayResults[i * maxRayHits + i2].FullRayDistance != 0 ? DEBUG_rayResults[i * maxRayHits + i2].FullRayDistance : 1) * 125 / 2;
+                    //    if (cSetResultCount != 0 && DEBUG_rayResults[i * maxRayHits + cSetResultCount - 1].AudioTargetId == 0 && math.distance(returningRayDir, float3.zero) != 0)
+                    //    {
+                    //        lastReturningRayOrigin = (float3)DEBUG_rayResults[i * maxRayHits + i2].DEBUG_HitPoint / (DEBUG_rayResults[i * maxRayHits + i2].FullRayDistance != 0 ? DEBUG_rayResults[i * maxRayHits + i2].FullRayDistance : 1) * 125 / 2;
 
-                            if (drawReturnRayDirectionGizmos)
-                            {
-                                Gizmos.color = rayReturnDirectionColor;
-                                Gizmos.DrawLine(rayOrigin, lastReturningRayOrigin);
-                            }
-                        }
-                    }
+                    //        if (drawReturnRayDirectionGizmos)
+                    //        {
+                    //            Gizmos.color = rayReturnDirectionColor;
+                    //            Gizmos.DrawLine(rayOrigin, lastReturningRayOrigin);
+                    //        }
+                    //    }
+                    //}
 
                     //draw last ray that returned to origin and add its origin to lastReturningRayOriginTotal
                     if (math.distance(lastReturningRayOrigin, float3.zero) != 0)

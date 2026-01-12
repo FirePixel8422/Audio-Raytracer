@@ -13,10 +13,9 @@ public struct AudioTargetSettings
     public float echoStrength;
     public float echoTime;
 
-    public float panStereo;
     public float3 position;
 
-    public AudioTargetSettings(float volume, float muffle, float echoStrength, float echoTime, float panStereo, float3 position)
+    public AudioTargetSettings(float volume, float muffle, float echoStrength, float echoTime, float3 position)
     {
         this.volume = volume;
         this.muffle = muffle;
@@ -25,8 +24,6 @@ public struct AudioTargetSettings
         this.echoTime = echoTime;
 
         this.position = position;
-
-        this.panStereo = panStereo;
     }
 
     public AudioTargetSettings(AudioTargetSettings newSettings)
@@ -38,7 +35,5 @@ public struct AudioTargetSettings
         echoTime = newSettings.echoTime;
 
         position = newSettings.position;
-
-        panStereo = newSettings.panStereo;
     }
 }

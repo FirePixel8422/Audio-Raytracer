@@ -50,11 +50,6 @@ public class AudioSpatializer : MonoBehaviour
         cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
 
         cachedListenerDistance = math.length(soundPosTransform.position - listenerTransform.position);
-
-#if UNITY_EDITOR
-        audioFPS = (int)math.floor(totalAudioFrames / Time.time);
-        audioFrameTime = (int)math.floor(1f / audioFPS * 1000);
-#endif
     }
 
 
@@ -71,12 +66,7 @@ public class AudioSpatializer : MonoBehaviour
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
-        if (channels != 2)
-            return;
-
-#if UNITY_EDITOR
-        totalAudioFrames += 1;
-#endif
+        if (channels != 2) return;
 
         float3 localDir = cachedLocalDir;
         float distanceToListener = cachedListenerDistance;
@@ -226,11 +216,6 @@ public class AudioSpatializer : MonoBehaviour
 
 #if UNITY_EDITOR
     [SerializeField] private bool DEBUG_SyncSettingsToSO;
-
-    [Header("DEBUG")]
-    [SerializeField] private int totalAudioFrames;
-    [SerializeField] private int audioFPS;
-    [SerializeField] private int audioFrameTime;
 
     private void OnValidate()
     {

@@ -3,8 +3,6 @@ using Unity.Collections;
 using UnityEngine;
 using System;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEngine.Rendering;
 
 
 public class AudioTargetManager : MonoBehaviour
@@ -13,7 +11,8 @@ public class AudioTargetManager : MonoBehaviour
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioTargetRT> audioTargets;
-    public static int AudioTargetCount_CurrentBatch => math.min(AudioTargetRTData.CurrentBatchLength, audioTargets.Count);
+    public static int AudioTargetCount_CurrentBatch => math.min(AudioTargetRTData.CurrentBatch.Length, audioTargets.Count);
+    public static int AudioTargetCount_NextBatch => math.min(AudioTargetRTData.NextBatch.Length, audioTargets.Count);
 
     private static NativeArray<bool> usedIds;
 
@@ -84,21 +83,28 @@ public class AudioTargetManager : MonoBehaviour
     {
         if (target == null || audioTargets.Count == 0) return;
 
-        short targetId = target.Id;
+        short removeIndex = target.Id;
         int lastIndex = audioTargets.Count - 1;
 
-        AudioTargetRTData.RemoveAtSwapBack(targetId);
-        AudioTargetPositions.RemoveAtSwapBack(targetId);
-
-        if (targetId != lastIndex)
+        if (removeIndex != lastIndex)
         {
             AudioTargetRT swapped = audioTargets[lastIndex];
-            audioTargets[targetId] = swapped;
-            swapped.Id = targetId;
+
+            audioTargets[removeIndex] = swapped;
+            AudioTargetRTData.NextBatch[removeIndex] = AudioTargetRTData.NextBatch[lastIndex];
+            AudioTargetPositions.NextBatch[removeIndex] = AudioTargetPositions.NextBatch[lastIndex];
+
+            usedIds[swapped.Id] = false;
+            usedIds[removeIndex] = true;
+
+            swapped.Id = removeIndex;
         }
 
         audioTargets.RemoveAt(lastIndex);
-        FreeId(targetId);
+        AudioTargetRTData.NextBatch.RemoveAt(lastIndex);
+        AudioTargetPositions.NextBatch.RemoveAt(lastIndex);
+
+        FreeId(removeIndex);
     }
 
 

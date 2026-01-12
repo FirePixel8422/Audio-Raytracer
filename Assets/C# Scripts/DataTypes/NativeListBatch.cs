@@ -13,8 +13,6 @@ public unsafe class NativeListBatch<T> where T : unmanaged
     public ref NativeList<T> CurrentBatch => ref (cBatchId == 0 ? ref batch1 : ref batch2);
     public ref NativeList<T> NextBatch => ref (cBatchId == 0 ? ref batch2 : ref batch1);
 
-    public int CurrentBatchLength;
-
 
     public NativeListBatch(int startBatchSize, Allocator allocator = Allocator.Persistent)
     {
@@ -57,8 +55,6 @@ public unsafe class NativeListBatch<T> where T : unmanaged
 
         // Flip batches
         cBatchId ^= 1;
-
-        CurrentBatchLength = CurrentBatch.Length;
     }
 
     public void Dispose()

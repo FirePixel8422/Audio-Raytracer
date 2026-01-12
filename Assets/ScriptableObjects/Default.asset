@@ -21,16 +21,16 @@ MonoBehaviour:
     maxRearAttenuationDistance: 15
     maxElevationEffectDistance: 12
     lowPassCutoff:
-      min: 5000
+      min: 2000
       max: 22000
     lowPassVolume: 0.85
     highPassCutoff:
       min: 25
-      max: 150
+      max: 125
     highPassVolume: 1.15
     muffleCutoff:
-      min: 75
+      min: 0
       max: 8000
-    reverbDecayFactor: 0.805
-    reverbAllpassGain: 0.7
-    wetBoostMultiplier: 1.5
+    reverbDecayFactor: 1
+    reverbAllpassGain: 1
+    wetBoostMultiplier: 1.16
