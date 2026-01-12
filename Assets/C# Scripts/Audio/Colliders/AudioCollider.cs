@@ -5,7 +5,7 @@ public abstract class AudioCollider : MonoBehaviour
 {
     [Header("Set this to true if collider never moves at runtime")]
     public bool IsStatic = true;
-    [Header("Collider doesnt update with scale if true (improves performance)")]
+    [Header("Collider doesnt UPDATE with scale if true (improves performance)")]
     public bool IgnoreScale = true;
 
     public short AudioColliderId;

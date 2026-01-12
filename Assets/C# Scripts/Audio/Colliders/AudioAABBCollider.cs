@@ -25,11 +25,8 @@ public class AudioAABBCollider : AudioCollider
         Half3.Add(colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
         colliderStructCopyCopy.center = mergedPosition;
 
-        if (IgnoreScale == false)
-        {
-            Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopyCopy.size = scaledSize;
-        }
+        Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
+        colliderStructCopyCopy.size = scaledSize;
 
         AudioColliderId = (short)aabbStructs.NextBatch.Length;
         aabbStructs.Add(colliderStructCopyCopy);
@@ -85,11 +82,8 @@ public class AudioAABBCollider : AudioCollider
         Half3.Add(colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
         colliderStructCopyCopy.center = mergedPosition;
 
-        if (IgnoreScale == false)
-        {
-            Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopyCopy.size = scaledSize;
-        }
+        Half3.Multiply(colliderStructCopyCopy.size, transform.lossyScale, out half3 scaledSize);
+        colliderStructCopyCopy.size = scaledSize;
 
         Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStructCopyCopy.center, Quaternion.identity, (float3)colliderStructCopyCopy.size * 2);
     }

@@ -88,4 +88,10 @@ public struct Half
     {
         output = new half((half)(a * b));
     }
+
+    [BurstCompile]
+    public static void Divide(in half a, in half b, out half output)
+    {
+        output = new half(a / b);
+    }
 }

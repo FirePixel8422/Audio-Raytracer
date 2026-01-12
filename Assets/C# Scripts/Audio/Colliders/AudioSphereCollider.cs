@@ -25,11 +25,8 @@ public class AudioSphereCollider : AudioCollider
         Half3.Add(colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
         colliderStructCopyCopy.center = mergedPosition;
 
-        if (IgnoreScale == false)
-        {
-            Half.Multiply(colliderStructCopyCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
-            colliderStructCopyCopy.radius = scaledRadius;
-        }
+        Half.Multiply(colliderStructCopyCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+        colliderStructCopyCopy.radius = scaledRadius;
 
         AudioColliderId = (short)sphereStructs.NextBatch.Length;
         sphereStructs.Add(colliderStructCopyCopy);
@@ -90,11 +87,8 @@ public class AudioSphereCollider : AudioCollider
         Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
         colliderStructCopy.center = mergedPosition;
 
-        if (IgnoreScale == false)
-        {
-            Half.Multiply(colliderStructCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
-            colliderStructCopy.radius = scaledRadius;
-        }
+        Half.Multiply(colliderStructCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+        colliderStructCopy.radius = scaledRadius;
 
         Gizmos.DrawWireSphere((float3)colliderStructCopy.center, (float)colliderStructCopy.radius);
     }
