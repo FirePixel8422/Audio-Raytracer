@@ -107,13 +107,13 @@ public class AudioColliderManager : MonoBehaviour
         targetCollider.UpdateToAudioSystem(AABBColliders, OBBColliders, SphereColliders);
     }
 
-    public static void CycleToNextBatch()
+    public static void UpdateJobBatch()
     {
         OnColliderUpdate?.Invoke();
 
-        AABBColliders.CycleToNextBatch();
-        OBBColliders.CycleToNextBatch();
-        SphereColliders.CycleToNextBatch();
+        AABBColliders.UpdateJobBatch();
+        OBBColliders.UpdateJobBatch();
+        SphereColliders.UpdateJobBatch();
     }
 
     private void OnDestroy()

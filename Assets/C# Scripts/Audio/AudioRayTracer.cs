@@ -87,8 +87,8 @@ public class AudioRayTracer : MonoBehaviour
         // Trigger an update for all audio targets with ray traced data after raytrace job has finished
         AudioTargetManager.UpdateAudioTargetSettings();
 
-        AudioTargetManager.CycleToNextBatch();
-        AudioColliderManager.CycleToNextBatch();
+        AudioTargetManager.UpdateJobBatch();
+        AudioColliderManager.UpdateJobBatch();
 
 #if UNITY_EDITOR
         batchCycleMs = sw2.ElapsedMilliseconds;

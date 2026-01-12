@@ -2,6 +2,9 @@
 using Unity.Collections.LowLevel.Unsafe;
 
 
+/// <summary>
+/// Batch container type that allows live read writes to a NativeArray of type <typeparamref name="T"/> and syncs it to a Job only copy every <see cref="UpdateJobBatch"/>
+/// </summary>
 public unsafe class NativeJobBatch<T> where T : unmanaged
 {
     public NativeList<T> NextBatch;
@@ -28,7 +31,7 @@ public unsafe class NativeJobBatch<T> where T : unmanaged
         NextBatch[id] = value;
     }
 
-    public unsafe void CycleToNextBatch()
+    public unsafe void UpdateJobBatch()
     {
         // Ensure CurrentBatch can hold NextBatch
         if (JobBatch.Capacity < NextBatch.Length)

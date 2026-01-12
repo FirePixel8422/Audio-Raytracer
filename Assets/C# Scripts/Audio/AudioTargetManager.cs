@@ -116,12 +116,12 @@ public class AudioTargetManager : MonoBehaviour
     #endregion
 
 
-    public static void CycleToNextBatch()
+    public static void UpdateJobBatch()
     {
         OnAudioTargetUpdate?.Invoke();
 
-        AudioTargetPositions.CycleToNextBatch();
-        AudioTargetRTData.CycleToNextBatch();
+        AudioTargetPositions.UpdateJobBatch();
+        AudioTargetRTData.UpdateJobBatch();
 
         int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracersManager.ToUseThreadCount;
 
