@@ -142,7 +142,7 @@ public struct ProcessAudioDataJob : IJob
             // If we have return positions, use those to compute average direction
             if (data.TargetReturnCounts > 0)
             {
-                float3 avgPos = (float3)data.TargetReturnPositionsTotal / data.TargetReturnCounts;
+                float3 avgPos = data.TargetReturnPositionsTotal / data.TargetReturnCounts;
 
                 // Calculate direction from listener to sound source (target direction)
                 float3 targetDir = math.normalize(RayOriginWorld - avgPos); // Direction from listener to sound source

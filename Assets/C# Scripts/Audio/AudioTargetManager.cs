@@ -18,8 +18,17 @@ public class AudioTargetManager : MonoBehaviour
     private static NativeArray<bool> usedIds;
 
     public static NativeJobBatch<AudioTargetRTData> AudioTargetRTData { get; private set; }
+
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
     public static NativeJobBatch<float3> AudioTargetPositions { get; private set; }
     public static NativeArray<ushort> MuffleRayHits { get; private set; }
+    public static NativeArray<half> PermeationStrengthRemains { get; private set; }
 
     public static Action OnAudioTargetUpdate { get; set; }
 
@@ -34,6 +43,7 @@ public class AudioTargetManager : MonoBehaviour
         AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
 
         MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
+        PermeationStrengthRemains = new NativeArray<half>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
     }
 
 
@@ -154,6 +164,7 @@ public class AudioTargetManager : MonoBehaviour
         usedIds.Dispose();
         AudioTargetPositions.Dispose();
         AudioTargetRTData.Dispose();
+        PermeationStrengthRemains.Dispose();
         MuffleRayHits.Dispose();
     }
 }

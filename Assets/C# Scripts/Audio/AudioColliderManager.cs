@@ -68,7 +68,7 @@ public class AudioColliderManager : MonoBehaviour
         // Remove from master list
         colliders.RemoveSwapBack(target);
 
-        // Remove from type-specific list and native list in O(1)
+        // Remove from type-specific list and native list in O1 time
         switch (type)
         {
             case ColliderType.Sphere:

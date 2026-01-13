@@ -6604,7 +6604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioRaytracersManager
   computeAsync: 1
-  maxThreadCount: 3
+  maxThreadCount: 1
 --- !u!114 &1030950981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14933,20 +14933,22 @@ MonoBehaviour:
   rayCount: 1500
   maxBounces: 12
   maxRayLife: 75
-  drawRayHitsGizmos: 0
-  drawRayTrailsGizmos: 0
-  drawReturnRayDirectionGizmos: 0
-  drawReturnRayLastDirectionGizmos: 0
-  drawReturnRaysAvgDirectionGizmos: 0
   originColor: {r: 0, g: 1, b: 0, a: 1}
+  drawRayHitsGizmos: 0
   rayHitColor: {r: 0, g: 1, b: 1, a: 1}
+  drawRayTrailsGizmos: 0
   rayTrailColor: {r: 0, g: 1, b: 0, a: 0.15}
+  drawReturnRayDirectionGizmos: 0
   rayReturnDirectionColor: {r: 0.5, g: 0.25, b: 0, a: 1}
+  drawReturnRayLastDirectionGizmos: 0
   rayReturnLastDirectionColor: {r: 1, g: 0.5, b: 0, a: 1}
+  drawReturnRaysAvgDirectionGizmos: 0
   rayReturnAvgDirectionColor: {r: 1, g: 0.5, b: 0, a: 1}
+  drawDebugArrays: 1
   DEBUG_AudioTargetPositions: []
-  DEBUG_muffleRayHits: 
-  hashes: 
+  DEBUG_MaxMuffleHits: 0
+  DEBUG_MuffleRayHits: 
+  DEBUG_MufflePercent01: []
   raytracerMs: 0
   batchCycleMs: 0
 --- !u!1 &2075243379
