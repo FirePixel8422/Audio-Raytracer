@@ -42,6 +42,8 @@ public class AudioSpatializer : MonoBehaviour
 
         sampleRate = AudioSettings.outputSampleRate;
         reverb = new SimpleReverb(sampleRate, settings.reverbDecayFactor, settings.reverbAllpassGain);
+
+        settings.MuffleCurve.Bake();
     }
 
 
@@ -51,6 +53,8 @@ public class AudioSpatializer : MonoBehaviour
         cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
 
         cachedListenerDistance = math.length(soundPosTransform.position - listenerTransform.position);
+
+        //settings.MuffleCurve.Bake();
     }
 
 
@@ -159,7 +163,9 @@ public class AudioSpatializer : MonoBehaviour
             // Apply additional muffle lowpass based on MuffleStrength
             if (MuffleStrength > 0f)
             {
-                float muffleCutoff = math.lerp(settings.muffleCutoff.max, settings.muffleCutoff.min, MuffleStrength);
+                float muffle = settings.MuffleCurve.Evaluate(MuffleStrength);
+
+                float muffleCutoff = math.lerp(settings.muffleCutoff.max, settings.muffleCutoff.min, muffle);
                 processedLeft = LowPass(processedLeft, ref previousMuffle.Left, muffleCutoff, sampleRate);
                 processedRight = LowPass(processedRight, ref previousMuffle.Right, muffleCutoff, sampleRate);
             }
@@ -214,6 +220,11 @@ public class AudioSpatializer : MonoBehaviour
     #endregion
 
 
+
+    private void OnDestroy()
+    {
+        settings.MuffleCurve.Dispose();
+    }
 
 #if UNITY_EDITOR
     [SerializeField] private bool DEBUG_SyncSettingsToSO;

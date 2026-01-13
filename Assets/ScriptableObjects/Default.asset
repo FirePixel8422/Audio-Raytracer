@@ -28,6 +28,33 @@ MonoBehaviour:
       min: 25
       max: 125
     highPassVolume: 1.15
+    MuffleCurve:
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1.025641
+          outSlope: 1.025641
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.975
+          value: 1
+          inSlope: 1.025641
+          outSlope: 1.025641
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      valueMultiplier: 1
+      sampleCount: 50
     muffleCutoff:
       min: 0
       max: 8000

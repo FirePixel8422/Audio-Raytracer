@@ -15,18 +15,18 @@ public class AudioSphereCollider : AudioCollider
     {
         base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
 
-        ColliderSphereStruct colliderStructCopyCopy = colliderStruct;
+        ColliderSphereStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopyCopy.audioTargetId = AudioTargetId;
+        colliderStructCopy.audioTargetId = AudioTargetId;
 
-        Half3.Add(colliderStructCopyCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopyCopy.center = mergedPosition;
+        Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.center = mergedPosition;
 
-        Half.Multiply(colliderStructCopyCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
-        colliderStructCopyCopy.radius = scaledRadius;
+        Half.Multiply(colliderStructCopy.radius, GetLargestPositionComponent(transform.lossyScale), out half scaledRadius);
+        colliderStructCopy.radius = scaledRadius;
 
         AudioColliderId = (short)sphereStructs.NextBatch.Length;
-        sphereStructs.Add(colliderStructCopyCopy);
+        sphereStructs.Add(colliderStructCopy);
     }
 
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)

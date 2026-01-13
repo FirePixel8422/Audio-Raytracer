@@ -41,7 +41,11 @@ public abstract class AudioCollider : MonoBehaviour
             AudioColliderManager.OnColliderUpdate += CheckColliderTransformation;
         }
     }
-    private void UpdateAudioTargetId(short newId) => AudioTargetId = newId;
+    private void UpdateAudioTargetId(short newId)
+    {
+        AudioTargetId = newId;
+        AudioColliderManager.UpdateColiderInSystem(this);
+    }
 
     protected virtual void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
@@ -91,6 +95,8 @@ public abstract class AudioCollider : MonoBehaviour
     {
         if (prevIsStatic != IsStatic)
         {
+            if (Application.isPlaying) return;
+
             if (TryGetComponent(out AudioTargetRT audiotarget))
             {
                 audiotarget.SetIsStaticValue(IsStatic);
@@ -99,10 +105,12 @@ public abstract class AudioCollider : MonoBehaviour
             AudioCollider[] audioColliders = GetComponents<AudioCollider>();
             for (int i = 0; i < audioColliders.Length; i++)
             {
+                if (audioColliders[i] == this) return;
+
                 audioColliders[i].SetIsStaticValue(IsStatic);
             }
 
-            DebugLogger.Log($"Possible AudioTarget and all attached AudioColliders set to the same static value", audioColliders.Length != 0 || audiotarget != null);
+            DebugLogger.Log($"Possible AudioTarget and all attached AudioColliders set to the same static value", audioColliders.Length != 1 || audiotarget != null);
         }
         prevIsStatic = IsStatic;
     }

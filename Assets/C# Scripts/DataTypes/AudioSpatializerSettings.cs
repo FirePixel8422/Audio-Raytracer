@@ -36,6 +36,7 @@ public struct AudioSpatializerSettings
     public float highPassVolume;
 
     [Header("Muffle Effect")]
+    public NativeSampledAnimationCurve MuffleCurve;
     public MinMaxFloat muffleCutoff;
 
     [Header("Reverb Effect")]
@@ -69,6 +70,7 @@ public struct AudioSpatializerSettings
         lowPassVolume = 0.85f,
         highPassVolume = 1.15f,
 
+        MuffleCurve = NativeSampledAnimationCurve.Default,
         muffleCutoff = new MinMaxFloat(75, 8000),
 
         reverbDecayFactor = 0.805f,

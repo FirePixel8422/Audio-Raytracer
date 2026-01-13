@@ -109,12 +109,14 @@ public class AudioTargetManager : MonoBehaviour
 
             swapped.Id = removeIndex;
         }
+        else
+        {
+            FreeId(0);
+        }
 
         audioTargets.RemoveAt(lastIndex);
         AudioTargetRTData.NextBatch.RemoveAt(lastIndex);
         AudioTargetPositions.NextBatch.RemoveAt(lastIndex);
-
-        FreeId(removeIndex);
     }
 
 
