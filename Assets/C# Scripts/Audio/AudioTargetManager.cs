@@ -15,7 +15,7 @@ public class AudioTargetManager : MonoBehaviour
     public static int AudioTargetCount_JobBatch => math.min(AudioTargetSettings.JobBatch.Length, audioTargets.Count);
     public static int AudioTargetCount_NextBatch => math.min(AudioTargetSettings.NextBatch.Length, audioTargets.Count);
 
-    private static NativeArray<bool> usedIds;
+    private static NativeIdPool idPool;
 
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
@@ -34,7 +34,7 @@ public class AudioTargetManager : MonoBehaviour
     {
         audioTargets = new List<AudioTargetRT>(startCapacity);
 
-        usedIds = new NativeArray<bool>(startCapacity, Allocator.Persistent);
+        idPool = new NativeIdPool(startCapacity, Allocator.Persistent);
 
         AudioTargetSettings = new NativeJobBatch<AudioTargetRTSettings>(startCapacity, Allocator.Persistent);
         AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
@@ -51,39 +51,9 @@ public class AudioTargetManager : MonoBehaviour
         audioTargets.Add(target);
 
         AudioTargetSettings.Add(new AudioTargetRTSettings());
-        target.AddToAudioSystem(AudioTargetPositions, AllocateId());
-    }
 
-    /// <summary>
-    /// Get a short id based on a list that tracks used and free ids.
-    /// </summary>
-    private static short AllocateId()
-    {
-        short idCount = (short)usedIds.Length;
-
-        for (short i = 0; i < idCount; i++)
-        {
-            // Check for first free Id
-            if (usedIds[i] == false)
-            {
-                usedIds[i] = true;
-                return i;
-            }
-        }
-
-        // Resize array if we ran out of ids
-        NativeArray<bool> old = usedIds;
-        usedIds = new NativeArray<bool>(idCount * 2, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
-
-        NativeArray<bool>.Copy(old, usedIds, old.Length);
-        old.Dispose();
-
-        usedIds[idCount] = true;
-        return idCount;
-    }
-    private static void FreeId(short id)
-    {
-        usedIds[id] = false;
+        short audioTargetId = idPool.RequestId();
+        target.AddToAudioSystem(AudioTargetPositions, audioTargetId);
     }
 
     public static void RemoveAudioTargetFromSystem(AudioTargetRT target)
@@ -91,8 +61,9 @@ public class AudioTargetManager : MonoBehaviour
         if (target == null || audioTargets.Count == 0) return;
 
         short removeIndex = target.Id;
-        int lastIndex = audioTargets.Count - 1;
+        short lastIndex = (short)(audioTargets.Count - 1);
 
+        // If an AudioTargetRT in the middle of the list is removed, swap it with the last one and swap relevant data
         if (removeIndex != lastIndex)
         {
             AudioTargetRT swapped = audioTargets[lastIndex];
@@ -101,22 +72,28 @@ public class AudioTargetManager : MonoBehaviour
             AudioTargetSettings.NextBatch[removeIndex] = AudioTargetSettings.NextBatch[lastIndex];
             AudioTargetPositions.NextBatch[removeIndex] = AudioTargetPositions.NextBatch[lastIndex];
 
-            usedIds[swapped.Id] = false;
-            usedIds[removeIndex] = true;
+            idPool.ReleaseId(removeIndex);
+            idPool.SwapIds(removeIndex, swapped.Id);
+
+            // Its now possible to just use idPool.Length to get the latest id
+            // Its now possible to just use idPool.Length to get the latest id
+            // Its now possible to just use idPool.Length to get the latest id
+            // Its now possible to just use idPool.Length to get the latest id
+            // Its now possible to just use idPool.Length to get the latest id
+            // Its now possible to just use idPool.Length to get the latest id
+            // Its now possible to just use idPool.Length to get the latest id
 
             swapped.Id = removeIndex;
         }
         else
         {
-            FreeId(0);
+            idPool.ReleaseId(removeIndex);
         }
 
         audioTargets.RemoveAt(lastIndex);
         AudioTargetSettings.NextBatch.RemoveAt(lastIndex);
         AudioTargetPositions.NextBatch.RemoveAt(lastIndex);
     }
-
-
     public static void UpdateColiderInSystem(AudioTargetRT target)
     {
         target.UpdateToAudioSystem(AudioTargetPositions);
@@ -135,10 +112,10 @@ public class AudioTargetManager : MonoBehaviour
         int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracersManager.ToUseThreadCount;
 
         // Resize MuffleRayHits array if needed
-        if (muffleRayHitsCapacity > MuffleRayHits.Length)
+        if (muffleRayHitsCapacity != MuffleRayHits.Length)
         {
             MuffleRayHits.Dispose();
-            MuffleRayHits = new NativeArray<ushort>(muffleRayHitsCapacity * 2, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            MuffleRayHits = new NativeArray<ushort>(muffleRayHitsCapacity, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
         }
     }
     public static void UpdateAudioTargetSettings()
@@ -160,10 +137,16 @@ public class AudioTargetManager : MonoBehaviour
     {
         OnAudioTargetUpdate = null;
 
-        usedIds.Dispose();
+        idPool.Dispose();
         AudioTargetPositions.Dispose();
         AudioTargetSettings.Dispose();
         PermeationStrengthRemains.Dispose();
         MuffleRayHits.Dispose();
+    }
+
+    [SerializeField] private byte[] DEBUG_idPool;
+    private void Update()
+    {
+        DEBUG_idPool = idPool.IdList.ToArray();
     }
 }

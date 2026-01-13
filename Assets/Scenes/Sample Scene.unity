@@ -1786,7 +1786,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 31, y: 5, z: -0}
-  m_LocalScale: {x: 0.1, y: 9.99985, z: 20.498423}
+  m_LocalScale: {x: 0.1, y: 9.99985, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -1928,7 +1928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &241768772
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2026,13 +2026,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241768771}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00000004470348, y: 0.23887236, z: -0, w: 0.971051}
-  m_LocalPosition: {x: 22.01, y: -4.88, z: 15.08}
+  m_LocalRotation: {x: 0.41376832, y: 0.30428663, z: -0.26400977, w: 0.8163972}
+  m_LocalPosition: {x: 25.27, y: 0.42, z: -0.15}
   m_LocalScale: {x: 1, y: 1.9696999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 27.64, z: 0}
+  m_LocalEulerAnglesHint: {x: 56.748, y: 30.508, z: -19.083}
 --- !u!23 &241768778
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2570,8 +2570,8 @@ Transform:
   m_GameObject: {fileID: 259388597}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 5, z: 5.003895}
-  m_LocalScale: {x: 0.1, y: 9.99985, z: 30.009058}
+  m_LocalPosition: {x: -10, y: 5, z: 5}
+  m_LocalScale: {x: 0.1, y: 10, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -3089,8 +3089,8 @@ Transform:
   m_GameObject: {fileID: 327348722}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.015200496, y: 5, z: 19.999998}
-  m_LocalScale: {x: 20.031061, y: 9.999599, z: 0.1}
+  m_LocalPosition: {x: 0, y: 5, z: 19.999998}
+  m_LocalScale: {x: 20, y: 10, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -6626,7 +6626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac0ffc6f454c5e428b1e0c1ef332e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioTargetManager
-  startCapacity: 3
+  startCapacity: 1
+  DEBUG_idPool: 
 --- !u!1 &1056975617
 GameObject:
   m_ObjectHideFlags: 0
@@ -10424,8 +10425,8 @@ Transform:
   m_GameObject: {fileID: 1375711491}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.500002, y: 5, z: -10.030001}
-  m_LocalScale: {x: 40.998936, y: 9.99985, z: 0.1}
+  m_LocalPosition: {x: 10.500002, y: 5, z: -10}
+  m_LocalScale: {x: 41, y: 10, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -11473,8 +11474,8 @@ Transform:
   m_GameObject: {fileID: 1488041906}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000011920929, y: 5, z: -1.3699943}
-  m_LocalScale: {x: 0.1, y: 9.99985, z: 17.586393}
+  m_LocalPosition: {x: 0, y: 5, z: -1.25}
+  m_LocalScale: {x: 0.1, y: 10, z: 17.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -14268,8 +14269,8 @@ Transform:
   m_GameObject: {fileID: 1907513786}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1000004, y: 5, z: -4.5589995}
-  m_LocalScale: {x: 0.1, y: 9.99985, z: 11.169064}
+  m_LocalPosition: {x: -4.1000004, y: 5, z: -4.5}
+  m_LocalScale: {x: 0.1, y: 10, z: 11}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -14542,8 +14543,8 @@ Transform:
   m_GameObject: {fileID: 1920798008}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 5, z: -2.0000026}
-  m_LocalScale: {x: 0.1, y: 9.99985, z: 15.999}
+  m_LocalPosition: {x: 10, y: 5, z: -2}
+  m_LocalScale: {x: 0.1, y: 10, z: 16}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -14944,7 +14945,7 @@ Transform:
   m_GameObject: {fileID: 2037342793}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.004765509, z: -0, w: 0.9999887}
-  m_LocalPosition: {x: 5.078809, y: 5, z: 7.8250055}
+  m_LocalPosition: {x: 5, y: 5, z: 7.85}
   m_LocalScale: {x: 0.1, y: 9.99985, z: 4.2769446}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15281,20 +15282,14 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
-  rayCount: 314
-  maxBounces: 5
+  rayCount: 500
+  maxBounces: 4
   maxRayLife: 75
-  originColor: {r: 0, g: 1, b: 0, a: 1}
-  drawRayHitsGizmos: 1
+  originColor: {r: 0.4395133, g: 0.47058824, b: 0.023529418, a: 1}
+  drawRayHitsGizmos: 0
   rayHitColor: {r: 0, g: 1, b: 1, a: 0.5019608}
-  drawRayTrailsGizmos: 1
+  drawRayTrailsGizmos: 0
   rayTrailColor: {r: 0, g: 1, b: 0, a: 0.101960786}
-  drawReturnRayDirectionGizmos: 0
-  rayReturnDirectionColor: {r: 0.5, g: 0.25, b: 0, a: 1}
-  drawReturnRayLastDirectionGizmos: 0
-  rayReturnLastDirectionColor: {r: 1, g: 0.5, b: 0, a: 1}
-  drawReturnRaysAvgDirectionGizmos: 0
-  rayReturnAvgDirectionColor: {r: 1, g: 0.5, b: 0, a: 1}
   drawDebugArrays: 1
   DEBUG_AudioTargetPositions: []
   DEBUG_MaxMuffleHits: 0

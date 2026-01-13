@@ -13,8 +13,6 @@ public class AudioAABBCollider : AudioCollider
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
-        base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
-
         ColliderAABBStruct colliderStructCopy = colliderStruct;
 
         colliderStructCopy.audioTargetId = AudioTargetId;
@@ -31,8 +29,6 @@ public class AudioAABBCollider : AudioCollider
 
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
-        base.AddToAudioSystem(aabbStructs, obbStructs, sphereStructs);
-
         ColliderAABBStruct colliderStructCopy = colliderStruct;
 
         colliderStructCopy.audioTargetId = AudioTargetId;

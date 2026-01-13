@@ -65,16 +65,6 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
         //save local copy of RayOrigin
         float3 cRayOrigin;
 
-        float rayHitDist;
-        AudioRayResult rayResult;
-
-        ColliderType hitColliderType;
-
-        ColliderAABBStruct hitAABB = new ColliderAABBStruct();
-        ColliderOBBStruct hitOBB = new ColliderOBBStruct();
-        ColliderSphereStruct hitSphere = new ColliderSphereStruct();
-
-
         #region Reset Array data
 
         // Reset array data completely before starting
@@ -114,7 +104,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
             {
                 // Intersection tests for environment ray: AABB, OBB, Sphere
                 // If a collider was hit (aka. the ray didnt go out of bounds)
-                if (ShootRayCast(cRayOrigin, cRayDir, out rayResult, out hitColliderType, out rayHitDist, out hitAABB, out hitOBB, out hitSphere))
+                if (ShootRayCast(cRayOrigin, cRayDir, out AudioRayResult rayResult, out ColliderType hitColliderType, out float rayHitDist, out ColliderAABBStruct hitAABB, out ColliderOBBStruct hitOBB, out ColliderSphereStruct hitSphere))
                 {
                     // Update new ray origin, ray totalDist and add 1 bounce
                     cRayOrigin += cRayDir * rayHitDist;

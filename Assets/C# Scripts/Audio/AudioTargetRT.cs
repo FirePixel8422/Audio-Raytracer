@@ -36,7 +36,6 @@ public class AudioTargetRT : MonoBehaviour
         }
     }
 
-
     private void OnEnable() => AudioTargetManager.AddAudioTargetToSystem(this);
     private void OnDisable() => AudioTargetManager.RemoveAudioTargetFromSystem(this);
 
@@ -58,6 +57,9 @@ public class AudioTargetRT : MonoBehaviour
         audioTargetPositions.Set(Id, transform.position);
     }
 
+    /// <summary>
+    /// Update AudioTarget position in the audio system if it has moved
+    /// </summary>
     private void CheckTransformation()
     {
         if (enabled == false) return;
@@ -71,7 +73,7 @@ public class AudioTargetRT : MonoBehaviour
 
 
     /// <summary>
-    /// Update AudioTarget at realtime based on the AudioRaytracer's data
+    /// Update AudioTarget at realtime based on the AudioRaytracer job results
     /// </summary>
     public void UpdateAudioSource(AudioTargetRTSettings newSettings)
     {
