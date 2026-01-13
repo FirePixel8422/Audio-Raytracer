@@ -23,7 +23,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
     [ReadOnly][NoAlias] public int TotalAudioTargets;
 
     [ReadOnly][NoAlias] public float MaxRayLife;
-    [ReadOnly][NoAlias] public int MaxRayHits;
+    [ReadOnly][NoAlias] public byte MaxHitsPerRay;
 
     #endregion
 
@@ -37,7 +37,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
     [WriteOnly][NoAlias] public NativeArray<byte> ResultCounts;
 
     [NativeDisableParallelForRestriction]
-    [WriteOnly][NoAlias] public NativeArray<half3> EchoRayDirections;
+    [WriteOnly][NoAlias] public NativeArray<half> EchoRayDistances;
 
     #endregion
 
@@ -78,11 +78,11 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
         #region Reset Array data
 
         // Reset array data completely before starting
-        for (int i = 0; i < totalRays * MaxRayHits; i++)
+        for (int i = 0; i < totalRays * MaxHitsPerRay; i++)
         {
             int rayIndex = rayStartIndex + i;
 
-            EchoRayDirections[rayIndex] = half3.zero;
+            EchoRayDistances[rayIndex] = (half)0;
             RayResults[rayIndex] = new AudioRayResult();
         }
 
@@ -121,64 +121,63 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     cRayLife -= rayHitDist;
                     cRayHits += 1;
 
-                    rayResultId = rayIndex * MaxRayHits +cRayHits - 1;
+                    rayResultId = rayIndex * MaxHitsPerRay + cRayHits - 1;
 #if UNITY_EDITOR
-                    //for debugging like drawing gizmos
+                    // For debugging like drawing gizmos
                     rayResult.DEBUG_HitPoint = (half3)cRayOrigin;
 #endif
 
 
-                    #region Check if hit ray point can return to original origin point (Blue Echo rays to player)
+                    #region Check if hit ray point can return to original origin point (Echo rays to player)
 
-                    float3 offsettedRayHitWorldPoint = cRayOrigin - cRayDir * EPSILON; //offset the hit point a bit so it doesnt intersect with same collider again
+                    // Offset the hit point a bit so it doesnt intersect with same collider again
+                    float3 offsettedRayHitWorldPoint = cRayOrigin - cRayDir * EPSILON;
 
-                    //shoot a return ray to the original origin
+                    // Shoot return ray to the original origin
                     float3 returnRayDir = math.normalize(RayOrigin - offsettedRayHitWorldPoint);
 
-                    //calculate the distance to the origin and offset RayOrigin by a bit back so it doesnt intersect with same collider again
-                    float distToOriginalOrigin = math.distance(RayOrigin, offsettedRayHitWorldPoint);
+                    // Calculate distance to the original origin
+                    float distToStartOrigin = math.distance(RayOrigin, offsettedRayHitWorldPoint);
 
-                    // if nothing was hit, aka the ray go to the player succesfully store the return ray direction
-                    if (CanRaySeePoint(offsettedRayHitWorldPoint, returnRayDir, distToOriginalOrigin))
+                    // if nothing was hit, aka the ray go to the player succesfully store the distance to the current main ray position
+                    if (CanRaySeePoint(offsettedRayHitWorldPoint, returnRayDir, distToStartOrigin))
                     {
-                        EchoRayDirections[rayResultId] = (half3)returnRayDir;
+                        EchoRayDistances[rayResultId] = (half)distToStartOrigin;
                     }
                 
                     #endregion
 
 
-                    #region Check if ray can get to audiotarget (Green Muffle rays to all audio targets)
+                    #region Check if ray can get to audiotarget (Muffle rays to all audio targets)
 
                     // Raycast to each AudioTarget position
-                    for (short i = 0; i < TotalAudioTargets; i++)
+                    for (short audioTargetId = 0; audioTargetId < TotalAudioTargets; audioTargetId++)
                     {
-                        int muffleRayId = batchId * TotalAudioTargets + i;
+                        int muffleRayId = batchId * TotalAudioTargets + audioTargetId;
 
                         // Offset the hit point a bit so it doesnt intersect with same collider again
                         offsettedRayHitWorldPoint = cRayOrigin - cRayDir * EPSILON;
 
                         // Get Position of current AudioTarget and direction towards it with cRayOrigin
-                        float3 audioTargetPosition = AudioTargetPositions[i];
+                        float3 audioTargetPosition = AudioTargetPositions[audioTargetId];
                         float3 rayToTargetDir = math.normalize(audioTargetPosition - offsettedRayHitWorldPoint);
 
                         // Calculate distance to the audio target
                         float distToTarget = math.distance(offsettedRayHitWorldPoint, audioTargetPosition);
 
                         // Cast a ray from the hit point to the audio target
-                        if (CanRaySeeAudioTarget(offsettedRayHitWorldPoint, rayToTargetDir, distToTarget, i))
+                        if (CanRaySeeAudioTarget(offsettedRayHitWorldPoint, rayToTargetDir, distToTarget, audioTargetId))
                         {
                             // If the ray to the audio target is clear, increment the appropriate entry in MuffleRayHits
                             MuffleRayHits[muffleRayId] += 1;
-
-                            //rayResult.AudioTargetId = i; // Set the audio target Id in the result
                         }
                     }
 
                     #endregion
 
 
-                    // Check if ray is finished (if rayHits is more than MaxRayHits or totalDist is equal or exceeds MaxRayDist)
-                    if (cRayHits >= MaxRayHits || cRayLife <= 0)
+                    // Check if ray is finished (if rayHits is more than MaxHitsPerRay or totalDist is equal or exceeds MaxRayDist)
+                    if (cRayHits >= MaxHitsPerRay || cRayLife <= 0)
                     {
                         // If ray dies this iteration, give it the totalDist traveled value as its fullRayDistance
                         rayResult.FullRayDistance = (half)(MaxRayLife - cRayLife);
@@ -195,10 +194,11 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     // Add hit result to return data array
                     RayResults[rayResultId] = rayResult;
                 }
+                // Ray went out of bounds (Didnt hit anything), kill ray instantly
                 else
                 {
                     ResultCounts[rayIndex] = cRayHits;
-                    break; // Ray went out of bounds (Didnt hit anything), kill ray instantly
+                    break;
                 }
             }
 
@@ -228,6 +228,19 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
         hitOBB = new ColliderOBBStruct();
         hitSphere = new ColliderSphereStruct();
 
+        // Sphere intersections
+        for (int i = 0; i < SphereColliderCount; i++)
+        {
+            var tempSphere = SphereColliders[i];
+
+            // If collider is hit AND it is the closest hit so far
+            if (RayIntersectsSphere(cRayOrigin, cRayDir, tempSphere.center, tempSphere.radius, out dist) && dist < closestDist)
+            {
+                hitColliderType = ColliderType.Sphere;
+                hitSphere = tempSphere;
+                closestDist = dist;
+            }
+        }
         // Box intersections (AABB)
         for (int i = 0; i < AABBColliderCount; i++)
         {
@@ -241,7 +254,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                 closestDist = dist;
             }
         }
-        // Rotated box intersections (OBB)
+        // Rotated Box intersections (OBB)
         for (int i = 0; i < OBBColliderCount; i++)
         {
             var tempOBB = OBBColliders[i];
@@ -251,19 +264,6 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
             {
                 hitColliderType = ColliderType.OBB;
                 hitOBB = tempOBB;
-                closestDist = dist;
-            }
-        }
-        // Sphere intersections
-        for (int i = 0; i < SphereColliderCount; i++)
-        {
-            var tempSphere = SphereColliders[i];
-
-            // If collider is hit AND it is the closest hit so far
-            if (RayIntersectsSphere(cRayOrigin, cRayDir, tempSphere.center, tempSphere.radius, out dist) && dist < closestDist)
-            {
-                hitColliderType = ColliderType.Sphere;
-                hitSphere = tempSphere;
                 closestDist = dist;
             }
         }
@@ -354,31 +354,14 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
 
     /// <summary>
     /// Check if world point is visible from the ray origin, meaning no colliders are in the way.
+    /// Used for echo rays returning to player.
     /// </summary>
     [BurstCompile]
     private bool CanRaySeePoint(float3 rayOrigin, float3 rayDir, float distToTarget)
     {
         float dist;
 
-        //check against AABBs
-        for (int i = 0; i < AABBColliderCount; i++)
-        {
-            var tempAABB = AABBColliders[i];
-            if (RayIntersectsAABB(rayOrigin, rayDir, tempAABB.center, tempAABB.size, out dist) && dist < distToTarget)
-            {
-                return false;
-            }
-        }
-        //if there was no AABB hit, check against OBBs
-        for (int i = 0; i < OBBColliderCount; i++)
-        {
-            var tempOBB = OBBColliders[i];
-            if (RayIntersectsOBB(rayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < distToTarget)
-            {
-                return false;
-            }
-        }
-        //if there were no AABB and OBB hits, check against spheres
+        // Check against Spheres
         for (int i = 0; i < SphereColliderCount; i++)
         {
             var tempSphere = SphereColliders[i];
@@ -387,66 +370,82 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                 return false;
             }
         }
-
+        // Check against AABBs
+        for (int i = 0; i < AABBColliderCount; i++)
+        {
+            var tempAABB = AABBColliders[i];
+            if (RayIntersectsAABB(rayOrigin, rayDir, tempAABB.center, tempAABB.size, out dist) && dist < distToTarget)
+            {
+                return false;
+            }
+        }
+        // Check against OBBs
+        for (int i = 0; i < OBBColliderCount; i++)
+        {
+            var tempOBB = OBBColliders[i];
+            if (RayIntersectsOBB(rayOrigin, rayDir, tempOBB.center, tempOBB.size, tempOBB.Rotation, out dist) && dist < distToTarget)
+            {
+                return false;
+            }
+        }
         return true;
     }
 
 
     /// <summary>
-    /// Identical to CanRaySeePoint, but skips hits against the colliders of the audioTarget
+    /// Check if audiotarget is obstructed by a collider.
     /// </summary>
     [BurstCompile]
-    private bool CanRaySeeAudioTarget(float3 rayOrigin, float3 rayDir, float distToOriginalOrigin, int audioTargetId)
+    private bool CanRaySeeAudioTarget(float3 rayOrigin, float3 rayDir, float distToStartOrigin, int audioTargetId)
     {
-        //check against AABBs
-        for (int i = 0; i < AABBColliderCount; i++)
-        {
-            var collider = AABBColliders[i];
-
-            //skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
-            if (collider.audioTargetId == audioTargetId)
-            {
-                continue;
-            }
-
-            if (RayIntersectsAABB(rayOrigin, rayDir, collider.center, collider.size, out float dist) && dist < distToOriginalOrigin)
-            {
-                return false;
-            }
-        }
-        //if there was no AABB hit, check against OBBs
-        for (int i = 0; i < OBBColliderCount; i++)
-        {
-            var collider = OBBColliders[i];
-
-            //skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
-            if (collider.audioTargetId == audioTargetId)
-            {
-                continue;
-            }
-
-            if (RayIntersectsOBB(rayOrigin, rayDir, collider.center, collider.size, collider.Rotation, out float dist) && dist < distToOriginalOrigin)
-            {
-                return false;
-            }
-        }
-        //if there were no AABB and OBB hits, check against spheres
+        // Check against Spheres
         for (int i = 0; i < SphereColliderCount; i++)
         {
             var collider = SphereColliders[i];
 
-            //skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
+            // Skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
             if (collider.audioTargetId == audioTargetId)
             {
                 continue;
             }
 
-            if (RayIntersectsSphere(rayOrigin, rayDir, collider.center, collider.radius, out float dist) && dist < distToOriginalOrigin)
+            if (RayIntersectsSphere(rayOrigin, rayDir, collider.center, collider.radius, out float dist) && dist < distToStartOrigin)
             {
                 return false;
             }
         }
+        // Check against AABBs
+        for (int i = 0; i < AABBColliderCount; i++)
+        {
+            var collider = AABBColliders[i];
 
+            // Skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
+            if (collider.audioTargetId == audioTargetId)
+            {
+                continue;
+            }
+
+            if (RayIntersectsAABB(rayOrigin, rayDir, collider.center, collider.size, out float dist) && dist < distToStartOrigin)
+            {
+                return false;
+            }
+        }
+        // Check against OBBs
+        for (int i = 0; i < OBBColliderCount; i++)
+        {
+            var collider = OBBColliders[i];
+
+            // Skip colliders that belong to the audiotarget, since we otherwise are unable to get to audioTargetPosition
+            if (collider.audioTargetId == audioTargetId)
+            {
+                continue;
+            }
+
+            if (RayIntersectsOBB(rayOrigin, rayDir, collider.center, collider.size, collider.Rotation, out float dist) && dist < distToStartOrigin)
+            {
+                return false;
+            }
+        }
         return true;
     }
 

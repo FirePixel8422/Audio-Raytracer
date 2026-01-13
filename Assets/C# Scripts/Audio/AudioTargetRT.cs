@@ -73,9 +73,9 @@ public class AudioTargetRT : MonoBehaviour
     /// <summary>
     /// Update AudioTarget at realtime based on the AudioRaytracer's data
     /// </summary>
-    public void UpdateAudioSource(AudioTargetSettings newSettings)
+    public void UpdateAudioSource(AudioTargetRTSettings newSettings)
     {
-        spatializer.MuffleStrength = newSettings.muffle;
+        spatializer.MuffleStrength = newSettings.Muffle;
     }
 
 

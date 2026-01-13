@@ -12,20 +12,17 @@ public class AudioTargetManager : MonoBehaviour
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioTargetRT> audioTargets;
-    public static int AudioTargetCount_JobBatch => math.min(AudioTargetRTData.JobBatch.Length, audioTargets.Count);
-    public static int AudioTargetCount_NextBatch => math.min(AudioTargetRTData.NextBatch.Length, audioTargets.Count);
+    public static int AudioTargetCount_JobBatch => math.min(AudioTargetSettings.JobBatch.Length, audioTargets.Count);
+    public static int AudioTargetCount_NextBatch => math.min(AudioTargetSettings.NextBatch.Length, audioTargets.Count);
 
     private static NativeArray<bool> usedIds;
 
-    public static NativeJobBatch<AudioTargetRTData> AudioTargetRTData { get; private set; }
-
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
-    // TURN AUDIOTARGETPOSITIONS INTO NATIVEARRAY INSTEAD OF NATIVEJOBBATCH BECAUSE NEXTBATCH IS BARELY USED
+    // possibly get rid of NativeJobBatch wrapper > Just an array instead???
+    // possibly get rid of NativeJobBatch wrapper > Just an array instead???
+    // possibly get rid of NativeJobBatch wrapper > Just an array instead???
+    // possibly get rid of NativeJobBatch wrapper > Just an array instead???
+    // possibly get rid of NativeJobBatch wrapper > Just an array instead???
+    public static NativeJobBatch<AudioTargetRTSettings> AudioTargetSettings { get; private set; }
     public static NativeJobBatch<float3> AudioTargetPositions { get; private set; }
     public static NativeArray<ushort> MuffleRayHits { get; private set; }
     public static NativeArray<half> PermeationStrengthRemains { get; private set; }
@@ -39,7 +36,7 @@ public class AudioTargetManager : MonoBehaviour
 
         usedIds = new NativeArray<bool>(startCapacity, Allocator.Persistent);
 
-        AudioTargetRTData = new NativeJobBatch<AudioTargetRTData>(startCapacity, Allocator.Persistent);
+        AudioTargetSettings = new NativeJobBatch<AudioTargetRTSettings>(startCapacity, Allocator.Persistent);
         AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
 
         MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
@@ -53,7 +50,7 @@ public class AudioTargetManager : MonoBehaviour
     {
         audioTargets.Add(target);
 
-        AudioTargetRTData.Add(new AudioTargetRTData());
+        AudioTargetSettings.Add(new AudioTargetRTSettings());
         target.AddToAudioSystem(AudioTargetPositions, AllocateId());
     }
 
@@ -101,7 +98,7 @@ public class AudioTargetManager : MonoBehaviour
             AudioTargetRT swapped = audioTargets[lastIndex];
 
             audioTargets[removeIndex] = swapped;
-            AudioTargetRTData.NextBatch[removeIndex] = AudioTargetRTData.NextBatch[lastIndex];
+            AudioTargetSettings.NextBatch[removeIndex] = AudioTargetSettings.NextBatch[lastIndex];
             AudioTargetPositions.NextBatch[removeIndex] = AudioTargetPositions.NextBatch[lastIndex];
 
             usedIds[swapped.Id] = false;
@@ -115,7 +112,7 @@ public class AudioTargetManager : MonoBehaviour
         }
 
         audioTargets.RemoveAt(lastIndex);
-        AudioTargetRTData.NextBatch.RemoveAt(lastIndex);
+        AudioTargetSettings.NextBatch.RemoveAt(lastIndex);
         AudioTargetPositions.NextBatch.RemoveAt(lastIndex);
     }
 
@@ -133,7 +130,7 @@ public class AudioTargetManager : MonoBehaviour
         OnAudioTargetUpdate?.Invoke();
 
         AudioTargetPositions.UpdateJobBatch();
-        AudioTargetRTData.UpdateJobBatch();
+        AudioTargetSettings.UpdateJobBatch();
 
         int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracersManager.ToUseThreadCount;
 
@@ -149,7 +146,7 @@ public class AudioTargetManager : MonoBehaviour
         // Update audio targets
         for (short audioTargetId = 0; audioTargetId < AudioTargetCount_JobBatch; audioTargetId++)
         {
-            AudioTargetSettings settings = AudioTargetRTData.JobBatch[audioTargetId].AudioTargetSettings;
+            AudioTargetRTSettings settings = AudioTargetSettings.JobBatch[audioTargetId];
 
             audioTargets[audioTargetId].UpdateAudioSource(settings);
         }
@@ -165,7 +162,7 @@ public class AudioTargetManager : MonoBehaviour
 
         usedIds.Dispose();
         AudioTargetPositions.Dispose();
-        AudioTargetRTData.Dispose();
+        AudioTargetSettings.Dispose();
         PermeationStrengthRemains.Dispose();
         MuffleRayHits.Dispose();
     }
