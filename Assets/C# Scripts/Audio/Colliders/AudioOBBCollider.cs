@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class AudioOBBCollider : AudioCollider
 {
+    [Header("Include gameObject rotation to the colliders final rotation")]
+    [SerializeField] private bool includeGameObjectRotation = true;
+
     [Header("Box Colliders with rotation: \nfast, but a little slower than an 'axisAlignedBox' > 6/10")]
     [SerializeField] private ColliderOBBStruct colliderStructCopy = ColliderOBBStruct.Default;
     private ColliderOBBStruct lastColliderStruct;
     private Quaternion lastWorldRotation;
 
-    [Header("Include gameObject rotation to the colliders final rotation")]
-    [SerializeField] private bool includeGameObjectRotation = true;
 
-
-    public override ColliderType GetColliderType()
-    {
-        return ColliderType.OBB;
-    }
+    public override ColliderType GetColliderType() => ColliderType.OBB;
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {

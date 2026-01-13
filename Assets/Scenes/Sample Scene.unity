@@ -166,10 +166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -190,7 +191,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &8522048
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -294,8 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -441,8 +441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -562,10 +562,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -586,7 +587,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &73095047
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -689,8 +689,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -815,8 +815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -941,8 +941,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -1062,8 +1062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -1190,10 +1190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -1214,7 +1215,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!65 &146765639
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1365,8 +1365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -1492,8 +1492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -1639,8 +1639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -1880,10 +1880,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -1904,7 +1905,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &241768771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,12 +1916,12 @@ GameObject:
   - component: {fileID: 241768773}
   - component: {fileID: 241768779}
   - component: {fileID: 241768778}
+  - component: {fileID: 241768785}
+  - component: {fileID: 241768780}
   - component: {fileID: 241768782}
   - component: {fileID: 241768784}
   - component: {fileID: 241768772}
-  - component: {fileID: 241768780}
   - component: {fileID: 241768783}
-  - component: {fileID: 241768785}
   m_Layer: 0
   m_Name: MusicBox A
   m_TagString: Untagged
@@ -2122,7 +2122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f869e5abad9be74eb03b92dfe49c6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStatic: 0
+  isStatic: 1
   Id: 0
 --- !u!114 &241768783
 MonoBehaviour:
@@ -2177,10 +2177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -2201,7 +2202,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!54 &241768785
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2275,8 +2275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -2403,10 +2403,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -2427,7 +2428,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!65 &245504481
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2635,8 +2635,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -2726,8 +2726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -2932,8 +2932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -3175,8 +3175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -3246,8 +3246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -3434,8 +3434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -3607,10 +3607,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -3631,7 +3632,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &439600013
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3734,8 +3734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -3860,8 +3860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -3986,10 +3986,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -4010,7 +4011,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &501485405
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4113,8 +4113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -4317,8 +4317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -4387,8 +4387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -4513,8 +4513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -4639,8 +4639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -4821,8 +4821,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -4891,10 +4891,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -4915,7 +4916,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &564666614
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5020,10 +5020,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -5044,7 +5045,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!65 &569555417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5226,8 +5226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -5403,8 +5403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -5473,8 +5473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -5671,8 +5671,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -5797,8 +5797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -5962,8 +5962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -6144,8 +6144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -6209,8 +6209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -6335,10 +6335,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -6359,7 +6360,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &978338727
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6462,8 +6462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -6666,10 +6666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -6690,7 +6691,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!65 &1056975620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6919,8 +6919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -7045,8 +7045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -7171,10 +7171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -7195,7 +7196,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &1084042695
 GameObject:
   m_ObjectHideFlags: 0
@@ -7242,8 +7242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -7368,8 +7368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -7489,8 +7489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -7615,8 +7615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -7741,8 +7741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -7945,10 +7945,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -7969,7 +7970,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &1172320429
 GameObject:
   m_ObjectHideFlags: 0
@@ -8016,10 +8016,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -8040,7 +8041,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1172320432
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8221,10 +8221,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -8245,7 +8246,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &1175644724
 GameObject:
   m_ObjectHideFlags: 0
@@ -8292,8 +8292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -8383,12 +8383,12 @@ GameObject:
   - component: {fileID: 1187604162}
   - component: {fileID: 1187604161}
   - component: {fileID: 1187604160}
+  - component: {fileID: 1187604154}
+  - component: {fileID: 1187604156}
   - component: {fileID: 1187604159}
   - component: {fileID: 1187604158}
   - component: {fileID: 1187604157}
-  - component: {fileID: 1187604156}
   - component: {fileID: 1187604155}
-  - component: {fileID: 1187604154}
   m_Layer: 0
   m_Name: MusicBox B
   m_TagString: Untagged
@@ -8586,10 +8586,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -8610,7 +8611,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!114 &1187604159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8623,7 +8623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f869e5abad9be74eb03b92dfe49c6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStatic: 0
+  isStatic: 1
   Id: 0
 --- !u!23 &1187604160
 MeshRenderer:
@@ -8742,8 +8742,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -8868,8 +8868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -9045,8 +9045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -9117,10 +9117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -9141,7 +9142,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!65 &1282826399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9292,10 +9292,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -9316,7 +9317,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1284498637
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9419,10 +9419,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -9443,7 +9444,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1288249362
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9546,8 +9546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -9728,8 +9728,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -9838,8 +9838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -9964,8 +9964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -10168,8 +10168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -10238,8 +10238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -10420,10 +10420,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -10444,7 +10445,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &1446888946
 GameObject:
   m_ObjectHideFlags: 0
@@ -10491,8 +10491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -10690,8 +10690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -10760,10 +10760,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -10784,7 +10785,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1458572897
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10887,8 +10887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -11069,8 +11069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -11217,8 +11217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -11287,8 +11287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -11413,8 +11413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -11539,8 +11539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -11665,10 +11665,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -11689,7 +11690,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1622227800
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11870,10 +11870,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -11894,7 +11895,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &1653812445
 GameObject:
   m_ObjectHideFlags: 0
@@ -12079,8 +12079,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -12226,10 +12226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -12250,7 +12251,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1667491496
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12354,8 +12354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -12579,10 +12579,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -12603,7 +12604,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!1 &1731490741
 GameObject:
   m_ObjectHideFlags: 0
@@ -12650,8 +12650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -12776,8 +12776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -12903,8 +12903,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -13051,8 +13051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -13177,10 +13177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -13201,7 +13202,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &1792104911
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13306,10 +13306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -13330,7 +13331,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!65 &1810182911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13481,8 +13481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -13607,8 +13607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6933d97b3db32fb4e9006d8727c6fad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSphereCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
@@ -13808,8 +13808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -14012,8 +14012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -14082,8 +14082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -14286,8 +14286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -14483,10 +14483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -14507,7 +14508,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!23 &2001859808
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14688,8 +14688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -14935,9 +14935,9 @@ MonoBehaviour:
   maxRayLife: 75
   originColor: {r: 0, g: 1, b: 0, a: 1}
   drawRayHitsGizmos: 0
-  rayHitColor: {r: 0, g: 1, b: 1, a: 1}
+  rayHitColor: {r: 0, g: 1, b: 1, a: 0.5019608}
   drawRayTrailsGizmos: 0
-  rayTrailColor: {r: 0, g: 1, b: 0, a: 0.15}
+  rayTrailColor: {r: 0, g: 1, b: 0, a: 0.101960786}
   drawReturnRayDirectionGizmos: 0
   rayReturnDirectionColor: {r: 0.5, g: 0.25, b: 0, a: 1}
   drawReturnRayLastDirectionGizmos: 0
@@ -14997,8 +14997,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -15201,8 +15201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60dde53da7d8d1c4a9d5adc1fd2f51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioAABBCollider
-  IsStatic: 0
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStructCopy:
@@ -15450,10 +15450,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3556f4f37fe1b374bb2efc2590368bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioOBBCollider
-  IsStatic: 1
-  IgnoreScale: 1
+  isStatic: 1
+  ignoreScale: 1
   AudioColliderId: 0
   AudioTargetId: 0
+  includeGameObjectRotation: 1
   colliderStructCopy:
     center:
       x:
@@ -15474,7 +15475,6 @@ MonoBehaviour:
     absorptionValue:
       value: 0
     audioTargetId: -1
-  includeGameObjectRotation: 1
 --- !u!114 &2115961662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15487,7 +15487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f869e5abad9be74eb03b92dfe49c6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStatic: 1
+  isStatic: 1
   Id: 0
 --- !u!23 &2115961663
 MeshRenderer:

@@ -1,12 +1,17 @@
-﻿using UnityEngine;
+﻿using NUnit.Framework;
+using UnityEngine;
 
 
 public abstract class AudioCollider : MonoBehaviour
 {
     [Header("Set this to true if collider never moves at runtime")]
-    public bool IsStatic = true;
-    [Header("Collider doesnt UPDATE with scale if true (improves performance)")]
-    public bool IgnoreScale = true;
+    [SerializeField] private bool isStatic = true;
+
+    [Header("Set this to true if collider never scales at runtime")]
+    [SerializeField] private bool ignoreScale = true;
+
+    public bool IsStatic => isStatic;
+    public bool IgnoreScale => ignoreScale;
 
     public short AudioColliderId;
     public short AudioTargetId;
@@ -20,9 +25,15 @@ public abstract class AudioCollider : MonoBehaviour
     {
         cachedTransform = transform;
 
-        bool hasAudioTargetRT = TryGetComponent(out AudioTargetRT audioTargetRT);
-
-        AudioTargetId = hasAudioTargetRT ? audioTargetRT.Id : (short)-1;
+        if (TryGetComponent(out AudioTargetRT audioTargetRT))
+        {
+            audioTargetRT.OnIdChanged += UpdateAudioTargetId;
+            AudioTargetId = audioTargetRT.Id;
+        }
+        else
+        {
+            AudioTargetId = -1;
+        }
 
         if (IsStatic == false)
         {
@@ -30,6 +41,8 @@ public abstract class AudioCollider : MonoBehaviour
             AudioColliderManager.OnColliderUpdate += CheckColliderTransformation;
         }
     }
+    private void UpdateAudioTargetId(short newId) => AudioTargetId = newId;
+
     protected virtual void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
         lastWorldPosition = cWorldPosition;
@@ -38,10 +51,7 @@ public abstract class AudioCollider : MonoBehaviour
         lastGlobalScale = cGlobalScale;
     }
 
-    public virtual ColliderType GetColliderType()
-    {
-        return ColliderType.None;
-    }
+    public virtual ColliderType GetColliderType() => ColliderType.None;
 
     /// <summary>
     /// Add audio collider as struct data into the corresponding native array at correct index and increment index
@@ -69,6 +79,34 @@ public abstract class AudioCollider : MonoBehaviour
 
 
 #if UNITY_EDITOR
+    private bool prevIsStatic;
+    public void SetIsStaticValue(bool value)
+    {
+        isStatic = value;
+        prevIsStatic = value;
+    }
+
+    // Enforce equal staticness on all attached colliders and AudioTargetRT on the same gameobject
+    private void OnValidate()
+    {
+        if (prevIsStatic != IsStatic)
+        {
+            if (TryGetComponent(out AudioTargetRT audiotarget))
+            {
+                audiotarget.SetIsStaticValue(IsStatic);
+            }
+
+            AudioCollider[] audioColliders = GetComponents<AudioCollider>();
+            for (int i = 0; i < audioColliders.Length; i++)
+            {
+                audioColliders[i].SetIsStaticValue(IsStatic);
+            }
+
+            DebugLogger.Log($"Possible AudioTarget and all attached AudioColliders set to the same static value", audioColliders.Length != 0 || audiotarget != null);
+        }
+        prevIsStatic = IsStatic;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = AudioColliderManager.ColliderGizmosSelectedColor;

@@ -274,14 +274,10 @@ public class AudioRayTracer : UpdateMonoBehaviour
             AudioRayResult prevResult = new AudioRayResult();
 
             int maxRayHits = DEBUG_RayResults.Length / DEBUG_RayResultCounts.Length;
-
             int setResultAmountsCount = DEBUG_RayResultCounts.Length;
-
             int cSetResultCount;
 
-            float3 returningRayDir;
             float3 lastReturningRayOrigin;
-
             float3 lastReturningRayOriginTotal = float3.zero;
             int lastReturningRayOriginsCount = 0;
 
@@ -325,25 +321,6 @@ public class AudioRayTracer : UpdateMonoBehaviour
                 //return to origin rays of each ray and avg direction of all rays last visible player ray
                 if (drawReturnRayDirectionGizmos || drawReturnRaysAvgDirectionGizmos)
                 {
-                    Gizmos.color = rayReturnDirectionColor;
-
-                    ////get all ray origins that returned to the original origin and save last ray that did this
-                    //for (int i2 = 0; i2 < maxRayHits; i2++)
-                    //{
-                    //    returningRayDir = DEBUG_EchoRayDirections[i * maxRayHits + i2];
-
-                    //    if (cSetResultCount != 0 && DEBUG_RayResults[i * maxRayHits + cSetResultCount - 1].AudioTargetId == 0 && math.distance(returningRayDir, float3.zero) != 0)
-                    //    {
-                    //        lastReturningRayOrigin = (float3)DEBUG_RayResults[i * maxRayHits + i2].DEBUG_HitPoint / (DEBUG_RayResults[i * maxRayHits + i2].FullRayDistance != 0 ? DEBUG_RayResults[i * maxRayHits + i2].FullRayDistance : 1) * 125 / 2;
-
-                    //        if (drawReturnRayDirectionGizmos)
-                    //        {
-                    //            Gizmos.color = rayReturnDirectionColor;
-                    //            Gizmos.DrawLine(rayOrigin, lastReturningRayOrigin);
-                    //        }
-                    //    }
-                    //}
-
                     //draw last ray that returned to origin and add its origin to lastReturningRayOriginTotal
                     if (math.distance(lastReturningRayOrigin, float3.zero) != 0)
                     {

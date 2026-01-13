@@ -9,10 +9,7 @@ public class AudioSphereCollider : AudioCollider
     private ColliderSphereStruct lastColliderStruct;
 
 
-    public override ColliderType GetColliderType()
-    {
-        return ColliderType.Sphere;
-    }
+    public override ColliderType GetColliderType() => ColliderType.Sphere;
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {

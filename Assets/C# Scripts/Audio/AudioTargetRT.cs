@@ -1,12 +1,16 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
 
 public class AudioTargetRT : MonoBehaviour
 {
-    [SerializeField] private bool IsStatic = true;
+    [Header("Set this to true if audioTarget never moves at runtime")]
+    [SerializeField] private bool isStatic = true;
+    public bool IsStatic => isStatic;
 
     public short Id;
+    public Action<short> OnIdChanged;
 
     private AudioSpatializer spatializer;
     private Vector3 lastWorldPosition;
@@ -39,6 +43,7 @@ public class AudioTargetRT : MonoBehaviour
     {
         audioTargetPositions.Add(transform.position);
         Id = assignedId;
+        OnIdChanged?.Invoke(assignedId);
     }
     public void UpdateToAudioSystem(NativeJobBatch<float3> audioTargetPositions)
     {
@@ -47,7 +52,7 @@ public class AudioTargetRT : MonoBehaviour
 
     private void CheckTransformation()
     {
-        if (gameObject.activeInHierarchy == false) return;
+        if (enabled == false) return;
 
         if (transform.position != lastWorldPosition)
         {
@@ -64,4 +69,30 @@ public class AudioTargetRT : MonoBehaviour
     {
         spatializer.MuffleStrength = newSettings.muffle;
     }
+
+
+#if UNITY_EDITOR
+    private bool prevIsStatic;
+    public void SetIsStaticValue(bool value)
+    {
+        isStatic = value;
+        prevIsStatic = value;
+    }
+
+    // Enforce equal staticness on all attached colliders and AudioTargetRT on the same gameobject
+    private void OnValidate()
+    {
+        if (prevIsStatic != IsStatic)
+        {
+            AudioCollider[] audioColliders = GetComponents<AudioCollider>();
+            for (int i = 0; i < audioColliders.Length; i++)
+            {
+                audioColliders[i].SetIsStaticValue(IsStatic);
+            }
+
+            DebugLogger.Log($"Possible AudioTarget and all attached AudioColliders set to the same static value", audioColliders.Length != 0);
+        }
+        prevIsStatic = IsStatic;
+    }
+#endif
 }
