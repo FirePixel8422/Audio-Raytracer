@@ -6,7 +6,8 @@ using Unity.Mathematics;
 using Fire_Pixel.Utility;
 
 
-public class AudioTargetManager : MonoBehaviour
+[System.Serializable]
+public class AudioTargetManager
 {
     [Header("Start capacity of audioTarget arrays")]
     [SerializeField] private int startCapacity = 5;
@@ -30,7 +31,7 @@ public class AudioTargetManager : MonoBehaviour
     public static Action OnAudioTargetUpdate { get; set; }
 
 
-    private void Awake()
+    public void Init()
     {
         audioTargets = new List<AudioTargetRT>(startCapacity);
 
@@ -39,8 +40,8 @@ public class AudioTargetManager : MonoBehaviour
         AudioTargetSettings = new NativeJobBatch<AudioTargetRTSettings>(startCapacity, Allocator.Persistent);
         AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
 
-        MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
-        PermeationStrengthRemains = new NativeArray<half>(startCapacity * AudioRaytracersManager.ToUseThreadCount, Allocator.Persistent);
+        MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
+        PermeationStrengthRemains = new NativeArray<half>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
     }
 
 
@@ -109,7 +110,7 @@ public class AudioTargetManager : MonoBehaviour
         AudioTargetPositions.UpdateJobBatch();
         AudioTargetSettings.UpdateJobBatch();
 
-        int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracersManager.ToUseThreadCount;
+        int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracingManager.ToUseThreadCount;
 
         // Resize MuffleRayHits array if needed
         if (muffleRayHitsCapacity != MuffleRayHits.Length)
@@ -129,24 +130,17 @@ public class AudioTargetManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private static void Dispose()
     {
-        UpdateScheduler.CreateLateOnApplicationQuitCallback(Dispose);
-    }
-    private void Dispose()
-    {
-        OnAudioTargetUpdate = null;
+        UpdateScheduler.CreateLateOnApplicationQuitCallback(() =>
+        {
+            OnAudioTargetUpdate = null;
 
-        idPool.Dispose();
-        AudioTargetPositions.Dispose();
-        AudioTargetSettings.Dispose();
-        PermeationStrengthRemains.Dispose();
-        MuffleRayHits.Dispose();
-    }
-
-    [SerializeField] private byte[] DEBUG_idPool;
-    private void Update()
-    {
-        DEBUG_idPool = idPool.IdList.ToArray();
+            idPool.Dispose();
+            AudioTargetPositions.Dispose();
+            AudioTargetSettings.Dispose();
+            PermeationStrengthRemains.Dispose();
+            MuffleRayHits.Dispose();
+        });
     }
 }

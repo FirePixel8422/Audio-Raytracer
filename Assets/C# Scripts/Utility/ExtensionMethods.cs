@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -157,19 +156,19 @@ public static class ExtensionMethods
 
     #region HasComponent
 
-    public static bool HasComponent<T>(this Transform trans) where T : Component
+    public static bool HasComponent<T>(this Transform trans) where T : UnityEngine.Object
     {
-        return trans.GetComponent<T>() != null;
+        return trans.TryGetComponent(out T _);
     }
 
-    public static bool HasComponentInChildren<T>(this Transform trans, bool includeInactive = false) where T : Component
+    public static bool HasComponentInChildren<T>(this Transform trans, bool includeInactive = false) where T : UnityEngine.Object
     {
-        return trans.GetComponentInChildren<T>(includeInactive) != null;
+        return trans.TryGetComponentInChildren(out T _, includeInactive);
     }
 
-    public static bool HasComponentInParent<T>(this Transform trans, bool includeInactive = false) where T : Component
+    public static bool HasComponentInParent<T>(this Transform trans, bool includeInactive = false) where T : UnityEngine.Object
     {
-        return trans.GetComponentInParent<T>(includeInactive) != null;
+        return trans.TryGetComponentInParent(out T _);
     }
 
     #endregion

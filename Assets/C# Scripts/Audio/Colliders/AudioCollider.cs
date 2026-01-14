@@ -117,7 +117,11 @@ public abstract class AudioCollider : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = AudioColliderManager.ColliderGizmosSelectedColor;
+        bool isAudioTarget = transform.HasComponent<AudioTargetRT>();
+        Gizmos.color = isAudioTarget ?
+            AudioRaytracingManager.ColliderManager.AudioTargetGizmosColor :
+            AudioRaytracingManager.ColliderManager.ColliderGizmosColor;
+
         DrawColliderGizmo();
     }
     public virtual void DrawColliderGizmo() { }

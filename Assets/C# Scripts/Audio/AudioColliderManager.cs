@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
-using Unity.Collections;
-using UnityEngine;
+﻿using Fire_Pixel.Utility;
 using System;
-using Fire_Pixel.Utility;
+using System.Collections.Generic;
+using Unity.Collections;
+using UnityEditor;
+using UnityEngine;
 
 
-public class AudioColliderManager : MonoBehaviour
+[System.Serializable]
+public class AudioColliderManager
 {
-    [Header("Start capacity of collider arrays")]
+    [Header("Start capacity of audioCollider arrays")]
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioCollider> colliders;
@@ -23,7 +25,7 @@ public class AudioColliderManager : MonoBehaviour
     public static Action OnColliderUpdate { get; set; }
 
 
-    private void Awake()
+    public void Init()
     {
         colliders = new List<AudioCollider>(startCapacity);
 
@@ -35,6 +37,9 @@ public class AudioColliderManager : MonoBehaviour
         OBBColliders = new NativeJobBatch<ColliderOBBStruct>(startCapacity, Allocator.Persistent);
         SphereColliders = new NativeJobBatch<ColliderSphereStruct>(startCapacity, Allocator.Persistent);
     }
+
+
+    #region Add/Remove/Update Collider in system
 
     public static void AddColiderToSystem(AudioCollider target)
     {
@@ -84,7 +89,6 @@ public class AudioColliderManager : MonoBehaviour
                 break;
         }
     }
-
     private static void SwapRemove<T>(NativeJobBatch<T> nativeList, List<AudioCollider> refList, short toRemoveId) where T : unmanaged
     {
         if (toRemoveId < 0 || toRemoveId >= refList.Count || toRemoveId >= nativeList.NextBatch.Length)
@@ -102,11 +106,13 @@ public class AudioColliderManager : MonoBehaviour
         nativeList.RemoveAtSwapBack(toRemoveId);
     }
 
-
     public static void UpdateColiderInSystem(AudioCollider targetCollider)
     {
         targetCollider.UpdateToAudioSystem(AABBColliders, OBBColliders, SphereColliders);
     }
+
+    #endregion
+
 
     public static void UpdateJobBatch()
     {
@@ -117,51 +123,43 @@ public class AudioColliderManager : MonoBehaviour
         SphereColliders.UpdateJobBatch();
     }
 
-    private void OnDestroy()
+    public void Dispose()
     {
-        UpdateScheduler.CreateLateOnApplicationQuitCallback(Dispose);
+        UpdateScheduler.CreateLateOnApplicationQuitCallback(() =>
+        {
+            OnColliderUpdate = null;
+
+            AABBColliders.Dispose();
+            OBBColliders.Dispose();
+            SphereColliders.Dispose();
+        });
     }
 
-    private void Dispose()
-    {
-        OnColliderUpdate = null;
-
-        AABBColliders.Dispose();
-        OBBColliders.Dispose();
-        SphereColliders.Dispose();
-    }
 
 #if UNITY_EDITOR
     [Header("DEBUG")]
     [SerializeField] private bool drawColliderGizmos = true;
-    [SerializeField] private Color colliderGizmosColor = new Color(1f, 0.75f, 0.25f);
-    public readonly static Color ColliderGizmosSelectedColor = new Color(1f, 0.75f, 0.25f);
 
-    private void OnDrawGizmos()
+    public Color ColliderGizmosColor;
+    public Color AudioTargetGizmosColor;
+
+    public void DrawGizmos()
     {
-        AudioCollider[] colliders = this.FindObjectsOfType<AudioCollider>(false);
-
-        Gizmos.color = colliderGizmosColor;
+        AudioCollider[] colliders = GameObject.FindObjectsByType<AudioCollider>(FindObjectsSortMode.None);
 
         if (drawColliderGizmos)
         {
             for (int i = 0; i < colliders.Length; i++)
             {
+                bool isAudioTarget = colliders[i].transform.HasComponent<AudioTargetRT>();
+                Gizmos.color = isAudioTarget ?
+                    AudioTargetGizmosColor :
+                    ColliderGizmosColor;
+
                 colliders[i].DrawColliderGizmo();
             }
         }
     }
-
-    private void Update()
-    {
-        DEBUG_AABBColliders = AABBColliders;
-        DEBUG_OBBColliders = OBBColliders;
-        DEBUG_SphereColliders = SphereColliders;
-    }
-
-    public NativeJobBatch<ColliderAABBStruct> DEBUG_AABBColliders;
-    public NativeJobBatch<ColliderOBBStruct> DEBUG_OBBColliders;
-    public NativeJobBatch<ColliderSphereStruct> DEBUG_SphereColliders;
 #endif
 
 }

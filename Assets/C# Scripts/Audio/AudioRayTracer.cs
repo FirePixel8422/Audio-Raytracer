@@ -73,7 +73,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
     protected override void OnUpdate()
     {
         //if computeAsync is true skip a frame if job is not done yet
-        if ((AudioRaytracersManager.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
+        if ((AudioRaytracingManager.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
         
         mainJobHandle.Complete();
 
@@ -172,7 +172,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
             PermeationStrengthRemains = AudioTargetManager.PermeationStrengthRemains,
         };
 
-        int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracersManager.ToUseThreadCount));
+        int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracingManager.ToUseThreadCount));
 
         mainJobHandle = audioRayTraceJob.Schedule(rayCount, batchSize);
 
