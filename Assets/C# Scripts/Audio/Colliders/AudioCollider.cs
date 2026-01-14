@@ -1,10 +1,9 @@
-﻿using NUnit.Framework;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public abstract class AudioCollider : MonoBehaviour
 {
-    [Header("Set this to true if collider never moves at runtime")]
+    [Header("Set this to true if collider data does not change at runtime")]
     [SerializeField] private bool isStatic = true;
 
     [Header("Set this to true if collider never scales at runtime")]
@@ -37,8 +36,13 @@ public abstract class AudioCollider : MonoBehaviour
 
         if (IsStatic == false)
         {
-            UpdateSavedData(cachedTransform.position, IgnoreScale ? Vector3.zero : cachedTransform.lossyScale);
+            UpdateSavedTransformation(cachedTransform.position, IgnoreScale ? Vector3.zero : cachedTransform.lossyScale);
             AudioColliderManager.OnColliderUpdate += CheckColliderTransformation;
+        }
+        // If IgnoreScale is true, store scale once, and never again
+        if (ignoreScale)
+        {
+            lastGlobalScale = transform.lossyScale;
         }
     }
     private void UpdateAudioTargetId(short newId)
@@ -47,7 +51,7 @@ public abstract class AudioCollider : MonoBehaviour
         AudioColliderManager.UpdateColiderInSystem(this);
     }
 
-    protected virtual void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
+    protected virtual void UpdateSavedTransformation(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
         lastWorldPosition = cWorldPosition;
 

@@ -32,6 +32,7 @@ public struct ColliderSphereStruct
                a.center.z.value == b.center.z.value &&
                a.radius.value == b.radius.value &&
                a.thicknessMultiplier == b.thicknessMultiplier &&
+               a.absorptionValue == b.absorptionValue &&
                a.audioTargetId == b.audioTargetId;
     }
 

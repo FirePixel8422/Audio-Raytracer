@@ -18,6 +18,9 @@ public class AudioRayTracer : UpdateMonoBehaviour
     [Range(0, 500)]
     [SerializeField] private float maxRayLife = 10;
 
+    [Header("Max distance a muffle hit is registered")]
+    [SerializeField] private float maxMuffleHitDistance = 10;
+
     //[SerializeField] private NativeSampledAnimationCurve muffleFalloffCurve;
 
     private NativeArray<half3> mainRayDirections;
@@ -169,6 +172,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
             EchoRayDistances = echoRayDistances,
             
             MuffleRayHits = AudioTargetManager.MuffleRayHits,
+            MaxMuffleHitDistance = maxMuffleHitDistance,
             PermeationStrengthRemains = AudioTargetManager.PermeationStrengthRemains,
         };
 
@@ -228,14 +232,14 @@ public class AudioRayTracer : UpdateMonoBehaviour
     [SerializeField] private Color originColor = Color.green;
     [Space(10)]
 
+    [Header("DEBUG Data Arrays")]
+    [SerializeField] private bool drawDebugArrays = true;
+
     [SerializeField] private bool drawRayHitsGizmos = true;
     [SerializeField] private Color rayHitColor = Color.cyan;
 
     [SerializeField] private bool drawRayTrailsGizmos;
     [SerializeField] private Color rayTrailColor = new Color(0, 1, 0, 0.15f);
-
-    [Header("DEBUG Data Arrays")]
-    [SerializeField] private bool drawDebugArrays = true;
 
     [SerializeField] private float3[] DEBUG_AudioTargetPositions;
     [SerializeField] private int DEBUG_MaxMuffleHits;

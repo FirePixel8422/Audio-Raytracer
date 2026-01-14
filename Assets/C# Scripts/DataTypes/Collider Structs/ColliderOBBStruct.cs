@@ -47,6 +47,7 @@ public struct ColliderOBBStruct
                a.size.z.value == b.size.z.value &&
                a.rotation == b.rotation &&
                a.thicknessMultiplier.value == b.thicknessMultiplier.value &&
+               a.absorptionValue.value == b.absorptionValue.value &&
                a.audioTargetId == b.audioTargetId;
     }
 

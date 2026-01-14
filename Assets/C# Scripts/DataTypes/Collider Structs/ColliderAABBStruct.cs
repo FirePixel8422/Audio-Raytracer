@@ -34,6 +34,7 @@ public struct ColliderAABBStruct
                a.size.y.value == b.size.y.value &&
                a.size.z.value == b.size.z.value &&
                a.thicknessMultiplier.value == b.thicknessMultiplier.value &&
+               a.absorptionValue.value == b.absorptionValue.value &&
                a.audioTargetId == b.audioTargetId;
     }
 

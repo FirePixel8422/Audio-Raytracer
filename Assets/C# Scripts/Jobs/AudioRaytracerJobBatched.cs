@@ -47,6 +47,8 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
     [NativeDisableParallelForRestriction]
     [NoAlias] public NativeArray<ushort> MuffleRayHits;
 
+    [NoAlias][ReadOnly] public float MaxMuffleHitDistance;
+
     [NativeDisableParallelForRestriction]
     [NoAlias] public NativeArray<half> PermeationStrengthRemains;
 
@@ -155,8 +157,8 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                         // Calculate distance to the audio target
                         float distToTarget = math.distance(offsettedRayHitWorldPoint, audioTargetPosition);
 
-                        // Cast a ray from the hit point to the audio target
-                        if (CanRaySeeAudioTarget(offsettedRayHitWorldPoint, rayToTargetDir, distToTarget, audioTargetId))
+                        // If target isnt further away then MaxMuffleHitDistance, cast a ray from the hit point to the audio target
+                        if (distToTarget < MaxMuffleHitDistance && CanRaySeeAudioTarget(offsettedRayHitWorldPoint, rayToTargetDir, distToTarget, audioTargetId))
                         {
                             // If the ray to the audio target is clear, increment the appropriate entry in MuffleRayHits
                             MuffleRayHits[muffleRayId] += 1;
@@ -179,6 +181,26 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                         // If ray is still alive, update next ray direction and origin (bouncing it of the hit normal),
                         // also get soundAbsorption stat from hit wall
                         ReflectRay(hitColliderType, hitAABB, hitOBB, hitSphere, ref cRayOrigin, ref cRayDir, ref cRayLife);
+
+                        // If last rayLife gets consumed by the hit collider, kill it
+                        if (cRayLife < 0)
+                        {
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            // RAYLIFE AND DISTANCE ARENT THE SAME
+                            rayResult.FullRayDistance = (half)(MaxRayLife - cRayLife);
+                            isRayAlive = false;
+                        }
                     }
 
                     // Add hit result to return data array
@@ -519,6 +541,6 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
         cRayOrigin += cRayDir * EPSILON;
 
         // Drain raylife based on hit collider absorption
-        cRayLife -= absorption;
+        cRayLife -= MaxRayLife * absorption;
     }
 }

@@ -20,8 +20,16 @@ public class AudioAABBCollider : AudioCollider
         Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
         colliderStructCopy.center = mergedPosition;
 
-        Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-        colliderStructCopy.size = scaledSize;
+        if (IgnoreScale)
+        {
+            Half3.Multiply(colliderStructCopy.size, lastGlobalScale, out half3 scaledSize);
+            colliderStructCopy.size = scaledSize;
+        }
+        else
+        {
+            Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopy.size = scaledSize;
+        }
 
         AudioColliderId = (short)aabbStructs.NextBatch.Length;
         aabbStructs.Add(colliderStructCopy);
@@ -36,7 +44,12 @@ public class AudioAABBCollider : AudioCollider
         Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
         colliderStructCopy.center = mergedPosition;
 
-        if (IgnoreScale == false)
+        if (IgnoreScale)
+        {
+            Half3.Multiply(colliderStructCopy.size, lastGlobalScale, out half3 scaledSize);
+            colliderStructCopy.size = scaledSize;
+        }
+        else
         {
             Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
             colliderStructCopy.size = scaledSize;
@@ -56,13 +69,13 @@ public class AudioAABBCollider : AudioCollider
         {
             AudioColliderManager.UpdateColiderInSystem(this);
 
-            UpdateSavedData(cWorldPosition, cGlobalScale);
+            UpdateSavedTransformation(cWorldPosition, cGlobalScale);
         }
     }
 
-    protected override void UpdateSavedData(Vector3 cWorldPosition, Vector3 cGlobalScale)
+    protected override void UpdateSavedTransformation(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
-        base.UpdateSavedData(cWorldPosition, cGlobalScale);
+        base.UpdateSavedTransformation(cWorldPosition, cGlobalScale);
         lastColliderStruct = colliderStruct;
     }
 
