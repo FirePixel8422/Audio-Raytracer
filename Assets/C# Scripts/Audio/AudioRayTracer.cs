@@ -18,8 +18,11 @@ public class AudioRayTracer : UpdateMonoBehaviour
     [Range(0, 500)]
     [SerializeField] private float maxRayLife = 10;
 
-    [Header("Max distance a muffle hit is registered")]
+    [Header("Max distance a muffle hit is registerd")]
     [SerializeField] private float maxMuffleHitDistance = 10;
+
+    [Header("Max distance at which reverb will max out")]
+    [SerializeField] private float maxReverbDistance = 20;
 
     //[SerializeField] private NativeSampledAnimationCurve muffleFalloffCurve;
 
@@ -130,7 +133,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
             DEBUG_MufflePercent01 = new float[AudioTargetManager.AudioTargetCount_JobBatch];
             for (int i = 0; i < AudioTargetManager.AudioTargetCount_JobBatch; i++)
             {
-                DEBUG_MufflePercent01[i] = AudioTargetManager.AudioTargetSettings.JobBatch[i].Muffle;
+                DEBUG_MufflePercent01[i] = AudioTargetManager.AudioTargetSettings.JobBatch[i].MuffleStrength;
             }
         }
 #endif
@@ -191,6 +194,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
             RayResultCounts = rayResultCounts,
 
             EchoRayDistances = echoRayDistances,
+            MaxReverbDistance = maxReverbDistance,
 
             TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
             AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray(),

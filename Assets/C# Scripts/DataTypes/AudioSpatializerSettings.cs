@@ -1,80 +1,74 @@
 ﻿using UnityEngine;
 
-
 [System.Serializable]
 public struct AudioSpatializerSettings
 {
     [Header("Panning Settings")]
     [Range(0f, 1f)]
-    public float panStrength;
+    public float PanStrength;
 
     [Header("Rear Attenuation")]
     [Range(0f, 1f)]
-    public float rearAttenuationStrength;
+    public float RearAttenuationStrength;
 
     [Header("Distance Based Panning")]
-    public bool distanceBasedPanning;
-    public float maxPanDistance;
+    public bool DistanceBasedPanning;
+    public float MaxPanDistance;
 
     [Header("Rear Attenuation Distance")]
-    public bool distanceBasedRearAttenuation;
-    public float maxRearAttenuationDistance;
+    public bool DistanceBasedRearAttenuation;
+    public float MaxRearAttenuationDistance;
 
     [Header("Elevation Influence Falloff And Freq Effect")]
-    public float maxElevationEffectDistance;
+    public float MaxElevationEffectDistance;
 
     [Space(5)]
+    public MinMaxFloat LowPassCutoff;
 
-    public MinMaxFloat lowPassCutoff;
     [Range(0f, 2f)]
-    public float lowPassVolume;
+    public float LowPassVolume;
 
     [Space(2.5f)]
+    public MinMaxFloat HighPassCutoff;
 
-    public MinMaxFloat highPassCutoff;
     [Range(0f, 2f)]
-    public float highPassVolume;
+    public float HighPassVolume;
 
     [Header("Muffle Effect")]
     public NativeSampledAnimationCurve MuffleCurve;
-    public MinMaxFloat muffleCutoff;
+    public MinMaxFloat MuffleCutoff;
 
-    [Header("Reverb Effect")]
-    [Range(0, 1)]
-    public float reverbDecayFactor;
-    [Range(0, 1)]
-    public float reverbAllpassGain;
-    [Range(0, 2)]
-    public float wetBoostMultiplier;
+    [Header("Reverb Strength")]
+    public MinMaxFloat ReverbDryLevel;
+    public MinMaxFloat ReverbDryBoost;
 
-
-    /// <summary>
-    /// Default setttings for the audio spatializer.
-    /// </summary>
     public static AudioSpatializerSettings Default => new AudioSpatializerSettings
     {
-        panStrength = 0.8f,
+        PanStrength = 0.8f,
 
-        rearAttenuationStrength = 0.2f,
+        RearAttenuationStrength = 0.2f,
 
-        distanceBasedPanning = true,
-        maxPanDistance = 5,
+        DistanceBasedPanning = true,
+        MaxPanDistance = 5,
 
-        distanceBasedRearAttenuation = true,
-        maxRearAttenuationDistance = 15,
+        DistanceBasedRearAttenuation = true,
+        MaxRearAttenuationDistance = 15,
 
-        maxElevationEffectDistance = 12,
+        MaxElevationEffectDistance = 12,
 
-        lowPassCutoff = new MinMaxFloat(5000, 22000),
-        highPassCutoff = new MinMaxFloat(25, 150),
-        lowPassVolume = 0.85f,
-        highPassVolume = 1.15f,
+        LowPassCutoff = new MinMaxFloat(5000, 22000),
+        HighPassCutoff = new MinMaxFloat(25, 150),
+        LowPassVolume = 0.85f,
+        HighPassVolume = 1.15f,
 
         MuffleCurve = NativeSampledAnimationCurve.Default,
-        muffleCutoff = new MinMaxFloat(75, 8000),
+        MuffleCutoff = new MinMaxFloat(75, 8000),
 
-        reverbDecayFactor = 0.805f,
-        reverbAllpassGain = 0.7f,
-        wetBoostMultiplier = 0,
+        ReverbDryLevel = new MinMaxFloat(0, -2000),
     };
+
+    public void Dispose()
+    {
+        MuffleCurve.Dispose();
+    }
 }

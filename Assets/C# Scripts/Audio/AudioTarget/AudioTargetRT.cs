@@ -77,7 +77,7 @@ public class AudioTargetRT : MonoBehaviour
     /// </summary>
     public void UpdateAudioSource(AudioTargetRTSettings newSettings)
     {
-        spatializer.MuffleStrength = newSettings.Muffle;
+        spatializer.UpdateSpatializer(newSettings);
     }
 
 

@@ -11,7 +11,7 @@ using UnityEngine;
 [System.Serializable]
 public struct NativeSampledAnimationCurve
 {
-    [Header("Curve HAS to start at 0 time")]
+    [Tooltip("Curve HAS to start at 0 time")]
     [SerializeField] private AnimationCurve curve;
 
     [Header("Curve X this value is what gets baked into the curve output")]

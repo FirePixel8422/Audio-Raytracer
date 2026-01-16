@@ -14,7 +14,9 @@ public struct ProcessAudioDataJob : IJob
     [ReadOnly][NoAlias] public NativeArray<float3> AudioTargetPositions;
 
     [ReadOnly][NoAlias] public NativeArray<ushort> MuffleRayHits;
+
     [ReadOnly][NoAlias] public NativeArray<half> EchoRayDistances;
+    [ReadOnly][NoAlias] public float MaxReverbDistance;
 
     [ReadOnly][NoAlias] public int MaxHitsPerRay;
     [ReadOnly][NoAlias] public int RayCount;
@@ -26,10 +28,20 @@ public struct ProcessAudioDataJob : IJob
     [BurstCompile]
     public void Execute()
     {
-        float muffle;
         int maxBatchSize = MuffleRayHits.Length / TotalAudioTargets;
+        int maxRayHits = MaxHitsPerRay * RayCount;
 
-        //calculate audio strength and panstero based on newly calculated data
+        // Calculate avarage echo distance
+        float reverbTotal = 0;
+        for (int i = 0; i < maxRayHits; i++)
+        {
+            reverbTotal += EchoRayDistances[i];
+        }
+        float avgReverbDist = reverbTotal / maxRayHits;
+        float reverbBlend = avgReverbDist / MaxReverbDistance;
+
+
+        // Calculate audio strength and panstero based on newly calculated data
         for (int audioTargetId = 0; audioTargetId < TotalAudioTargets; audioTargetId++)
         {
             int totalMuffleRayhits = 0;
@@ -41,10 +53,10 @@ public struct ProcessAudioDataJob : IJob
             }
 
             // Set muffleRayHits of current audiotargetId to the totalMuffleRayhits
-            muffle = (float)totalMuffleRayhits / (RayCount * MaxHitsPerRay);
+            float muffle = (float)totalMuffleRayhits / (RayCount * MaxHitsPerRay);
 
             // Write new settings back to array
-            AudioTargetSettings[audioTargetId] = new AudioTargetRTSettings(1 - muffle, 0, 0, AudioTargetPositions[audioTargetId] - RayOriginWorld);
+            AudioTargetSettings[audioTargetId] = new AudioTargetRTSettings(1 - muffle, reverbBlend, AudioTargetPositions[audioTargetId] - RayOriginWorld);
         }
     }
 }

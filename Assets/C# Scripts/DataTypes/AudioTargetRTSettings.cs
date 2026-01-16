@@ -1,25 +1,22 @@
 using Unity.Burst;
 using Unity.Mathematics;
+using UnityEngine;
 
 
 [System.Serializable]
 [BurstCompile]
 public struct AudioTargetRTSettings
 {
-    public float Muffle;
+    [Range(0, 1)]
+    public float MuffleStrength;
+    [Range(0, 1)]
+    public float ReverbBlend;
+    public float3 PercievedAudioPosition;
 
-    public float EchoStrength;
-    public float EchoTime;
-
-    public float3 Position;
-
-    public AudioTargetRTSettings(float muffle, float echoStrength, float echoTime, float3 position)
+    public AudioTargetRTSettings(float muffleStrength, float reverbBlend, float3 percievedAudioPosition)
     {
-        Muffle = muffle;
-
-        EchoStrength = echoStrength;
-        EchoTime = echoTime;
-
-        Position = position;
+        MuffleStrength = math.saturate(muffleStrength);
+        ReverbBlend = math.saturate(reverbBlend);
+        PercievedAudioPosition = percievedAudioPosition;
     }
 }
