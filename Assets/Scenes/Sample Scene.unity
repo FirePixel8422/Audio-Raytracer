@@ -4554,7 +4554,7 @@ MonoBehaviour:
     MaterialDensity:
       value: 0
     MaterialAbsorption:
-      value: 0
+      value: 13312
     AudioTargetId: -1
 --- !u!1 &523996051
 GameObject:
@@ -7709,7 +7709,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.9848, y: 5, z: 9.999998}
-  m_LocalScale: {x: 34.030075, y: 9.999599, z: 0.1}
+  m_LocalScale: {x: 59.532215, y: 9.999599, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -16592,7 +16592,7 @@ MonoBehaviour:
     MaterialDensity:
       value: 0
     MaterialAbsorption:
-      value: 0
+      value: 13312
     AudioTargetId: -1
 --- !u!1 &2115961653
 GameObject:

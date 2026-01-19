@@ -39,7 +39,7 @@ public class AudioSpatializer : MonoBehaviour
 
         sampleRate = AudioSettings.outputSampleRate;
 
-        settings.MuffleCurve.Bake();
+        settings.Bake();
 
         muffleDSP = new MuffleDSP();
         binauralDSP = new BinauralDSP();

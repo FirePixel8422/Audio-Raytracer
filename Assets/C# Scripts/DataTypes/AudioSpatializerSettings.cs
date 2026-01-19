@@ -72,8 +72,17 @@ public struct AudioSpatializerSettings
         ReverbVolumeCurve = NativeSampledAnimationCurve.Default,
     };
 
+    public void Bake()
+    {
+        MuffleCurve.Bake();
+        ReverbStrengthCurve.Bake();
+        ReverbVolumeCurve.Bake();
+    }
+
     public void Dispose()
     {
         MuffleCurve.Dispose();
+        ReverbStrengthCurve.Dispose();
+        ReverbVolumeCurve.Dispose();
     }
 }
