@@ -14,10 +14,10 @@ public struct NativeSampledAnimationCurve
     [Tooltip("Curve HAS to start at 0 time")]
     [SerializeField] private AnimationCurve curve;
 
-    [Header("Curve X this value is what gets baked into the curve output")]
+    [Tooltip("Curve X this value is what gets baked into the curve output")]
     [SerializeField] private float valueMultiplier;
 
-    [Header("More samples = more accurate, but more memory usage")]
+    [Tooltip("More samples = more accurate, but more memory usage")]
     [Range(2, 500)]
     [SerializeField] private int sampleCount;
 

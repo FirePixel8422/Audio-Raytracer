@@ -31,6 +31,6 @@ public struct FibonacciDirectionsJobParallel : IJobParallelFor
         float x = math.cos(theta) * radius;
         float z = math.sin(theta) * radius;
 
-        directions[i] = (half3)math.normalize(new float3(x, y, z));
+        directions[i] = (half3)new float3(x, y, z);
     }
 }
