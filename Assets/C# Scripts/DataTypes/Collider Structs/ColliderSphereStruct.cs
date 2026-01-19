@@ -8,32 +8,32 @@ using UnityEngine;
 [Serializable]
 public struct ColliderSphereStruct
 {
-    public half3 center;
-    public half radius;
+    public half3 Center;
+    public half Radius;
 
-    [Header("How thick is this wall for permeation calculations")]
-    public half thicknessMultiplier;
+    [Header("How much power gets consumed when permeation rays go through Material")]
+    public half MaterialDensity;
+
     [Header("How much power of the audioRays hitting this surface gets consumed")]
-    public half absorptionValue;
+    public half MaterialAbsorption;
 
-    public short audioTargetId;
+    public short AudioTargetId;
 
     public static ColliderSphereStruct Default => new ColliderSphereStruct()
     {
-        radius = (half)0.5f,
-        thicknessMultiplier = (half)1,
-        audioTargetId = -1,
+        Radius = (half)0.5f,
+        AudioTargetId = -1,
     };
 
     public static bool operator ==(ColliderSphereStruct a, ColliderSphereStruct b)
     {
-        return a.center.x.value == b.center.x.value &&
-               a.center.y.value == b.center.y.value &&
-               a.center.z.value == b.center.z.value &&
-               a.radius.value == b.radius.value &&
-               a.thicknessMultiplier == b.thicknessMultiplier &&
-               a.absorptionValue == b.absorptionValue &&
-               a.audioTargetId == b.audioTargetId;
+        return a.Center.x.value == b.Center.x.value &&
+               a.Center.y.value == b.Center.y.value &&
+               a.Center.z.value == b.Center.z.value &&
+               a.Radius.value == b.Radius.value &&
+               a.MaterialDensity.value == b.MaterialDensity.value &&
+               a.MaterialAbsorption.value == b.MaterialAbsorption.value &&
+               a.AudioTargetId == b.AudioTargetId;
     }
 
     public static bool operator !=(ColliderSphereStruct a, ColliderSphereStruct b)
@@ -47,6 +47,6 @@ public struct ColliderSphereStruct
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(center, radius, thicknessMultiplier);
+        return HashCode.Combine(Center, Radius);
     }
 }

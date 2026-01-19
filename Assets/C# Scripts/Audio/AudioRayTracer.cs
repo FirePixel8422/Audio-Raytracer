@@ -16,21 +16,36 @@ public class AudioRayTracer : UpdateMonoBehaviour
     public byte MaxHitsPerRay => (byte)(maxBounces + 1);
 
     [Range(0, 500)]
+    [Header("Max distance a ray can travel")]
     [SerializeField] private float maxRayLife = 10;
 
-    [Header("Max distance a muffle hit is registerd")]
+    [Header("Max distance a muffle hit is registered")]
     [SerializeField] private float maxMuffleHitDistance = 10;
+
+    [Header("Muffle/Permeation Effectiveness Multipliers")]
+    [Range(0, 1)]
+    [SerializeField] private float muffleEffectiveness = 1;
+    [Range(0, 1)]
+    [SerializeField] private float mufflePermeationEffectiveness = 0.5f;
+
+    [Header("Start strength per permeation ray")]
+    [SerializeField] private float permeationStrengthPerRay = 1;
 
     [Header("Max distance at which reverb will max out")]
     [SerializeField] private float maxReverbDistance = 20;
 
-    //[SerializeField] private NativeSampledAnimationCurve muffleFalloffCurve;
 
     private NativeArray<half3> mainRayDirections;
     private NativeArray<half> echoRayDistances;
 
     private NativeArray<AudioRayResult> rayResults;
     private NativeArray<byte> rayResultCounts;
+
+    private JobHandle mainJobHandle;
+
+    private AudioRaytracerJobBatched audioRayTracerJobBatched;
+    private AudioPermeationJobBatched audioPermeationJobBatched;
+    private ProcessAudioDataJob processAudioDataJob;
 
 
     private void Awake()
@@ -72,10 +87,6 @@ public class AudioRayTracer : UpdateMonoBehaviour
     #endregion
 
 
-    private AudioRaytracerJobBatched audioRayTraceJob;
-    private ProcessAudioDataJob calculateAudioTargetDataJob;
-    private JobHandle mainJobHandle;
-
     protected override void OnUpdate()
     {
         //if computeAsync is true skip a frame if job is not done yet
@@ -95,7 +106,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
 #if UNITY_EDITOR
         // Failsafe to prevent crash when updating maxBounces in editor
-        if (audioRayTraceJob.RayDirections.Length != 0 && (audioRayTraceJob.MaxHitsPerRay != MaxHitsPerRay || mainRayDirections.Length != rayCount))
+        if (audioRayTracerJobBatched.RayDirections.Length != 0 && (audioRayTracerJobBatched.MaxHitsPerRay != MaxHitsPerRay || mainRayDirections.Length != rayCount))
         {
             //recreate rayResults and echoRayDirections arrays with new size because maxBounces or rayCount changed
             rayResults = new NativeArray<AudioRayResult>(rayCount * MaxHitsPerRay, Allocator.Persistent);
@@ -145,11 +156,10 @@ public class AudioRayTracer : UpdateMonoBehaviour
         batchCycleMs = batchCycleStopwatch.ElapsedMilliseconds;
 #endif
 
-
-        #region Raycasting Job ParallelBatched
+        int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracingManager.ToUseThreadCount));
 
         // Create raytrace job and fire it
-        audioRayTraceJob = new AudioRaytracerJobBatched
+        audioRayTracerJobBatched = new AudioRaytracerJobBatched
         {
             RayOrigin = (float3)transform.position + rayOrigin,
             RayDirections = mainRayDirections,
@@ -164,10 +174,10 @@ public class AudioRayTracer : UpdateMonoBehaviour
             SphereColliderCount = AudioColliderManager.SphereColliders.JobBatch.Length,
 
             AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray(),
+            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
 
             MaxHitsPerRay = MaxHitsPerRay,
             MaxRayLife = maxRayLife,
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
 
             RayResults = rayResults,
             ResultCounts = rayResultCounts,
@@ -176,23 +186,33 @@ public class AudioRayTracer : UpdateMonoBehaviour
             
             MuffleRayHits = AudioTargetManager.MuffleRayHits,
             MaxMuffleHitDistance = maxMuffleHitDistance,
-            PermeationStrengthRemains = AudioTargetManager.PermeationStrengthRemains,
         };
+        JobHandle handleA = audioRayTracerJobBatched.Schedule(rayCount, batchSize);
 
-        int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracingManager.ToUseThreadCount));
-
-        mainJobHandle = audioRayTraceJob.Schedule(rayCount, batchSize);
-
-        #endregion
-
-
-        #region Calculate Audio Target Data Job
-
-        calculateAudioTargetDataJob = new ProcessAudioDataJob
+        audioPermeationJobBatched = new AudioPermeationJobBatched
         {
-            RayResults = rayResults,
-            RayResultCounts = rayResultCounts,
+            RayOrigin = (float3)transform.position + rayOrigin,
+            RayDirections = mainRayDirections,
 
+            AABBColliders = AudioColliderManager.AABBColliders.JobBatchAsArray(),
+            AABBColliderCount = AudioColliderManager.AABBColliders.JobBatch.Length,
+
+            OBBColliders = AudioColliderManager.OBBColliders.JobBatchAsArray(),
+            OBBColliderCount = AudioColliderManager.OBBColliders.JobBatch.Length,
+
+            SphereColliders = AudioColliderManager.SphereColliders.JobBatchAsArray(),
+            SphereColliderCount = AudioColliderManager.SphereColliders.JobBatch.Length,
+
+            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray(),
+            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
+
+            PermeationStrengthPerRay = permeationStrengthPerRay,
+            PermeationPowerRemains = AudioTargetManager.PermeationPowerRemains,
+        };
+        handleA = JobHandle.CombineDependencies(handleA, audioPermeationJobBatched.Schedule(rayCount, batchSize));
+
+        processAudioDataJob = new ProcessAudioDataJob
+        {
             EchoRayDistances = echoRayDistances,
             MaxReverbDistance = maxReverbDistance,
 
@@ -201,17 +221,19 @@ public class AudioRayTracer : UpdateMonoBehaviour
             AudioTargetSettings = AudioTargetManager.AudioTargetSettings.JobBatchAsArray(),
 
             MuffleRayHits = AudioTargetManager.MuffleRayHits,
+            MuffleEffectiveness = muffleEffectiveness,
+
+            PermeationPowerRemains = AudioTargetManager.PermeationPowerRemains,
+            PermeationStrengthPerRay = permeationStrengthPerRay,
+            PermeationEffectiveness = mufflePermeationEffectiveness,
 
             MaxHitsPerRay = MaxHitsPerRay,
             RayCount = rayCount,
             RayOriginWorld = (float3)transform.position + rayOrigin,
         };
-
-        //start job and give mainJobHandle dependency, so it only start after the raytrace job is done.
-        //update mainJobHandle to include this new job for its completion signal
-        mainJobHandle = JobHandle.CombineDependencies(mainJobHandle, calculateAudioTargetDataJob.Schedule(mainJobHandle));
-
-        #endregion
+        // Start job and give mainJobHandle dependency, so it only start after the raytrace job is done.
+        // Update mainJobHandle to include this new job for its completion signal
+        mainJobHandle = JobHandle.CombineDependencies(handleA, processAudioDataJob.Schedule(handleA));
     }
 
 
@@ -263,10 +285,13 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (Application.isPlaying == false) return;
-
         float3 rayOrigin = (float3)transform.position + this.rayOrigin;
 
+        Gizmos.color = originColor;
+        Gizmos.DrawWireCube(rayOrigin, Vector3.one * 0.25f);
+        Gizmos.DrawWireCube(rayOrigin, Vector3.one * 0.2f);
+
+        if (Application.isPlaying == false) return;
 
         if (DEBUG_RayResults != null && DEBUG_RayResults.Length != 0 && (drawRayHitsGizmos || drawRayTrailsGizmos))
         {
@@ -313,11 +338,6 @@ public class AudioRayTracer : UpdateMonoBehaviour
                 }
             }
         }
-
-        // Origin cube
-        Gizmos.color = originColor;
-        Gizmos.DrawWireSphere(rayOrigin, 0.025f);
-        Gizmos.DrawWireSphere(rayOrigin, 0.05f);
     }
 #endif
 }

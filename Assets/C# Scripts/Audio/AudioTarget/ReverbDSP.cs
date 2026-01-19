@@ -7,9 +7,10 @@ public struct ReverbDSP
 {
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Process(float[] data, MinMaxFloat reverbDryboost, float reverbBlend)
+    public void Process(float[] data, NativeSampledAnimationCurve reverbVolumeCurve, float reverbVolume, MinMaxFloat reverbDryboost)
     {
-        float dryBoost = math.lerp(reverbDryboost.min, reverbDryboost.max, reverbBlend);
+        float t = reverbVolumeCurve.Evaluate(reverbVolume);
+        float dryBoost = math.lerp(reverbDryboost.min, reverbDryboost.max, t);
 
         // Apply modifications to every sample of current audiosample buffer
         for (int i = 0; i < data.Length; i += 2)

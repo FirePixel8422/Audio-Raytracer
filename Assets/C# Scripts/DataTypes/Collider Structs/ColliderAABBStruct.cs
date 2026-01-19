@@ -8,34 +8,34 @@ using UnityEngine;
 [Serializable]
 public struct ColliderAABBStruct
 {
-    public half3 center;
-    public half3 size;
+    public half3 Center;
+    public half3 Size;
 
-    [Header("How thick is this wall for permeation calculations")]
-    public half thicknessMultiplier;
+    [Header("How much power gets consumed when permeation rays go through Material")]
+    public half MaterialDensity;
+
     [Header("How much power of the audioRays hitting this surface gets consumed")]
-    public half absorptionValue;
+    public half MaterialAbsorption;
 
-    public short audioTargetId;
+    public short AudioTargetId;
 
     public static ColliderAABBStruct Default => new ColliderAABBStruct()
     {
-        size = new half3(0.5f),
-        thicknessMultiplier = (half)1,
-        audioTargetId = -1,
+        Size = new half3(0.5f),
+        AudioTargetId = -1,
     };
 
     public static bool operator ==(ColliderAABBStruct a, ColliderAABBStruct b)
     {
-        return a.center.x.value == b.center.x.value &&
-               a.center.y.value == b.center.y.value &&
-               a.center.z.value == b.center.z.value &&
-               a.size.x.value == b.size.x.value &&
-               a.size.y.value == b.size.y.value &&
-               a.size.z.value == b.size.z.value &&
-               a.thicknessMultiplier.value == b.thicknessMultiplier.value &&
-               a.absorptionValue.value == b.absorptionValue.value &&
-               a.audioTargetId == b.audioTargetId;
+        return a.Center.x.value == b.Center.x.value &&
+               a.Center.y.value == b.Center.y.value &&
+               a.Center.z.value == b.Center.z.value &&
+               a.Size.x.value == b.Size.x.value &&
+               a.Size.y.value == b.Size.y.value &&
+               a.Size.z.value == b.Size.z.value &&
+               a.MaterialDensity.value == b.MaterialDensity.value &&
+               a.MaterialAbsorption.value == b.MaterialAbsorption.value &&
+               a.AudioTargetId == b.AudioTargetId;
     }
 
     public static bool operator !=(ColliderAABBStruct a, ColliderAABBStruct b)
@@ -49,6 +49,6 @@ public struct ColliderAABBStruct
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(center, size, thicknessMultiplier);
+        return HashCode.Combine(Center, Size);
     }
 }

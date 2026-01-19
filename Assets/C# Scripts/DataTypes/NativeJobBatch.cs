@@ -3,13 +3,19 @@ using Unity.Collections.LowLevel.Unsafe;
 
 
 /// <summary>
-/// Batch container type that allows live read writes to a NativeArray of type <typeparamref name="T"/> and syncs it to a Job only copy every <see cref="UpdateJobBatch"/>
+/// Batch container type that allows live read writes to a NativeArray of type <typeparamref name="T"/> and syncs it to a Job only copy every <see cref="UpdateJobBatch"/> call
 /// </summary>
 public unsafe class NativeJobBatch<T> where T : unmanaged
 {
     public NativeList<T> NextBatch;
     public NativeList<T> JobBatch;
     public NativeArray<T> JobBatchAsArray() => JobBatch.AsArray();
+
+    public T this[int index]
+    {
+        get => NextBatch[index];
+        set => NextBatch[index] = value;
+    }
 
 
     public NativeJobBatch(int startBatchSize, Allocator allocator = Allocator.Persistent)
@@ -25,10 +31,6 @@ public unsafe class NativeJobBatch<T> where T : unmanaged
     public void RemoveAtSwapBack(int id)
     {
         NextBatch.RemoveAtSwapBack(id);
-    }
-    public void Set(int id, T value)
-    {
-        NextBatch[id] = value;
     }
 
     public unsafe void UpdateJobBatch()

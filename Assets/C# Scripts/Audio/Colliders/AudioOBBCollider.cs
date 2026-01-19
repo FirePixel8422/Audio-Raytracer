@@ -19,26 +19,29 @@ public class AudioOBBCollider : AudioCollider
     {
         ColliderOBBStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopy.audioTargetId = AudioTargetId;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
 
         if (includeGameObjectRotation)
         {
             colliderStructCopy.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * (float3)colliderStructCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.center = mergedPosition;
+        Half3.Add(transform.rotation * (float3)colliderStructCopy.Center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.Center = mergedPosition;
 
         if (IgnoreScale)
         {
-            Half3.Multiply(colliderStructCopy.size, lastGlobalScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, lastGlobalScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
         else
         {
-            Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
+
+        // Invert rotation for audio system calculation optimization later
+        colliderStructCopy.Rotation = math.inverse(colliderStructCopy.Rotation);
 
         AudioColliderId = (short)obbStructs.NextBatch.Length;
         obbStructs.Add(colliderStructCopy);
@@ -48,28 +51,31 @@ public class AudioOBBCollider : AudioCollider
     {
         ColliderOBBStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopy.audioTargetId = AudioTargetId;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
 
         if (includeGameObjectRotation)
         {
             colliderStructCopy.Rotation *= transform.rotation;
         }
 
-        Half3.Add(transform.rotation * (float3)colliderStructCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.center = mergedPosition;
+        Half3.Add(transform.rotation * (float3)colliderStructCopy.Center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.Center = mergedPosition;
 
         if (IgnoreScale)
         {
-            Half3.Multiply(colliderStructCopy.size, lastGlobalScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, lastGlobalScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
         else
         {
-            Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
 
-        obbStructs.Set(AudioColliderId, colliderStructCopy);
+        // Invert rotation for audio system calculation optimization later
+        colliderStructCopy.Rotation = math.inverse(colliderStructCopy.Rotation);
+
+        obbStructs[AudioColliderId] = colliderStructCopy;
     }
 
     protected override void CheckColliderTransformation()
@@ -105,14 +111,14 @@ public class AudioOBBCollider : AudioCollider
         {
             colliderStructCopy.Rotation *= transform.rotation;
         }
+        
+        Half3.Add(transform.rotation * (float3)colliderStructCopy.Center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.Center = mergedPosition;
 
-        Half3.Add(transform.rotation * (float3)colliderStructCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.center = mergedPosition;
+        Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
+        colliderStructCopy.Size = scaledSize;
 
-        Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-        colliderStructCopy.size = scaledSize;
-
-        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStructCopy.center, colliderStructCopy.Rotation, (float3)colliderStructCopy.size * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStructCopy.Center, colliderStructCopy.Rotation, (float3)colliderStructCopy.Size * 2);
     }
 #endif
 }

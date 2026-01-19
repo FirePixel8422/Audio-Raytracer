@@ -54,7 +54,7 @@ public class AudioTargetRT : MonoBehaviour
     }
     public void UpdateToAudioSystem(NativeJobBatch<float3> audioTargetPositions)
     {
-        audioTargetPositions.Set(Id, transform.position);
+        audioTargetPositions[Id] = transform.position;
     }
 
     /// <summary>

@@ -172,25 +172,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &8522048
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -299,25 +299,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &49560624
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -446,20 +446,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &64998088
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -568,25 +568,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &73095047
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -694,25 +694,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &74003203
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -820,25 +820,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &74819114
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -946,20 +946,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &122325304
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1067,25 +1067,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &133238652
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1196,25 +1196,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &146765639
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1370,25 +1370,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &153961498
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1497,25 +1497,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &158516855
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1644,25 +1644,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &176565373
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1886,25 +1886,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &223890882
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,25 +1957,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &223890885
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2317,16 +2317,35 @@ MonoBehaviour:
     ReverbDryLevel:
       min: 0
       max: 0
+    ReverbStrengthCurve:
+      curve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      valueMultiplier: 0
+      sampleCount: 0
     ReverbDryBoost:
       min: 0
       max: 3
+    ReverbVolumeCurve:
+      curve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      valueMultiplier: 0
+      sampleCount: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 241768773}
   reverb: {fileID: 241768786}
   volumeMultiplier: 1
   audioTargetSettings:
     MuffleStrength: 0
-    ReverbBlend: 0
+    ReverbStrength: 0
+    ReverbVolume: 0
     PercievedAudioPosition:
       x: 0
       y: 0
@@ -2349,25 +2368,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!54 &241768785
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2469,25 +2488,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &241897085
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2598,25 +2617,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &245504481
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2829,25 +2848,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &259388603
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2920,25 +2939,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &275938311
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3126,25 +3145,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &313471228
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3369,25 +3388,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &357030085
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,25 +3459,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!64 &357030088
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3628,25 +3647,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &380856631
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3809,25 +3828,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &439600013
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3935,25 +3954,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &448504443
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4061,25 +4080,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &484438590
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4188,25 +4207,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &501485405
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4314,25 +4333,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &512757049
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4518,25 +4537,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
-      value: 13312
-    audioTargetId: -1
+    MaterialDensity:
+      value: 0
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &523996051
 GameObject:
   m_ObjectHideFlags: 0
@@ -4588,25 +4607,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &523996054
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4714,25 +4733,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &537168692
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4841,25 +4860,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &539639583
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4988,25 +5007,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &543297345
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5170,25 +5189,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &564666611
 GameObject:
   m_ObjectHideFlags: 0
@@ -5241,25 +5260,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &564666614
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5370,25 +5389,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &569555417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5493,37 +5512,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &596554499
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 596554500}
-  m_Layer: 0
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &596554500
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596554499}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.975, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2039623052}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638413484
 GameObject:
   m_ObjectHideFlags: 0
@@ -5667,25 +5655,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!114 &638413488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5868,20 +5856,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &669964760
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6008,25 +5996,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &675734749
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6211,25 +6199,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &748782457
 GameObject:
   m_ObjectHideFlags: 0
@@ -6281,25 +6269,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &748782460
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6408,25 +6396,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &828541734
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6544,38 +6532,6 @@ Transform:
   - {fileID: 1250829646}
   m_Father: {fileID: 319567578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &878239823
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 878239824}
-  m_Layer: 0
-  m_Name: RotPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &878239824
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878239823}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.67, z: -0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1653812448}
-  m_Father: {fileID: 2039623052}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908917254
 GameObject:
   m_ObjectHideFlags: 0
@@ -6627,25 +6583,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &908917257
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6753,25 +6709,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &918638344
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6918,25 +6874,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &955285342
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7100,20 +7056,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &963382059
 GameObject:
   m_ObjectHideFlags: 0
@@ -7165,25 +7121,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &963382062
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7292,25 +7248,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &978338727
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7418,25 +7374,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &984981302
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7539,13 +7495,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioRaytracersManager
   computeAsync: 1
   maxThreadCount: 4
+  audioTargetManager:
+    startCapacity: 1
   colliderManager:
     startCapacity: 5
-    drawColliderGizmos: 1
+    drawColliderGizmos: 0
     ColliderGizmosColor: {r: 0.9245283, g: 0.5729768, b: 0.20758267, a: 1}
     AudioTargetGizmosColor: {r: 0.20784311, g: 0.30807474, b: 0.9254902, a: 1}
-  audioTargetManager:
-    startCapacity: 5
 --- !u!1 &1056975617
 GameObject:
   m_ObjectHideFlags: 0
@@ -7600,25 +7556,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1056975620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7852,25 +7808,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
+      value: 27874
+    MaterialAbsorption:
       value: 0
-    audioTargetId: -1
+    AudioTargetId: -1
 --- !u!1 &1067560548
 GameObject:
   m_ObjectHideFlags: 0
@@ -7978,25 +7934,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1074138734
 GameObject:
   m_ObjectHideFlags: 0
@@ -8105,25 +8061,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1084042695
 GameObject:
   m_ObjectHideFlags: 0
@@ -8175,25 +8131,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1084042698
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8319,16 +8275,35 @@ MonoBehaviour:
     ReverbDryLevel:
       min: 0
       max: 0
+    ReverbStrengthCurve:
+      curve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      valueMultiplier: 0
+      sampleCount: 0
     ReverbDryBoost:
       min: 0
       max: 0
+    ReverbVolumeCurve:
+      curve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      valueMultiplier: 0
+      sampleCount: 0
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 1116814347}
   reverb: {fileID: 1116814348}
   volumeMultiplier: 1
   audioTargetSettings:
     MuffleStrength: 0
-    ReverbBlend: 0
+    ReverbStrength: 0
+    ReverbVolume: 0
     PercievedAudioPosition:
       x: 0
       y: 0
@@ -8440,25 +8415,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!114 &1116814342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8666,20 +8641,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1124770072
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8787,25 +8762,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1130263307
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8913,25 +8888,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1142450322
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9039,25 +9014,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1164137359
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9244,25 +9219,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1172320429
 GameObject:
   m_ObjectHideFlags: 0
@@ -9315,25 +9290,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1172320432
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9520,25 +9495,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1175644724
 GameObject:
   m_ObjectHideFlags: 0
@@ -9590,25 +9565,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1175644727
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9856,25 +9831,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!114 &1187604159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10009,25 +9984,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1217067796
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10135,20 +10110,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1250829648
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10312,25 +10287,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1277114082
 GameObject:
   m_ObjectHideFlags: 0
@@ -10383,25 +10358,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1277114085
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10533,25 +10508,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1282826399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10708,25 +10683,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1284498637
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10835,25 +10810,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1288249362
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10961,25 +10936,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1321373483
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11143,25 +11118,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1344651899
 GameObject:
   m_ObjectHideFlags: 0
@@ -11253,25 +11228,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1357833411
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11379,25 +11354,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1366608763
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11583,25 +11558,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1388011533
 GameObject:
   m_ObjectHideFlags: 0
@@ -11653,25 +11628,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1388011536
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11836,25 +11811,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1446888946
 GameObject:
   m_ObjectHideFlags: 0
@@ -11906,20 +11881,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1446888949
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12105,25 +12080,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1458572894
 GameObject:
   m_ObjectHideFlags: 0
@@ -12176,25 +12151,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1458572897
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12302,25 +12277,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1480549146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12484,25 +12459,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1488041906
 GameObject:
   m_ObjectHideFlags: 0
@@ -12632,25 +12607,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1490143452
 GameObject:
   m_ObjectHideFlags: 0
@@ -12702,25 +12677,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1490143455
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12828,25 +12803,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1521558292
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12955,25 +12930,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1536627928
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13102,25 +13077,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1548262623
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13229,25 +13204,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1622227800
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13434,162 +13409,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
---- !u!1 &1653812445
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653812448}
-  - component: {fileID: 1653812447}
-  - component: {fileID: 1653812446}
-  - component: {fileID: 1653812449}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &1653812446
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653812445}
-  m_Enabled: 1
---- !u!20 &1653812447
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653812445}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.01
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &1653812448
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653812445}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 878239824}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1653812449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653812445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1658346139
 GameObject:
   m_ObjectHideFlags: 0
@@ -13642,25 +13480,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1658346142
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13790,25 +13628,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1667491496
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13917,25 +13755,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1691937633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14143,25 +13981,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1731490741
 GameObject:
   m_ObjectHideFlags: 0
@@ -14213,25 +14051,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1731490744
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14339,25 +14177,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1733781817
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14466,25 +14304,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!64 &1744947564
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14614,25 +14452,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1746649117
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14741,25 +14579,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1792104911
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14870,25 +14708,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1810182911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15044,25 +14882,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1874891145
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15170,20 +15008,20 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    radius:
+    Radius:
       value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1879247004
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15371,25 +15209,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1903047786
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15575,25 +15413,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &1913924451
 GameObject:
   m_ObjectHideFlags: 0
@@ -15645,25 +15483,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &1913924454
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15772,25 +15610,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!65 &1917171998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15998,25 +15836,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!114 &1920798015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16213,25 +16051,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &2001859808
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16417,25 +16255,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &2038491569
 GameObject:
   m_ObjectHideFlags: 0
@@ -16476,201 +16314,12 @@ Transform:
   - {fileID: 962315847}
   m_Father: {fileID: 319567578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2039623046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2039623052}
-  - component: {fileID: 2039623051}
-  - component: {fileID: 2039623050}
-  - component: {fileID: 2039623049}
-  - component: {fileID: 2039623048}
-  - component: {fileID: 2039623055}
-  - component: {fileID: 2039623053}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!54 &2039623048
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 1
---- !u!136 &2039623049
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  m_Material: {fileID: 13400000, guid: 14ee86f5504cca544aff14c77467db6c, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &2039623050
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2039623051
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2039623052
+--- !u!4 &2039623052 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+    type: 3}
+  m_PrefabInstance: {fileID: 291087522009231680}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.23887235, z: -0, w: 0.971051}
-  m_LocalPosition: {x: 8.8, y: -2.1, z: -5.87}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 878239824}
-  - {fileID: 596554500}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2039623053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f164f61ba97734a97f4d50b5998bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7.5
-  groundCheck: {fileID: 596554500}
-  groundCheckLength: 0.5
-  camTransform: {fileID: 878239824}
-  mouseSensitivity: 5
---- !u!114 &2039623055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039623046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d14e0eebbfc9f5b4685365d70167ab2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayOrigin:
-    x: 0
-    y: 0
-    z: 0
-  rayCount: 500
-  maxBounces: 6
-  maxRayLife: 125
-  maxMuffleHitDistance: 250
-  maxReverbDistance: 35
-  originColor: {r: 0.4395133, g: 0.47058824, b: 0.023529418, a: 1}
-  drawDebugArrays: 1
-  drawRayHitsGizmos: 1
-  rayHitColor: {r: 0, g: 1, b: 1, a: 0.5019608}
-  drawRayTrailsGizmos: 0
-  rayTrailColor: {r: 0, g: 1, b: 0, a: 0.101960786}
-  DEBUG_AudioTargetPositions: []
-  DEBUG_MaxMuffleHits: 0
-  DEBUG_MuffleRayHits: 
-  DEBUG_MufflePercent01: []
-  raytracerMs: 0
-  batchCycleMs: 0
 --- !u!1 &2075243379
 GameObject:
   m_ObjectHideFlags: 0
@@ -16722,25 +16371,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!23 &2075243382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16926,25 +16575,25 @@ MonoBehaviour:
   AudioColliderId: 0
   AudioTargetId: 0
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
-      value: 13312
-    audioTargetId: -1
+    MaterialDensity:
+      value: 0
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!1 &2115961653
 GameObject:
   m_ObjectHideFlags: 0
@@ -17147,25 +16796,25 @@ MonoBehaviour:
   AudioTargetId: 0
   includeGameObjectRotation: 1
   colliderStruct:
-    center:
+    Center:
       x:
         value: 0
       y:
         value: 0
       z:
         value: 0
-    size:
+    Size:
       x:
         value: 14336
       y:
         value: 14336
       z:
         value: 14336
-    thicknessMultiplier:
-      value: 15360
-    absorptionValue:
+    MaterialDensity:
       value: 0
-    audioTargetId: -1
+    MaterialAbsorption:
+      value: 0
+    AudioTargetId: -1
 --- !u!114 &2115961662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17234,6 +16883,94 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115961653}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &291087522009231680
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5607343880359880082, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: rayOrigin.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607343880359880082, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: originColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607343880359880082, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: originColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607343880359880082, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: originColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.971051
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.23887235
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7265677211479839110, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106511372705048587, guid: 606d99e5956647f4bbf55f6a1d3d2bc1,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 606d99e5956647f4bbf55f6a1d3d2bc1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -17246,5 +16983,5 @@ SceneRoots:
   - {fileID: 638413493}
   - {fileID: 1116814347}
   - {fileID: 933763103}
-  - {fileID: 2039623052}
+  - {fileID: 291087522009231680}
   - {fileID: 1030950979}

@@ -15,20 +15,20 @@ public class AudioAABBCollider : AudioCollider
     {
         ColliderAABBStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopy.audioTargetId = AudioTargetId;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
 
-        Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.center = mergedPosition;
+        Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.Center = mergedPosition;
 
         if (IgnoreScale)
         {
-            Half3.Multiply(colliderStructCopy.size, lastGlobalScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, lastGlobalScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
         else
         {
-            Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
 
         AudioColliderId = (short)aabbStructs.NextBatch.Length;
@@ -39,23 +39,23 @@ public class AudioAABBCollider : AudioCollider
     {
         ColliderAABBStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopy.audioTargetId = AudioTargetId;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
 
-        Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.center = mergedPosition;
+        Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.Center = mergedPosition;
 
         if (IgnoreScale)
         {
-            Half3.Multiply(colliderStructCopy.size, lastGlobalScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, lastGlobalScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
         else
         {
-            Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopy.size = scaledSize;
+            Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
+            colliderStructCopy.Size = scaledSize;
         }
 
-        aabbStructs.Set(AudioColliderId, colliderStructCopy);
+        aabbStructs[AudioColliderId] = colliderStructCopy;
     }
 
     protected override void CheckColliderTransformation()
@@ -85,13 +85,13 @@ public class AudioAABBCollider : AudioCollider
     {
         ColliderAABBStruct colliderStructCopy = colliderStruct;
 
-        Half3.Add(colliderStructCopy.center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.center = mergedPosition;
+        Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
+        colliderStructCopy.Center = mergedPosition;
 
-        Half3.Multiply(colliderStructCopy.size, transform.lossyScale, out half3 scaledSize);
-        colliderStructCopy.size = scaledSize;
+        Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
+        colliderStructCopy.Size = scaledSize;
 
-        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStructCopy.center, Quaternion.identity, (float3)colliderStructCopy.size * 2);
+        Gizmos.DrawWireMesh(GlobalMeshes.cube, (float3)colliderStructCopy.Center, Quaternion.identity, (float3)colliderStructCopy.Size * 2);
     }
 #endif
 }

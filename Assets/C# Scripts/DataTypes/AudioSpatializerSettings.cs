@@ -34,13 +34,15 @@ public struct AudioSpatializerSettings
     [Range(0f, 2f)]
     public float HighPassVolume;
 
-    [Header("Muffle Effect")]
+    [Header(">>Muffle Effect<<")]
     public NativeSampledAnimationCurve MuffleCurve;
     public MinMaxFloat MuffleCutoff;
 
-    [Header("Reverb Strength")]
+    [Header(">>Reverb Strength and Volume settings<<")]
     public MinMaxFloat ReverbDryLevel;
+    public NativeSampledAnimationCurve ReverbStrengthCurve;
     public MinMaxFloat ReverbDryBoost;
+    public NativeSampledAnimationCurve ReverbVolumeCurve;
 
     public static AudioSpatializerSettings Default => new AudioSpatializerSettings
     {
@@ -65,6 +67,9 @@ public struct AudioSpatializerSettings
         MuffleCutoff = new MinMaxFloat(75, 8000),
 
         ReverbDryLevel = new MinMaxFloat(0, -2000),
+        ReverbStrengthCurve = NativeSampledAnimationCurve.Default,
+        ReverbDryBoost = new MinMaxFloat(1, 3),
+        ReverbVolumeCurve = NativeSampledAnimationCurve.Default,
     };
 
     public void Dispose()

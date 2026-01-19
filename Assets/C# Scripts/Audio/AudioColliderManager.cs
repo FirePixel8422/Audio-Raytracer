@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using Unity.Collections;
-using UnityEditor;
 using UnityEngine;
 
 
-[System.Serializable]
+[Serializable]
 public class AudioColliderManager
 {
-    [Header("Start capacity of audioCollider arrays")]
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioCollider> colliders;

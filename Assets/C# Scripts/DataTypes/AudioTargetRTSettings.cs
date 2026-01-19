@@ -3,20 +3,23 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-[System.Serializable]
 [BurstCompile]
+[System.Serializable]
 public struct AudioTargetRTSettings
 {
     [Range(0, 1)]
     public float MuffleStrength;
     [Range(0, 1)]
-    public float ReverbBlend;
+    public float ReverbStrength;
+    [Range(0, 1)]
+    public float ReverbVolume;
     public float3 PercievedAudioPosition;
 
-    public AudioTargetRTSettings(float muffleStrength, float reverbBlend, float3 percievedAudioPosition)
+    public AudioTargetRTSettings(float muffleStrength, float reverbStrength, float reverbVolume, float3 percievedAudioPosition)
     {
         MuffleStrength = math.saturate(muffleStrength);
-        ReverbBlend = math.saturate(reverbBlend);
+        ReverbStrength = math.saturate(reverbStrength);
+        ReverbVolume = math.saturate(reverbVolume);
         PercievedAudioPosition = percievedAudioPosition;
     }
 }

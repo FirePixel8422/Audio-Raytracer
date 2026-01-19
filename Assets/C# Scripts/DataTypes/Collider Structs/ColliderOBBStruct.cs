@@ -8,8 +8,8 @@ using UnityEngine;
 [Serializable]
 public struct ColliderOBBStruct
 {
-    public half3 center;
-    public half3 size;
+    public half3 Center;
+    public half3 Size;
 
     private halfQuaternion rotation;
     public quaternion Rotation
@@ -21,34 +21,34 @@ public struct ColliderOBBStruct
         }
     }
 
-    [Header("How thick is this wall for permeation calculations")]
-    public half thicknessMultiplier;
-    [Header("How much power of the audioRays hitting this surface gets consumed")]
-    public half absorptionValue;
+    [Header("How much power gets consumed when permeation rays go through Material")]
+    public half MaterialDensity;
 
-    public short audioTargetId;
+    [Header("How much power of the audioRays hitting this surface gets consumed")]
+    public half MaterialAbsorption;
+
+    public short AudioTargetId;
 
 
     public static ColliderOBBStruct Default => new ColliderOBBStruct()
     {
-        size = new half3(0.5f),
+        Size = new half3(0.5f),
         rotation = new halfQuaternion(quaternion.identity),
-        thicknessMultiplier = (half)1,
-        audioTargetId = -1,
+        AudioTargetId = -1,
     };
 
     public static bool operator ==(ColliderOBBStruct a, ColliderOBBStruct b)
     {
-        return a.center.x.value == b.center.x.value &&
-               a.center.y.value == b.center.y.value &&
-               a.center.z.value == b.center.z.value &&
-               a.size.x.value == b.size.x.value &&
-               a.size.y.value == b.size.y.value &&
-               a.size.z.value == b.size.z.value &&
+        return a.Center.x.value == b.Center.x.value &&
+               a.Center.y.value == b.Center.y.value &&
+               a.Center.z.value == b.Center.z.value &&
+               a.Size.x.value == b.Size.x.value &&
+               a.Size.y.value == b.Size.y.value &&
+               a.Size.z.value == b.Size.z.value &&
                a.rotation == b.rotation &&
-               a.thicknessMultiplier.value == b.thicknessMultiplier.value &&
-               a.absorptionValue.value == b.absorptionValue.value &&
-               a.audioTargetId == b.audioTargetId;
+               a.MaterialDensity.value == b.MaterialDensity.value &&
+               a.MaterialAbsorption.value == b.MaterialAbsorption.value &&
+               a.AudioTargetId == b.AudioTargetId;
     }
 
     public static bool operator !=(ColliderOBBStruct a, ColliderOBBStruct b)
@@ -62,6 +62,6 @@ public struct ColliderOBBStruct
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(center, size, rotation, thicknessMultiplier);
+        return HashCode.Combine(Center, Size, rotation);
     }
 }

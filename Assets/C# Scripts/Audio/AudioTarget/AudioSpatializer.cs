@@ -49,7 +49,7 @@ public class AudioSpatializer : MonoBehaviour
     public void UpdateSpatializer(AudioTargetRTSettings newSettings)
     {
         audioTargetSettings = newSettings;
-        reverb.dryLevel = math.lerp(settings.ReverbDryLevel.min, settings.ReverbDryLevel.max, audioTargetSettings.ReverbBlend);
+        reverb.dryLevel = math.lerp(settings.ReverbDryLevel.min, settings.ReverbDryLevel.max, audioTargetSettings.ReverbStrength);
     }
 
     private void OnLateUpdate()
@@ -67,7 +67,7 @@ public class AudioSpatializer : MonoBehaviour
 
         muffleDSP.Process(data, settings.MuffleCurve, settings.MuffleCutoff, sampleRate, audioTargetSettings.MuffleStrength);
         binauralDSP.Process(data, settings, sampleRate, cachedLocalDir, cachedListenerDistance);
-        reverbDSP.Process(data, settings.ReverbDryBoost, audioTargetSettings.ReverbBlend);
+        reverbDSP.Process(data, settings.ReverbVolumeCurve, audioTargetSettings.ReverbVolume, settings.ReverbDryBoost);
     }
 
     private void OnDestroy()

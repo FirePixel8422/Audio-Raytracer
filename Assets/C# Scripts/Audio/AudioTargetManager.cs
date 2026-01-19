@@ -6,10 +6,9 @@ using Unity.Mathematics;
 using Fire_Pixel.Utility;
 
 
-[System.Serializable]
+[Serializable]
 public class AudioTargetManager
 {
-    [Header("Start capacity of audioTarget arrays")]
     [SerializeField] private int startCapacity = 5;
 
     private static List<AudioTargetRT> audioTargets;
@@ -26,7 +25,7 @@ public class AudioTargetManager
     public static NativeJobBatch<AudioTargetRTSettings> AudioTargetSettings { get; private set; }
     public static NativeJobBatch<float3> AudioTargetPositions { get; private set; }
     public static NativeArray<ushort> MuffleRayHits { get; private set; }
-    public static NativeArray<half> PermeationStrengthRemains { get; private set; }
+    public static NativeArray<float> PermeationPowerRemains { get; private set; }
 
     public static Action OnAudioTargetUpdate { get; set; }
 
@@ -41,7 +40,7 @@ public class AudioTargetManager
         AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
 
         MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
-        PermeationStrengthRemains = new NativeArray<half>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
+        PermeationPowerRemains = new NativeArray<float>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
     }
 
 
@@ -110,13 +109,16 @@ public class AudioTargetManager
         AudioTargetPositions.UpdateJobBatch();
         AudioTargetSettings.UpdateJobBatch();
 
-        int muffleRayHitsCapacity = audioTargets.Count * AudioRaytracingManager.ToUseThreadCount;
+        int maxBatchCapacity = audioTargets.Count * AudioRaytracingManager.ToUseThreadCount;
 
         // Resize MuffleRayHits array if needed
-        if (muffleRayHitsCapacity != MuffleRayHits.Length)
+        if (maxBatchCapacity != MuffleRayHits.Length)
         {
             MuffleRayHits.Dispose();
-            MuffleRayHits = new NativeArray<ushort>(muffleRayHitsCapacity, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            MuffleRayHits = new NativeArray<ushort>(maxBatchCapacity, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+
+            PermeationPowerRemains.Dispose();
+            PermeationPowerRemains = new NativeArray<float>(maxBatchCapacity, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
         }
     }
     public static void UpdateAudioTargetSettings()
@@ -130,7 +132,7 @@ public class AudioTargetManager
         }
     }
 
-    private static void Dispose()
+    public static void Dispose()
     {
         UpdateScheduler.CreateLateOnApplicationQuitCallback(() =>
         {
@@ -139,7 +141,7 @@ public class AudioTargetManager
             idPool.Dispose();
             AudioTargetPositions.Dispose();
             AudioTargetSettings.Dispose();
-            PermeationStrengthRemains.Dispose();
+            PermeationPowerRemains.Dispose();
             MuffleRayHits.Dispose();
         });
     }

@@ -8,21 +8,23 @@ public class AudioRaytracingManager : MonoBehaviour
     
 
     [Header("Run Raytracing async on background threads in parallel")]
-    [Space(-5)]
+    [Space(-8)]
     [Header("WARNING: If false will block the main thread every frame until finished")]
     [SerializeField] private bool computeAsync = true;
-    public static bool ComputeAsync => Instance.computeAsync;
 
-    [Header("Max threads to use for raytracing")]
+    [Tooltip("Max threads to use for raytrace jobs")]
     [SerializeField] private int maxThreadCount = 3;
+
+    public static bool ComputeAsync => Instance.computeAsync;
     public static int ToUseThreadCount => math.min(Instance.maxThreadCount, JobsUtility.JobWorkerCount);
 
+    [Header(">>System Management<<")]
+    [SerializeField] private AudioTargetManager audioTargetManager;
+    public static AudioTargetManager AudioTargetManager => Instance.audioTargetManager;
 
     [SerializeField] private AudioColliderManager colliderManager;
     public static AudioColliderManager ColliderManager => Instance.colliderManager;
 
-    [SerializeField] private AudioTargetManager audioTargetManager;
-    public static AudioTargetManager AudioTargetManager => Instance.audioTargetManager;
 
 
 
