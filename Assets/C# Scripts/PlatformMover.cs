@@ -2,7 +2,7 @@ using Fire_Pixel.Utility;
 using UnityEngine;
 
 
-public class Mover : MonoBehaviour
+public class PlatformMover : MonoBehaviour
 {
     [SerializeField] private Vector3[] positions;
     [SerializeField] private float speed;
@@ -12,7 +12,7 @@ public class Mover : MonoBehaviour
 
 
     private void OnEnable() => UpdateScheduler.RegisterFixedUpdate(OnFixedUpdate);
-    private void OnDisable() => UpdateScheduler.UnRegisterFixedUpdate(OnFixedUpdate);
+    private void OnDestroy() => UpdateScheduler.UnRegisterFixedUpdate(OnFixedUpdate);
 
     private void OnFixedUpdate()
     {
@@ -20,11 +20,7 @@ public class Mover : MonoBehaviour
 
         if (transform.localPosition == positions[posId])
         {
-            posId += 1;
-            if (posId == positions.Length)
-            {
-                posId = 0;
-            }
+            posId.IncrementSmart(positions.Length);
             PauseDelay();
         }
     }

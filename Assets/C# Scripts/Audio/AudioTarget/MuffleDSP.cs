@@ -10,7 +10,7 @@ public struct MuffleDSP
 
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Process(float[] data, in NativeSampledAnimationCurve muffleCurve, MinMaxFloat muffleCutoffMinMax, int sampleRate, float muffleStrength)
+    public void Process(float[] data, NativeSampledAnimationCurve muffleCurve, MinMaxFloat muffleCutoffMinMax, int sampleRate, float muffleStrength)
     {
         // Apply modifications to every sample of current audiosample buffer
         for (int i = 0; i < data.Length; i += 2)

@@ -2319,7 +2319,7 @@ MonoBehaviour:
       max: 0
     ReverbDryBoost:
       min: 0
-      max: 0
+      max: 3
   listenerTransform: {fileID: 2039623052}
   soundPosTransform: {fileID: 241768773}
   reverb: {fileID: 241768786}
@@ -16658,7 +16658,7 @@ MonoBehaviour:
   maxBounces: 6
   maxRayLife: 125
   maxMuffleHitDistance: 250
-  maxReverbDistance: 25
+  maxReverbDistance: 35
   originColor: {r: 0.4395133, g: 0.47058824, b: 0.023529418, a: 1}
   drawDebugArrays: 1
   drawRayHitsGizmos: 1

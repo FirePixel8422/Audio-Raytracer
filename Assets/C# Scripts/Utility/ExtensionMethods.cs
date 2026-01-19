@@ -285,26 +285,6 @@ public static class ExtensionMethods
 
     #endregion
 
-
-
-    ///// <returns>SurfaceType enum of the target collider, returns SurfaceType.None if there is no <see cref="SurfaceTypeIdentifier"/> attached to targetr collider</returns>
-    //public static SurfaceType GetSurfaceType(this Collider collider)
-    //{
-    //    if (collider.TryGetComponent(out SurfaceTypeIdentifier identifier))
-    //    {
-    //        return identifier.SurfaceType;
-    //    }
-    //    return SurfaceType.Metal;
-    //}
-
-    ///// <summary>
-    ///// Get PlayerGameId through ClientManager using OwnerClientId.
-    ///// </summary>
-    //public static int GetOwnerClientGameId(this NetworkObject networkObj)
-    //{
-    //    return ClientManager.GetClientGameId(networkObj.OwnerClientId);
-    //}
-
     /// <summary>
     /// Try finding an action by name, returns true if found, false if not. Outputs the found action
     /// </summary>
@@ -344,5 +324,30 @@ public static class ExtensionMethods
     {
         targetArray[targetId] = targetArray[backId];
         targetArray[backId] = nullValue;
+    }
+
+    /// <summary>
+    /// Increments index by 1 and wraps to 0 if it reaches length
+    /// </summary>
+    public static int IncrementSmart(this ref int value, int length)
+    {
+        value += 1;
+        if (value >= length)
+        {
+            value = 0;
+        }
+        return value;
+    }
+    /// <summary>
+    /// Decrements index by 1 and wraps to 0 if it reaches length
+    /// </summary>
+    public static int DecrementSmart(this ref int value, int length)
+    {
+        value -= 1;
+        if (value < 0)
+        {
+            value = length - 1;
+        }
+        return value;
     }
 }

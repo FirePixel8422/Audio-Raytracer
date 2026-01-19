@@ -65,7 +65,7 @@ public class AudioSpatializer : MonoBehaviour
     {
         if (channels != 2) return;
 
-        muffleDSP.Process(data, in settings.MuffleCurve, settings.MuffleCutoff, sampleRate, audioTargetSettings.MuffleStrength);
+        muffleDSP.Process(data, settings.MuffleCurve, settings.MuffleCutoff, sampleRate, audioTargetSettings.MuffleStrength);
         binauralDSP.Process(data, settings, sampleRate, cachedLocalDir, cachedListenerDistance);
         reverbDSP.Process(data, settings.ReverbDryBoost, audioTargetSettings.ReverbBlend);
     }
