@@ -4,20 +4,15 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-[BurstCompile]
-[Serializable]
+[BurstCompile, Serializable]
 public struct ColliderAABBStruct
 {
     public half3 Center;
     public half3 Size;
 
-    [Header("How much power gets consumed when permeation rays go through Material")]
-    public half MaterialDensity;
+    [HideInInspector] public AudioMaterialProperties MaterialProperties;
+    [HideInInspector] public short AudioTargetId;
 
-    [Header("How much power of the audioRays hitting this surface gets consumed")]
-    public half MaterialAbsorption;
-
-    public short AudioTargetId;
 
     public static ColliderAABBStruct Default => new ColliderAABBStruct()
     {
@@ -33,16 +28,13 @@ public struct ColliderAABBStruct
                a.Size.x.value == b.Size.x.value &&
                a.Size.y.value == b.Size.y.value &&
                a.Size.z.value == b.Size.z.value &&
-               a.MaterialDensity.value == b.MaterialDensity.value &&
-               a.MaterialAbsorption.value == b.MaterialAbsorption.value &&
+               a.MaterialProperties == b.MaterialProperties &&
                a.AudioTargetId == b.AudioTargetId;
     }
-
     public static bool operator !=(ColliderAABBStruct a, ColliderAABBStruct b)
     {
         return !(a == b);
     }
-
     public override bool Equals(object obj)
     {
         return obj is ColliderAABBStruct other && this == other;

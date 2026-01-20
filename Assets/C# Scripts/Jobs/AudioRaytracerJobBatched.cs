@@ -484,7 +484,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     normal.z = math.sign(localPoint.z);
                 }
 
-                absorption = hitAABB.MaterialAbsorption;
+                absorption = hitAABB.MaterialProperties.Absorption;
                 break;
 
             case ColliderType.OBB:
@@ -511,13 +511,13 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                 }
 
                 normal = math.mul(hitOBB.Rotation, localNormal);
-                absorption = hitOBB.MaterialAbsorption;
+                absorption = hitOBB.MaterialProperties.Absorption;
                 break;
 
             case ColliderType.Sphere:
 
                 normal = math.normalize(cRayOrigin - hitSphere.Center);
-                absorption = hitSphere.MaterialAbsorption;
+                absorption = hitSphere.MaterialProperties.Absorption;
                 break;
 
             default:

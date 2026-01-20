@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AudioSphereCollider : AudioCollider
 {
-    [Header("Sphere Collider: very fast > 10/10")]
     [SerializeField] private ColliderSphereStruct colliderStruct = ColliderSphereStruct.Default;
     private ColliderSphereStruct lastColliderStruct;
 
@@ -13,33 +12,19 @@ public class AudioSphereCollider : AudioCollider
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
-        ColliderSphereStruct colliderStructCopy = colliderStruct;
-
-        colliderStructCopy.AudioTargetId = AudioTargetId;
-        
-        Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.Center = mergedPosition;
-
-        if (IgnoreScale)
-        {
-            Half.Multiply(colliderStructCopy.Radius, GetLargestComponent(lastGlobalScale), out half scaledRadius);
-            colliderStructCopy.Radius = scaledRadius;
-        }
-        else
-        {
-            Half.Multiply(colliderStructCopy.Radius, GetLargestComponent(transform.lossyScale), out half scaledRadius);
-            colliderStructCopy.Radius = scaledRadius;
-        }
-
-        AudioColliderId = (short)sphereStructs.NextBatch.Length;
-        sphereStructs.Add(colliderStructCopy);
+        AudioColliderId = (short)obbStructs.NextBatch.Length;
+        sphereStructs.Add(GetBakedColliderStruct());
     }
-
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
+        sphereStructs[AudioColliderId] = GetBakedColliderStruct();
+    }
+    /// <summary>
+    /// Get baked version off collider data as lightweight struct collider container for audio system usage
+    /// </summary>
+    private ColliderSphereStruct GetBakedColliderStruct()
+    {
         ColliderSphereStruct colliderStructCopy = colliderStruct;
-
-        colliderStructCopy.AudioTargetId = AudioTargetId;
 
         Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
         colliderStructCopy.Center = mergedPosition;
@@ -55,12 +40,18 @@ public class AudioSphereCollider : AudioCollider
             colliderStructCopy.Radius = scaledRadius;
         }
 
-        sphereStructs[AudioColliderId] = colliderStructCopy;
-    }
+        // Upload material properties from ScriptableObject and AudioTargetId from this component
+        colliderStruct.MaterialProperties = AudioMaterialPropertiesSO.MaterialProperties;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
 
+        return colliderStructCopy;
+    }
     private half GetLargestComponent(Vector3 input)
     {
-        return (half)math.max(input.x, math.max(input.y, input.z));
+        return (half)math.max(
+            input.x, 
+            math.max(input.y,
+            input.z));
     }
 
     protected override void CheckColliderTransformation()

@@ -3,17 +3,20 @@
 
 public abstract class AudioCollider : MonoBehaviour
 {
-    [Header("Set this to true if collider data does not change at runtime")]
-    [SerializeField] private bool isStatic = true;
+    [SerializeField] protected AudioMaterialPropertiesSO AudioMaterialPropertiesSO;
 
-    [Header("Set this to true if collider never scales at runtime")]
-    [SerializeField] private bool ignoreScale = true;
+    [Header("Can increase performance:")]
+    [Tooltip("Set this to true if collider data does not change at runtime")]
+    [SerializeField] protected bool isStatic = true;
+
+    [Tooltip("Set this to true if collider never scales at runtime")]
+    [SerializeField] protected bool ignoreScale = true;
 
     public bool IsStatic => isStatic;
     public bool IgnoreScale => ignoreScale;
 
-    public short AudioColliderId;
-    public short AudioTargetId;
+    [HideInInspector] public short AudioColliderId;
+    [HideInInspector] public short AudioTargetId;
 
     protected Transform cachedTransform;
     protected Vector3 lastWorldPosition;

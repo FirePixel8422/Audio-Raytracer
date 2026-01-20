@@ -4,8 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-[BurstCompile]
-[Serializable]
+[BurstCompile, Serializable]
 public struct ColliderOBBStruct
 {
     public half3 Center;
@@ -21,13 +20,8 @@ public struct ColliderOBBStruct
         }
     }
 
-    [Header("How much power gets consumed when permeation rays go through Material")]
-    public half MaterialDensity;
-
-    [Header("How much power of the audioRays hitting this surface gets consumed")]
-    public half MaterialAbsorption;
-
-    public short AudioTargetId;
+    [HideInInspector] public AudioMaterialProperties MaterialProperties;
+    [HideInInspector] public short AudioTargetId;
 
 
     public static ColliderOBBStruct Default => new ColliderOBBStruct()
@@ -46,16 +40,13 @@ public struct ColliderOBBStruct
                a.Size.y.value == b.Size.y.value &&
                a.Size.z.value == b.Size.z.value &&
                a.rotation == b.rotation &&
-               a.MaterialDensity.value == b.MaterialDensity.value &&
-               a.MaterialAbsorption.value == b.MaterialAbsorption.value &&
+               a.MaterialProperties == b.MaterialProperties &&
                a.AudioTargetId == b.AudioTargetId;
     }
-
     public static bool operator !=(ColliderOBBStruct a, ColliderOBBStruct b)
     {
         return !(a == b);
     }
-
     public override bool Equals(object obj)
     {
         return obj is ColliderOBBStruct other && this == other;

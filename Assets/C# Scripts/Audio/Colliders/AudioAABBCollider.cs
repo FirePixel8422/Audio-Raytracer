@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AudioAABBCollider : AudioCollider
 {
-    [Header("Box Colliders WITHOUT rotation: fast > 7/10")]
     [SerializeField] private ColliderAABBStruct colliderStruct = ColliderAABBStruct.Default;
     private ColliderAABBStruct lastColliderStruct;
 
@@ -13,34 +12,21 @@ public class AudioAABBCollider : AudioCollider
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
-        ColliderAABBStruct colliderStructCopy = colliderStruct;
-
-        colliderStructCopy.AudioTargetId = AudioTargetId;
-
-        Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.Center = mergedPosition;
-
-        if (IgnoreScale)
-        {
-            Half3.Multiply(colliderStructCopy.Size, lastGlobalScale, out half3 scaledSize);
-            colliderStructCopy.Size = scaledSize;
-        }
-        else
-        {
-            Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopy.Size = scaledSize;
-        }
-
         AudioColliderId = (short)aabbStructs.NextBatch.Length;
-        aabbStructs.Add(colliderStructCopy);
+        aabbStructs.Add(GetBakedColliderStruct());
+    }
+    public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
+    {
+        aabbStructs[AudioColliderId] = GetBakedColliderStruct();
     }
 
-    public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
+    /// <summary>
+    /// Get baked version off collider data as lightweight struct collider container for audio system usage
+    /// </summary>
+    private ColliderAABBStruct GetBakedColliderStruct()
     {
         ColliderAABBStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopy.AudioTargetId = AudioTargetId;
-
         Half3.Add(colliderStructCopy.Center, transform.position, out half3 mergedPosition);
         colliderStructCopy.Center = mergedPosition;
 
@@ -55,7 +41,11 @@ public class AudioAABBCollider : AudioCollider
             colliderStructCopy.Size = scaledSize;
         }
 
-        aabbStructs[AudioColliderId] = colliderStructCopy;
+        // Upload material properties from ScriptableObject and AudioTargetId from this component
+        colliderStruct.MaterialProperties = AudioMaterialPropertiesSO.MaterialProperties;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
+
+        return colliderStructCopy;
     }
 
     protected override void CheckColliderTransformation()

@@ -6,56 +6,38 @@ public class AudioOBBCollider : AudioCollider
 {
     [Header("Include gameObject rotation to the colliders final rotation")]
     [SerializeField] private bool includeGameObjectRotation = true;
+    [SerializeField] private Vector3 rotationEulerOffset;
 
-    [Header("Box Colliders with rotation: \nfast, but a little slower than an 'axisAlignedBox' > 6/10")]
     [SerializeField] private ColliderOBBStruct colliderStruct = ColliderOBBStruct.Default;
     private ColliderOBBStruct lastColliderStruct;
-    private Quaternion lastWorldRotation;
+    private Quaternion lastFinalRotation;
 
 
     public override ColliderType GetColliderType() => ColliderType.OBB;
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
-        ColliderOBBStruct colliderStructCopy = colliderStruct;
-
-        colliderStructCopy.AudioTargetId = AudioTargetId;
-
-        if (includeGameObjectRotation)
-        {
-            colliderStructCopy.Rotation *= transform.rotation;
-        }
-
-        Half3.Add(transform.rotation * (float3)colliderStructCopy.Center, transform.position, out half3 mergedPosition);
-        colliderStructCopy.Center = mergedPosition;
-
-        if (IgnoreScale)
-        {
-            Half3.Multiply(colliderStructCopy.Size, lastGlobalScale, out half3 scaledSize);
-            colliderStructCopy.Size = scaledSize;
-        }
-        else
-        {
-            Half3.Multiply(colliderStructCopy.Size, transform.lossyScale, out half3 scaledSize);
-            colliderStructCopy.Size = scaledSize;
-        }
-
-        // Invert rotation for audio system calculation optimization later
-        colliderStructCopy.Rotation = math.inverse(colliderStructCopy.Rotation);
-
         AudioColliderId = (short)obbStructs.NextBatch.Length;
-        obbStructs.Add(colliderStructCopy);
+        obbStructs.Add(GetBakedColliderStruct());
     }
-
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
+    {
+        obbStructs[AudioColliderId] = GetBakedColliderStruct();
+    }
+    /// <summary>
+    /// Get baked version off collider data as lightweight struct collider container for audio system usage
+    /// </summary>
+    private ColliderOBBStruct GetBakedColliderStruct()
     {
         ColliderOBBStruct colliderStructCopy = colliderStruct;
 
-        colliderStructCopy.AudioTargetId = AudioTargetId;
-
         if (includeGameObjectRotation)
         {
             colliderStructCopy.Rotation *= transform.rotation;
+        }
+        if (rotationEulerOffset != Vector3.zero)
+        {
+            colliderStructCopy.Rotation *= Quaternion.Euler(rotationEulerOffset);
         }
 
         Half3.Add(transform.rotation * (float3)colliderStructCopy.Center, transform.position, out half3 mergedPosition);
@@ -75,26 +57,32 @@ public class AudioOBBCollider : AudioCollider
         // Invert rotation for audio system calculation optimization later
         colliderStructCopy.Rotation = math.inverse(colliderStructCopy.Rotation);
 
-        obbStructs[AudioColliderId] = colliderStructCopy;
+        // Upload material properties from ScriptableObject and AudioTargetId from this component
+        colliderStruct.MaterialProperties = AudioMaterialPropertiesSO.MaterialProperties;
+        colliderStructCopy.AudioTargetId = AudioTargetId;
+
+        return colliderStructCopy;
     }
+
 
     protected override void CheckColliderTransformation()
     {
-        cachedTransform.GetPositionAndRotation(out Vector3 cWorldPosition, out Quaternion cWorldRotation);
+        cachedTransform.GetPositionAndRotation(out Vector3 cWorldPosition, out Quaternion finalRotation);
+        finalRotation *= Quaternion.Euler(rotationEulerOffset);
+
         Vector3 cGlobalScale = IgnoreScale ? Vector3.zero : cachedTransform.lossyScale;
 
         if (cWorldPosition != lastWorldPosition ||
-            cWorldRotation != lastWorldRotation ||
+            finalRotation != lastFinalRotation ||
             (IgnoreScale == false && cGlobalScale != lastGlobalScale) ||
             colliderStruct != lastColliderStruct)
         {
             AudioColliderManager.UpdateColiderInSystem(this);
 
             UpdateSavedTransformation(cWorldPosition, cGlobalScale);
-            lastWorldRotation = cWorldRotation;
+            lastFinalRotation = finalRotation;
         }
     }
-
     protected override void UpdateSavedTransformation(Vector3 cWorldPosition, Vector3 cGlobalScale)
     {
         base.UpdateSavedTransformation(cWorldPosition, cGlobalScale);
@@ -111,7 +99,11 @@ public class AudioOBBCollider : AudioCollider
         {
             colliderStructCopy.Rotation *= transform.rotation;
         }
-        
+        if (rotationEulerOffset != Vector3.zero)
+        {
+            colliderStructCopy.Rotation *= Quaternion.Euler(rotationEulerOffset);
+        }
+
         Half3.Add(transform.rotation * (float3)colliderStructCopy.Center, transform.position, out half3 mergedPosition);
         colliderStructCopy.Center = mergedPosition;
 
