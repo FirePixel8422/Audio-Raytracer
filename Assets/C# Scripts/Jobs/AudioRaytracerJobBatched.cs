@@ -129,7 +129,16 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     // if nothing was hit, aka the ray go to the player succesfully store the distance to the current main ray position
                     if (CanRaySeePoint(offsettedRayHitWorldPoint, returnRayDir, distToStartOrigin))
                     {
-                        EchoRayDistances[rayResultId] = (half)distToStartOrigin;
+                        half echoMultiplier = hitColliderType switch
+                        {
+                            ColliderType.AABB => hitAABB.MaterialProperties.Echo,
+                            ColliderType.OBB => hitOBB.MaterialProperties.Echo,
+                            ColliderType.Sphere => hitSphere.MaterialProperties.Echo,
+                            _ => (half)0,
+                        };
+                        Half.Multiply(distToStartOrigin, echoMultiplier, out half echoRayPower);
+
+                        EchoRayDistances[rayResultId] = echoRayPower;
                     }
                 
                     #endregion
@@ -309,7 +318,6 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
         return true;
     }
 
-
     /// <summary>
     /// OBB Colliders have their "Rotation" pre-calculated as inverse quaternion for optimization.
     /// </summary>
@@ -321,7 +329,6 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
 
         return RayIntersectsAABB(localOrigin, localDir, float3.zero, halfExtents, out distance);
     }
-
 
     [BurstCompile]
     private bool RayIntersectsSphere(float3 rayOrigin, float3 rayDir, float3 Center, float Radius, out float distance)
@@ -402,7 +409,8 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
 
 
     /// <summary>
-    /// Check if audiotarget is obstructed by a collider.
+    /// Check if audiotarget is visible from the ray origin.
+    /// used for muffle rays towards audio targets.
     /// </summary>
     [BurstCompile]
     private bool CanRaySeeAudioTarget(float3 rayOrigin, float3 rayDir, float distToStartOrigin, int AudioTargetId)

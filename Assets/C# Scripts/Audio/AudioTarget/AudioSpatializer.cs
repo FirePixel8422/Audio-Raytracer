@@ -12,7 +12,7 @@ public class AudioSpatializer : MonoBehaviour
     [SerializeField] private AudioSpatializerSettings settings;
 
     [Header("References")]
-    [SerializeField] private Transform listenerTransform, soundPosTransform;
+    [SerializeField] private Transform listenerTransform;
     [SerializeField] private AudioReverbFilter reverb;
 
     [Range(0, 5)]
@@ -58,10 +58,10 @@ public class AudioSpatializer : MonoBehaviour
 
     private void OnLateUpdate()
     {
-        float3 worldDir = soundPosTransform.position - listenerTransform.position;
+        float3 worldDir = audioTargetSettings.PercievedAudioPosition - (float3)listenerTransform.position;
         cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
 
-        cachedListenerDistance = math.length(soundPosTransform.position - listenerTransform.position);
+        cachedListenerDistance = math.length(transform.position - listenerTransform.position);
     }
     
     

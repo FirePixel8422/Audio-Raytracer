@@ -36,7 +36,7 @@ public struct ProcessAudioDataJob : IJob
 
         // Calculate avarage echo distance and total echo ray return hits
         float reverbTotal = 0;
-        int echoRayReturnedHits = 0;
+        float echoRayReturnedHits = 0;
         for (int i = 0; i < maxRayHits; i++)
         {
             if (EchoRayDistances[i] == 0)
@@ -71,7 +71,7 @@ public struct ProcessAudioDataJob : IJob
             muffle = math.saturate(muffle - permeation);
 
             // Write new settings back to array
-            AudioTargetSettings[audioTargetId] = new AudioTargetRTSettings(muffle, reverbStrength, reverbVolume, AudioTargetPositions[audioTargetId] - RayOriginWorld);
+            AudioTargetSettings[audioTargetId] = new AudioTargetRTSettings(muffle, reverbStrength, reverbVolume, AudioTargetPositions[audioTargetId]);
         }
     }
 }

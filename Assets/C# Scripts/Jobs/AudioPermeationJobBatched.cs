@@ -236,7 +236,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
             // Skip colliders that belong to the audiotarget
             if (tempSphere.AudioTargetId == AudioTargetId) continue;
 
-            RayIntersectsSpherePermeation(rayOrigin, rayDir, tempSphere.Center, tempSphere.Radius, ref totalPermeationPowerLoss);
+            RayIntersectsSpherePermeation(rayOrigin, rayDir, tempSphere.Center, tempSphere.Radius, tempSphere.MaterialProperties.Density, ref totalPermeationPowerLoss);
         }
         // Check against AABBs
         for (int i = 0; i < AABBColliderCount; i++)
@@ -246,7 +246,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
             // Skip colliders that belong to the audiotarget
             if (tempAABB.AudioTargetId == AudioTargetId) continue;
 
-            RayIntersectsAABBPermeation(rayOrigin, rayDir, tempAABB.Center, tempAABB.Size, ref totalPermeationPowerLoss);
+            RayIntersectsAABBPermeation(rayOrigin, rayDir, tempAABB.Center, tempAABB.Size, tempAABB.MaterialProperties.Density, ref totalPermeationPowerLoss);
         }
         // Check against OBBs
         for (int i = 0; i < OBBColliderCount; i++)
@@ -256,7 +256,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
             // Skip colliders that belong to the audiotarget
             if (tempOBB.AudioTargetId == AudioTargetId) continue;
 
-            RayIntersectsOBBPermeation(rayOrigin, rayDir, tempOBB.Center, tempOBB.Size, tempOBB.Rotation, ref totalPermeationPowerLoss);
+            RayIntersectsOBBPermeation(rayOrigin, rayDir, tempOBB.Center, tempOBB.Size, tempOBB.Rotation, tempOBB.MaterialProperties.Density, ref totalPermeationPowerLoss);
         }
 
         permeationPowerRemains = RayDirections.Length * PermeationStrengthPerRay - totalPermeationPowerLoss;
@@ -264,7 +264,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
 
 
     [BurstCompile]
-    private void RayIntersectsAABBPermeation(float3 rayOrigin, float3 rayDir, float3 Center, float3 halfExtents, ref float totalPermeationPowerLoss)
+    private void RayIntersectsAABBPermeation(float3 rayOrigin, float3 rayDir, float3 Center, float3 halfExtents, float densityMultiplier, ref float totalPermeationPowerLoss)
     {
         float3 min = Center - halfExtents;
         float3 max = Center + halfExtents;
@@ -286,23 +286,23 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
         }
 
         float enter = math.max(tEnter, 0f);
-        totalPermeationPowerLoss += math.max(0f, tExit - enter);
+        totalPermeationPowerLoss += math.max(0f, tExit - enter) * densityMultiplier;
     }
 
     /// <summary>
     /// OBB Colliders have their "Rotation" pre-calculated as inverse quaternion for optimization.
     /// </summary>
     [BurstCompile]
-    private void RayIntersectsOBBPermeation(float3 rayOrigin, float3 rayDir, float3 Center, float3 halfExtents, quaternion invRotation, ref float totalPermeationPowerLoss)
+    private void RayIntersectsOBBPermeation(float3 rayOrigin, float3 rayDir, float3 Center, float3 halfExtents, quaternion invRotation, float densityMultiplier, ref float totalPermeationPowerLoss)
     {
         float3 localOrigin = math.mul(invRotation, rayOrigin - Center);
         float3 localDir = math.mul(invRotation, rayDir);
 
-        RayIntersectsAABBPermeation(localOrigin, localDir, float3.zero, halfExtents, ref totalPermeationPowerLoss);
+        RayIntersectsAABBPermeation(localOrigin, localDir, float3.zero, halfExtents, densityMultiplier, ref totalPermeationPowerLoss);
     }
 
     [BurstCompile]
-    private void RayIntersectsSpherePermeation(float3 rayOrigin, float3 rayDir, float3 Center, float Radius, ref float totalPermeationPowerLoss)
+    private void RayIntersectsSpherePermeation(float3 rayOrigin, float3 rayDir, float3 Center, float Radius, float densityMultiplier, ref float totalPermeationPowerLoss)
     {
         float3 oc = rayOrigin - Center;
 
@@ -326,7 +326,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
         }
 
         float enter = math.max(tEnter, 0f);
-        totalPermeationPowerLoss += math.max(0f, tExit - enter);
+        totalPermeationPowerLoss += math.max(0f, tExit - enter) * densityMultiplier;
     }
 
     #endregion
