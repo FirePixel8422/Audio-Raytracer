@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AudioSphereCollider : AudioCollider
 {
+    [Header("Sphere Collider Settings")]
     [SerializeField] private ColliderSphereStruct colliderStruct = ColliderSphereStruct.Default;
     private ColliderSphereStruct lastColliderStruct;
 
@@ -12,7 +13,7 @@ public class AudioSphereCollider : AudioCollider
 
     public override void AddToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)
     {
-        AudioColliderId = (short)obbStructs.NextBatch.Length;
+        AudioColliderId = (short)sphereStructs.NextBatch.Length;
         sphereStructs.Add(GetBakedColliderStruct());
     }
     public override void UpdateToAudioSystem(NativeJobBatch<ColliderAABBStruct> aabbStructs, NativeJobBatch<ColliderOBBStruct> obbStructs, NativeJobBatch<ColliderSphereStruct> sphereStructs)

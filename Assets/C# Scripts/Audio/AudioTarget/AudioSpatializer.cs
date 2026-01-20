@@ -2,6 +2,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 using Fire_Pixel.Utility;
+using Unity.VisualScripting;
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -36,10 +37,13 @@ public class AudioSpatializer : MonoBehaviour
     private void Awake()
     {
         settings = settingsSO == null ? AudioSpatializerSettings.Default : settingsSO.settings;
+        settings.Bake();
 
         sampleRate = AudioSettings.outputSampleRate;
 
-        settings.Bake();
+        //reverb = transform.AddComponent<AudioReverbFilter>();
+        //reverb.reverbPreset = AudioReverbPreset.Concerthall;
+        //reverb.reverbPreset = AudioReverbPreset.User;
 
         muffleDSP = new MuffleDSP();
         binauralDSP = new BinauralDSP();

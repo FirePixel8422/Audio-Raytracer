@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AudioOBBCollider : AudioCollider
 {
-    [Header("Include gameObject rotation to the colliders final rotation")]
     [SerializeField] private bool includeGameObjectRotation = true;
     [SerializeField] private Vector3 rotationEulerOffset;
 
+    [Header("OBB Collider Settings")]
     [SerializeField] private ColliderOBBStruct colliderStruct = ColliderOBBStruct.Default;
     private ColliderOBBStruct lastColliderStruct;
     private Quaternion lastFinalRotation;

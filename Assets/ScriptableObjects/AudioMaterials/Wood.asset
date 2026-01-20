@@ -16,6 +16,6 @@ MonoBehaviour:
     Absorption:
       value: 0
     Density:
-      value: 0
+      value: 15360
     Echo:
-      value: 0
+      value: 15360

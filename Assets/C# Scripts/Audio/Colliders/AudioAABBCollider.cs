@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AudioAABBCollider : AudioCollider
 {
+    [Header("AABB Collider Settings")]
     [SerializeField] private ColliderAABBStruct colliderStruct = ColliderAABBStruct.Default;
     private ColliderAABBStruct lastColliderStruct;
 

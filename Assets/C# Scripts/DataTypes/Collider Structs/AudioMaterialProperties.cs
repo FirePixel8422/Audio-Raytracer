@@ -12,8 +12,16 @@ public struct AudioMaterialProperties
     [Tooltip("How much power gets consumed when permeation rays go through material")]
     public half Density;
 
-    [Tooltip("How much echo power gets added to echo rays upon collision")]
+    [Tooltip("Echo power multiplier when an echo ray hits this surface")]
     public half Echo;
+
+
+    public static AudioMaterialProperties Default => new AudioMaterialProperties
+    {
+        Absorption = (half)0,
+        Density = (half)1,
+        Echo = (half)1
+    };
 
 
     public static bool operator ==(AudioMaterialProperties a, AudioMaterialProperties b)
