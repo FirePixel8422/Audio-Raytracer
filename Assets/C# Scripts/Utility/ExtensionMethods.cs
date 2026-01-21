@@ -350,4 +350,10 @@ public static class ExtensionMethods
         }
         return value;
     }
+
+    /// <returns>Wheather array is valid and has at least 1 entry</returns>
+    public static bool HasData<T>(this T[] array)
+    {
+        return array != null && array.Length > 0;
+    }
 }

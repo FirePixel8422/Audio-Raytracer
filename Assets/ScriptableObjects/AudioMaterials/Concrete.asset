@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 063c279980fb1d843b3e57fa7ffa3ce0, type: 3}
-  m_Name: Wood
+  m_Name: Concrete
   m_EditorClassIdentifier: Assembly-CSharp::AudioMaterialPropertiesSO
   MaterialProperties:
     Absorption:
-      value: 0
+      value: 13312
     Density:
-      value: 17664
+      value: 15360
     Echo:
       value: 15360

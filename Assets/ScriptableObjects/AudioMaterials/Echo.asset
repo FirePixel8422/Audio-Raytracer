@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 063c279980fb1d843b3e57fa7ffa3ce0, type: 3}
-  m_Name: Wood
+  m_Name: Echo
   m_EditorClassIdentifier: Assembly-CSharp::AudioMaterialPropertiesSO
   MaterialProperties:
     Absorption:
@@ -18,4 +18,4 @@ MonoBehaviour:
     Density:
       value: 17664
     Echo:
-      value: 15360
+      value: 16896

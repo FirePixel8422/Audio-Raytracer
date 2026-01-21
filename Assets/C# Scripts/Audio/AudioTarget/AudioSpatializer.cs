@@ -1,8 +1,9 @@
+using Fire_Pixel.Utility;
 using System;
 using Unity.Mathematics;
-using UnityEngine;
-using Fire_Pixel.Utility;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Rendering;
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -61,7 +62,7 @@ public class AudioSpatializer : MonoBehaviour
         float3 worldDir = audioTargetSettings.PercievedAudioPosition - (float3)listenerTransform.position;
         cachedLocalDir = math.normalize(listenerTransform.InverseTransformDirection(worldDir));
 
-        cachedListenerDistance = math.length(transform.position - listenerTransform.position);
+        cachedListenerDistance = math.distance(transform.position, listenerTransform.position);
     }
     
     
@@ -70,8 +71,18 @@ public class AudioSpatializer : MonoBehaviour
         if (channels != 2) return;
 
         muffleDSP.Process(data, settings.MuffleCurve, settings.MuffleCutoff, sampleRate, audioTargetSettings.MuffleStrength);
-        binauralDSP.Process(data, settings, sampleRate, cachedLocalDir, cachedListenerDistance);
         reverbDSP.Process(data, settings.ReverbVolumeCurve, audioTargetSettings.ReverbVolume, settings.ReverbDryBoost);
+        binauralDSP.Process(data, settings, sampleRate, cachedLocalDir, cachedListenerDistance);
+
+        // Apply modifications to every sample of current audiosample buffer
+        for (int i = 0; i < data.Length; i += 2)
+        {
+            float leftSample = data[i];
+            float rightSample = data[i + 1];
+
+            data[i] = leftSample * volumeMultiplier;
+            data[i + 1] = rightSample * volumeMultiplier;
+        }
     }
 
     private void OnDestroy()

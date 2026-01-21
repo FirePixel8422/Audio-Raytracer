@@ -39,13 +39,11 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
         // Save local copy of RayOrigin
         float3 cRayOrigin;
 
-
         // Reset permeation assigned to this batch
         for (short i = 0; i < TotalAudioTargets; i++)
         {
             PermeationPowerRemains[batchId * TotalAudioTargets + i] = (half)0;
         }
-
 
         // 1 batch is "totalRays" amount of rays, rayStartIndex as starting index 
         for (int localRayId = 0; localRayId < totalRays; localRayId++)
