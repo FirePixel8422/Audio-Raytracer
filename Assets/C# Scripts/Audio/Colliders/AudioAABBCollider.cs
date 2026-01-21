@@ -43,11 +43,12 @@ public class AudioAABBCollider : AudioCollider
         }
 
         // Upload material properties from ScriptableObject and AudioTargetId from this component
-        colliderStruct.MaterialProperties = AudioMaterialPropertiesSO.MaterialProperties;
+        colliderStructCopy.MaterialProperties = AudioMaterialPropertiesSO != null ? AudioMaterialPropertiesSO.MaterialProperties : AudioMaterialProperties.Default;
         colliderStructCopy.AudioTargetId = AudioTargetId;
 
         return colliderStructCopy;
     }
+
 
     protected override void CheckColliderTransformation()
     {

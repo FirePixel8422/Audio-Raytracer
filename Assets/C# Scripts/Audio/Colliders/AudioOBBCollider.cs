@@ -24,6 +24,7 @@ public class AudioOBBCollider : AudioCollider
     {
         obbStructs[AudioColliderId] = GetBakedColliderStruct();
     }
+
     /// <summary>
     /// Get baked version off collider data as lightweight struct collider container for audio system usage
     /// </summary>
@@ -58,7 +59,7 @@ public class AudioOBBCollider : AudioCollider
         colliderStructCopy.Rotation = math.inverse(colliderStructCopy.Rotation);
 
         // Upload material properties from ScriptableObject and AudioTargetId from this component
-        colliderStruct.MaterialProperties = AudioMaterialPropertiesSO.MaterialProperties;
+        colliderStructCopy.MaterialProperties = AudioMaterialPropertiesSO != null ? AudioMaterialPropertiesSO.MaterialProperties : AudioMaterialProperties.Default;
         colliderStructCopy.AudioTargetId = AudioTargetId;
 
         return colliderStructCopy;

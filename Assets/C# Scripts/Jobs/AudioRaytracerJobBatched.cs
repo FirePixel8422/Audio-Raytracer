@@ -30,11 +30,13 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
 
     #region Global Raycast data (single return arrays)
 
+#if UNITY_EDITOR
     [NativeDisableParallelForRestriction]
-    [WriteOnly, NoAlias] public NativeArray<AudioRayResult> RayResults;
+    [WriteOnly, NoAlias] public NativeArray<AudioRayHitResult> RayHitResults;
 
     [NativeDisableParallelForRestriction]
-    [WriteOnly, NoAlias] public NativeArray<byte> ResultCounts;
+    [WriteOnly, NoAlias] public NativeArray<byte> RayHitResultCounts;
+#endif
 
     [NativeDisableParallelForRestriction]
     [WriteOnly, NoAlias] public NativeArray<half> EchoRayDistances;
@@ -72,7 +74,9 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
             int rayIndex = rayStartIndex + i;
 
             EchoRayDistances[rayIndex] = (half)0;
-            RayResults[rayIndex] = new AudioRayResult();
+#if UNITY_EDITOR
+            RayHitResults[rayIndex] = new AudioRayHitResult();
+#endif
         }
         // Reset muffleRayHit count assigned to this batch
         for (short i = 0; i < TotalAudioTargets; i++)
@@ -101,7 +105,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
             {
                 // Intersection tests for environment ray: AABB, OBB, Sphere
                 // Check if a collider was hit (aka. the ray didnt go out of bounds)
-                if (ShootRayCast(cRayOrigin, cRayDir, out AudioRayResult rayResult, out ColliderType hitColliderType, out float rayHitDist, out ColliderAABBStruct hitAABB, out ColliderOBBStruct hitOBB, out ColliderSphereStruct hitSphere))
+                if (ShootRayCast(cRayOrigin, cRayDir, out AudioRayHitResult rayResult, out ColliderType hitColliderType, out float rayHitDist, out ColliderAABBStruct hitAABB, out ColliderOBBStruct hitOBB, out ColliderSphereStruct hitSphere))
                 {
                     // Update new ray origin, ray totalDist and add 1 bounce
                     cRayOrigin += cRayDir * rayHitDist;
@@ -111,9 +115,8 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     rayResultId = rayIndex * MaxHitsPerRay + cRayHits - 1;
 #if UNITY_EDITOR
                     // For debugging like drawing gizmos
-                    rayResult.DEBUG_HitPoint = (half3)cRayOrigin;
+                    rayResult.HitPoint = (half3)cRayOrigin;
 #endif
-
 
                     #region Check if hit ray point can return to original origin point (Echo rays to player)
 
@@ -124,9 +127,9 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     float3 returnRayDir = math.normalize(RayOrigin - offsettedRayHitWorldPoint);
 
                     // Calculate distance to the original origin
-                    float distToStartOrigin = math.distance(RayOrigin, offsettedRayHitWorldPoint);
+                    float distToStartOrigin = math.distance(RayOrigin, cRayOrigin);
 
-                    // if nothing was hit, aka the ray go to the player succesfully store the distance to the current main ray position
+                    // If nothing was hit, aka the ray go to the player succesfully store the distance to the current main ray position
                     if (CanRaySeePoint(offsettedRayHitWorldPoint, returnRayDir, distToStartOrigin))
                     {
                         half echoMultiplier = hitColliderType switch
@@ -134,7 +137,7 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                             ColliderType.AABB => hitAABB.MaterialProperties.Echo,
                             ColliderType.OBB => hitOBB.MaterialProperties.Echo,
                             ColliderType.Sphere => hitSphere.MaterialProperties.Echo,
-                            _ => (half)0,
+                            _ => (half)1,
                         };
                         Half.Multiply(distToStartOrigin, echoMultiplier, out half echoRayPower);
 
@@ -175,51 +178,39 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                     // Check if ray is finished (if rayHits is more than MaxHitsPerRay or totalDist is equal or exceeds MaxRayDist)
                     if (cRayHits >= MaxHitsPerRay || cRayLife <= 0)
                     {
-                        // If ray dies this iteration, give it the totalDist traveled value as its fullRayDistance
-                        rayResult.FullRayDistance = (half)(MaxRayLife - cRayLife);
-
                         isRayAlive = false; // Ray wont bounce another time.
                     }
                     else
                     {
-                        // If ray is still alive, update next ray direction and origin (bouncing it of the hit normal),
-                        // also get soundAbsorption stat from hit wall
+                        // If ray is still alive, update next ray direction and origin (bouncing it of the hit normal)
                         ReflectRay(hitColliderType, hitAABB, hitOBB, hitSphere, ref cRayOrigin, ref cRayDir, ref cRayLife);
 
                         // If last rayLife gets consumed by the hit collider, kill it
                         if (cRayLife < 0)
                         {
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            // RAYLIFE AND DISTANCE ARENT THE SAME
-                            rayResult.FullRayDistance = (half)(MaxRayLife - cRayLife);
                             isRayAlive = false;
                         }
                     }
 
+#if UNITY_EDITOR
                     // Add hit result to return data array
-                    RayResults[rayResultId] = rayResult;
+                    RayHitResults[rayResultId] = rayResult;
+#endif
                 }
                 // Ray went out of bounds (Didnt hit anything), kill ray instantly
                 else
                 {
-                    ResultCounts[rayIndex] = cRayHits;
+#if UNITY_EDITOR
+                    RayHitResultCounts[rayIndex] = cRayHits;
+#endif
                     break;
                 }
             }
 
+#if UNITY_EDITOR
             // Ray ended, write total ray hits into ResultCounts
-            ResultCounts[rayIndex] = cRayHits;
+            RayHitResultCounts[rayIndex] = cRayHits;
+#endif
         }
     }
 
@@ -232,12 +223,12 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
     /// <returns>True if the ray hits any collider; otherwise, false.</returns>
     [BurstCompile]
     private bool ShootRayCast(float3 cRayOrigin, float3 cRayDir,
-        out AudioRayResult rayResult, out ColliderType hitColliderType, out float closestDist,
+        out AudioRayHitResult rayResult, out ColliderType hitColliderType, out float closestDist,
         out ColliderAABBStruct hitAABB, out ColliderOBBStruct hitOBB, out ColliderSphereStruct hitSphere)
     {
         float dist;
         closestDist = float.MaxValue;
-        rayResult = new AudioRayResult();
+        rayResult = new AudioRayHitResult();
 
         hitColliderType = ColliderType.None;
         hitAABB = new ColliderAABBStruct();
@@ -283,8 +274,6 @@ public struct AudioRaytracerJobBatched : IJobParallelForBatch
                 closestDist = dist;
             }
         }
-
-        rayResult.Distance = (half)closestDist;
 
         // Return whether a hit was detected
         return hitColliderType != ColliderType.None;

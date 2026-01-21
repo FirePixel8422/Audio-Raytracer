@@ -38,8 +38,10 @@ public class AudioRayTracer : UpdateMonoBehaviour
     private NativeArray<half3> mainRayDirections;
     private NativeArray<half> echoRayDistances;
 
-    private NativeArray<AudioRayResult> rayResults;
-    private NativeArray<byte> rayResultCounts;
+#if UNITY_EDITOR
+    private NativeArray<AudioRayHitResult> rayHitResults;
+    private NativeArray<byte> rayHitResultCounts;
+#endif
 
     private JobHandle mainJobHandle;
 
@@ -77,8 +79,8 @@ public class AudioRayTracer : UpdateMonoBehaviour
         // Do all other tasks here to give the sphere direcion job some time to complete before forcing it to complete.
         int maxRayResultsArrayLength = rayCount * MaxHitsPerRay;
 
-        rayResults = new NativeArray<AudioRayResult>(maxRayResultsArrayLength, Allocator.Persistent);
-        rayResultCounts = new NativeArray<byte>(rayCount, Allocator.Persistent);
+        rayHitResults = new NativeArray<AudioRayHitResult>(maxRayResultsArrayLength, Allocator.Persistent);
+        rayHitResultCounts = new NativeArray<byte>(rayCount, Allocator.Persistent);
         echoRayDistances = new NativeArray<half>(maxRayResultsArrayLength, Allocator.Persistent);
 
         mainJobHandle.Complete();
@@ -89,7 +91,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
     protected override void OnUpdate()
     {
-        //if computeAsync is true skip a frame if job is not done yet
+        // If computeAsync is true skip a frame if job is not done yet
         if ((AudioRaytracingManager.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
         
         mainJobHandle.Complete();
@@ -108,15 +110,15 @@ public class AudioRayTracer : UpdateMonoBehaviour
         // Failsafe to prevent crash when updating maxBounces in editor
         if (audioRayTracerJobBatched.RayDirections.Length != 0 && (audioRayTracerJobBatched.MaxHitsPerRay != MaxHitsPerRay || mainRayDirections.Length != rayCount))
         {
-            //recreate rayResults and echoRayDirections arrays with new size because maxBounces or rayCount changed
-            rayResults = new NativeArray<AudioRayResult>(rayCount * MaxHitsPerRay, Allocator.Persistent);
+            // Recreate rayResults and echoRayDirections arrays with new size because maxBounces or rayCount changed
+            rayHitResults = new NativeArray<AudioRayHitResult>(rayCount * MaxHitsPerRay, Allocator.Persistent);
             echoRayDistances = new NativeArray<half>(rayCount * MaxHitsPerRay, Allocator.Persistent);
 
             if (mainRayDirections.Length != rayCount)
             {
-                //reculcate ray directions and resize rayResultCounts if rayCount changed
+                // Reculcate ray directions and resize rayHitResultCounts if rayCount changed
                 mainRayDirections = new NativeArray<half3>(rayCount, Allocator.Persistent);
-                rayResultCounts = new NativeArray<byte>(rayCount, Allocator.Persistent);
+                rayHitResultCounts = new NativeArray<byte>(rayCount, Allocator.Persistent);
 
                 var generateDirectionsJob = new FibonacciDirectionsJobParallel
                 {
@@ -132,8 +134,8 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
         if (drawDebugArrays)
         {
-            DEBUG_RayResults = rayResults.ToArray();
-            DEBUG_RayResultCounts = rayResultCounts.ToArray();
+            DEBUG_RayResults = rayHitResults.ToArray();
+            DEBUG_RayResultCounts = rayHitResultCounts.ToArray();
 
             DEBUG_EchoRayDistances = echoRayDistances.ToArray();
             DEBUG_AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatchAsArray().ToArray();
@@ -158,7 +160,6 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
         int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracingManager.ToUseThreadCount));
 
-        // Create raytrace job and fire it
         audioRayTracerJobBatched = new AudioRaytracerJobBatched
         {
             RayOrigin = (float3)transform.position + rayOrigin,
@@ -178,9 +179,9 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
             MaxHitsPerRay = MaxHitsPerRay,
             MaxRayLife = maxRayLife,
-
-            RayResults = rayResults,
-            ResultCounts = rayResultCounts,
+            
+            RayHitResults = rayHitResults,
+            RayHitResultCounts = rayHitResultCounts,
 
             EchoRayDistances = echoRayDistances,
             
@@ -244,11 +245,12 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
         // Ray arrays
         mainRayDirections.DisposeIfCreated();
-        rayResults.DisposeIfCreated();
-        rayResultCounts.DisposeIfCreated();
-
-        // Audio arrays
         echoRayDistances.DisposeIfCreated();
+
+#if UNITY_EDITOR
+        rayHitResults.DisposeIfCreated();
+        rayHitResultCounts.DisposeIfCreated();
+#endif
     }
 
 
@@ -264,6 +266,9 @@ public class AudioRayTracer : UpdateMonoBehaviour
     [SerializeField] private bool drawRayHitsGizmos = true;
     [SerializeField] private Color rayHitColor = Color.cyan;
 
+    [SerializeField] private bool drawEchoRayGizmos = true;
+    [SerializeField] private Color echoRayColor = Color.cyan;
+
     [SerializeField] private bool drawRayTrailsGizmos;
     [SerializeField] private Color rayTrailColor = new Color(0, 1, 0, 0.15f);
 
@@ -272,9 +277,9 @@ public class AudioRayTracer : UpdateMonoBehaviour
     [SerializeField] private ushort[] DEBUG_MuffleRayHits;
     [SerializeField] private float[] DEBUG_MufflePercent01;
 
-    private AudioRayResult[] DEBUG_RayResults;
+    private AudioRayHitResult[] DEBUG_RayResults;
     private byte[] DEBUG_RayResultCounts;
-    private half[] DEBUG_EchoRayDistances;
+    [SerializeField] private half[] DEBUG_EchoRayDistances;
 
 
     [SerializeField] private float raytracerMs;
@@ -293,9 +298,9 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
         if (Application.isPlaying == false) return;
 
-        if (DEBUG_RayResults != null && DEBUG_RayResults.Length != 0 && (drawRayHitsGizmos || drawRayTrailsGizmos))
+        if (DEBUG_RayResults.HasData() && drawDebugArrays)
         {
-            AudioRayResult prevResult = new AudioRayResult();
+            float3 prevRayHitPoint = float3.zero;
 
             int maxRayHits = DEBUG_RayResults.Length / DEBUG_RayResultCounts.Length;
             int setResultAmountsCount = DEBUG_RayResultCounts.Length;
@@ -305,7 +310,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
             if (setResultAmountsCount * maxRayHits > MAX_GIZMOS)
             {
-                Debug.LogWarning("Max Gizmos Reached (5k) please turn of gizmos to not fry CPU");
+                Debug.LogWarning($"Max Gizmos Reached: '{MAX_GIZMOS}', please turn of gizmos to not fry CPU");
 
                 setResultAmountsCount = MAX_GIZMOS / maxRayHits;
             }
@@ -313,27 +318,36 @@ public class AudioRayTracer : UpdateMonoBehaviour
             for (int i = 0; i < setResultAmountsCount; i++)
             {
                 cSetResultCount = DEBUG_RayResultCounts[i];
-                prevResult.DEBUG_HitPoint = (half3)rayOrigin;
+                prevRayHitPoint = (half3)rayOrigin;
 
-
-                //ray hit markers and trails
+                // Ray hit markers and trails
                 for (int i2 = 0; i2 < cSetResultCount; i2++)
                 {
-                    AudioRayResult result = DEBUG_RayResults[i * maxRayHits + i2];
-
-                    Gizmos.color = rayHitColor;
+                    int cRayHitId = i * maxRayHits + i2;
+                    float3 cRayHitPoint = DEBUG_RayResults[cRayHitId].HitPoint;
 
                     if (drawRayHitsGizmos)
                     {
-                        Gizmos.DrawWireCube((float3)result.DEBUG_HitPoint, Vector3.one * 0.1f);
+                        Gizmos.color = rayHitColor;
+                        Gizmos.DrawWireCube(cRayHitPoint, Vector3.one * 0.1f);
                     }
-
-                    Gizmos.color = rayTrailColor;
-
                     if (drawRayTrailsGizmos)
                     {
-                        Gizmos.DrawLine((float3)prevResult.DEBUG_HitPoint, (float3)result.DEBUG_HitPoint);
-                        prevResult = result;
+                        Gizmos.color = rayTrailColor;
+                        Gizmos.DrawLine(prevRayHitPoint, cRayHitPoint);
+                        prevRayHitPoint = cRayHitPoint;
+                    }
+                }
+            }
+
+            for (int i = 0; i < DEBUG_RayResults.Length; i++)
+            {
+                if (drawEchoRayGizmos)
+                {
+                    if (DEBUG_EchoRayDistances[i] != 0)
+                    {
+                        Gizmos.color = echoRayColor;
+                        Gizmos.DrawLine(rayOrigin, (float3)DEBUG_RayResults[i].HitPoint);
                     }
                 }
             }

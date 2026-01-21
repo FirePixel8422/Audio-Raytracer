@@ -1,9 +1,7 @@
 using Fire_Pixel.Utility;
 using System;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 
 [RequireComponent(typeof(AudioSource))]
@@ -49,6 +47,9 @@ public class AudioSpatializer : MonoBehaviour
         muffleDSP = new MuffleDSP();
         binauralDSP = new BinauralDSP();
         reverbDSP = new ReverbDSP();
+
+        // Activate the AudioSource after all initializations are done
+        GetComponent<AudioSource>().Play();
     }
 
     public void UpdateSpatializer(AudioTargetRTSettings newSettings)

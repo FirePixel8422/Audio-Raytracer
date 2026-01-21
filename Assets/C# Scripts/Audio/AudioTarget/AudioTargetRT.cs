@@ -9,17 +9,7 @@ public class AudioTargetRT : MonoBehaviour
     [SerializeField] private bool isStatic = true;
     public bool IsStatic => isStatic;
 
-    [SerializeField] private short id;
-    public short Id
-    {
-        get => id;
-        set
-        {
-            id = value;
-            OnIdChanged?.Invoke(value);
-        }
-    }
-    public Action<short> OnIdChanged;
+    public UpdateValue<short> Id;
 
     private AudioSpatializer spatializer;
     private Vector3 lastWorldPosition;
@@ -50,11 +40,11 @@ public class AudioTargetRT : MonoBehaviour
     public void AddToAudioSystem(NativeJobBatch<float3> audioTargetPositions, short assignedId)
     {
         audioTargetPositions.Add(transform.position);
-        Id = assignedId;
+        Id.Value = assignedId;
     }
     public void UpdateToAudioSystem(NativeJobBatch<float3> audioTargetPositions)
     {
-        audioTargetPositions[Id] = transform.position;
+        audioTargetPositions[Id.Value] = transform.position;
     }
 
     /// <summary>

@@ -60,7 +60,7 @@ public class AudioTargetManager
     {
         if (target == null || audioTargets.Count == 0) return;
 
-        short removeIndex = target.Id;
+        short removeIndex = target.Id.Value;
         short lastIndex = (short)(audioTargets.Count - 1);
 
         // If an AudioTargetRT in the middle of the list is removed, swap it with the last one and swap relevant data
@@ -73,7 +73,7 @@ public class AudioTargetManager
             AudioTargetPositions.NextBatch[removeIndex] = AudioTargetPositions.NextBatch[lastIndex];
 
             idPool.ReleaseId(removeIndex);
-            idPool.SwapIds(removeIndex, swapped.Id);
+            idPool.SwapIds(removeIndex, swapped.Id.Value);
 
             // Its now possible to just use idPool.Length to get the latest id
             // Its now possible to just use idPool.Length to get the latest id
@@ -83,7 +83,7 @@ public class AudioTargetManager
             // Its now possible to just use idPool.Length to get the latest id
             // Its now possible to just use idPool.Length to get the latest id
 
-            swapped.Id = removeIndex;
+            swapped.Id.Value = removeIndex;
         }
         else
         {

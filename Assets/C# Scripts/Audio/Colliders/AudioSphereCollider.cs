@@ -20,6 +20,7 @@ public class AudioSphereCollider : AudioCollider
     {
         sphereStructs[AudioColliderId] = GetBakedColliderStruct();
     }
+
     /// <summary>
     /// Get baked version off collider data as lightweight struct collider container for audio system usage
     /// </summary>
@@ -42,7 +43,7 @@ public class AudioSphereCollider : AudioCollider
         }
 
         // Upload material properties from ScriptableObject and AudioTargetId from this component
-        colliderStruct.MaterialProperties = AudioMaterialPropertiesSO.MaterialProperties;
+        colliderStructCopy.MaterialProperties = AudioMaterialPropertiesSO != null ? AudioMaterialPropertiesSO.MaterialProperties : AudioMaterialProperties.Default;
         colliderStructCopy.AudioTargetId = AudioTargetId;
 
         return colliderStructCopy;
@@ -54,6 +55,7 @@ public class AudioSphereCollider : AudioCollider
             math.max(input.y,
             input.z));
     }
+
 
     protected override void CheckColliderTransformation()
     {

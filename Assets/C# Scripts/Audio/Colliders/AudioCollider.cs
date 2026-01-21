@@ -19,8 +19,8 @@ public abstract class AudioCollider : MonoBehaviour
     [HideInInspector] public short AudioTargetId;
 
     protected Transform cachedTransform;
-    protected Vector3 lastWorldPosition;
-    protected Vector3 lastGlobalScale;
+    [SerializeField] protected Vector3 lastWorldPosition;
+    [SerializeField] protected Vector3 lastGlobalScale;
 
 
     private void Awake()
@@ -29,8 +29,7 @@ public abstract class AudioCollider : MonoBehaviour
 
         if (TryGetComponent(out AudioTargetRT audioTargetRT))
         {
-            audioTargetRT.OnIdChanged += UpdateAudioTargetId;
-            AudioTargetId = audioTargetRT.Id;
+            audioTargetRT.Id.OnValueChanged += UpdateAudioTargetId;
         }
         else
         {
@@ -39,14 +38,10 @@ public abstract class AudioCollider : MonoBehaviour
 
         if (IsStatic == false)
         {
-            UpdateSavedTransformation(cachedTransform.position, IgnoreScale ? Vector3.zero : cachedTransform.lossyScale);
             AudioColliderManager.OnColliderUpdate += CheckColliderTransformation;
         }
-        // If IgnoreScale is true, store scale once, and never again
-        if (ignoreScale)
-        {
-            lastGlobalScale = transform.lossyScale;
-        }
+        lastWorldPosition = transform.position;
+        lastGlobalScale = transform.lossyScale;
     }
     private void UpdateAudioTargetId(short newId)
     {
@@ -122,6 +117,11 @@ public abstract class AudioCollider : MonoBehaviour
         prevIsStatic = IsStatic;
     }
 
+
+    [Header("DEBUG")]
+    [SerializeField] private short DEBUG_AudioColliderId;
+    [SerializeField] private short DEBUG_AudioTargetId;
+
     private void OnDrawGizmosSelected()
     {
         bool isAudioTarget = transform.HasComponent<AudioTargetRT>();
@@ -130,6 +130,9 @@ public abstract class AudioCollider : MonoBehaviour
             AudioRaytracingManager.ColliderManager.ColliderGizmosColor;
 
         DrawColliderGizmo();
+
+        DEBUG_AudioColliderId = AudioColliderId;
+        DEBUG_AudioTargetId = AudioTargetId;
     }
     public virtual void DrawColliderGizmo() { }
 #endif
