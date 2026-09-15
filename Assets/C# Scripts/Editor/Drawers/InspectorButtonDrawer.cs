@@ -19,7 +19,37 @@ namespace Fire_Pixel.Utility
         private static readonly Dictionary<string, MethodCacheEntry> cache = new();
         private static readonly HashSet<Type> compatibilityWarnings = new();
 
+        public static float GetPropertyHeight(
+            SerializedObject serializedObject,
+            SerializedProperty property)
+        {
+            Type type = GetPropertyType(property);
+
+            if (type == null || !IsMarked(type))
+                return EditorGUI.GetPropertyHeight(property, true);
+
+            float height = EditorGUI.GetPropertyHeight(property, true);
+
+            if (!property.isExpanded)
+                return height;
+
+            object value = GetValue(
+                serializedObject.targetObject,
+                property.propertyPath);
+
+            if (value == null)
+                return height;
+
+            height += GetMethodsHeight(
+                value,
+                serializedObject.targetObject,
+                property.propertyPath);
+
+            return height;
+        }
+
         public static void DrawProperty(
+            Rect position,
             SerializedObject serializedObject,
             SerializedProperty property)
         {
@@ -27,7 +57,11 @@ namespace Fire_Pixel.Utility
 
             if (type == null)
             {
-                EditorGUILayout.PropertyField(property, true);
+                EditorGUI.PropertyField(
+                    position,
+                    property,
+                    true);
+
                 return;
             }
 
@@ -37,20 +71,67 @@ namespace Fire_Pixel.Utility
 
             if (!IsMarked(type))
             {
-                EditorGUILayout.PropertyField(property, true);
+                EditorGUI.PropertyField(
+                    position,
+                    property,
+                    true);
+
                 return;
             }
 
             DrawMarkedProperty(
+                position,
                 serializedObject,
                 property);
         }
 
-        private static void DrawMarkedProperty(
+        public static void DrawProperty(
             SerializedObject serializedObject,
             SerializedProperty property)
         {
-            EditorGUILayout.PropertyField(property, true);
+            float height = GetPropertyHeight(
+                serializedObject,
+                property);
+
+            Rect position = EditorGUILayout.GetControlRect(
+                false,
+                height);
+
+            DrawProperty(
+                position,
+                serializedObject,
+                property);
+        }
+
+        public static void DrawObjectMethods(object obj)
+        {
+            DrawMethods(
+                obj,
+                obj as UnityEngine.Object,
+                obj.GetType().Name,
+                GUILayoutUtility.GetLastRect());
+        }
+
+        private static void DrawMarkedProperty(
+            Rect position,
+            SerializedObject serializedObject,
+            SerializedProperty property)
+        {
+            float propertyHeight =
+                EditorGUI.GetPropertyHeight(
+                    property,
+                    true);
+
+            Rect propertyRect = new Rect(
+                position.x,
+                position.y,
+                position.width,
+                propertyHeight);
+
+            EditorGUI.PropertyField(
+                propertyRect,
+                property,
+                true);
 
             if (!property.isExpanded)
                 return;
@@ -59,16 +140,23 @@ namespace Fire_Pixel.Utility
                 serializedObject.targetObject,
                 property.propertyPath);
 
-            if (value != null)
-            {
-                DrawMethods(
-                    value,
-                    serializedObject.targetObject,
-                    property.propertyPath);
-            }
+            if (value == null)
+                return;
+
+            Rect methodsRect = new Rect(
+                position.x,
+                propertyRect.yMax + EditorGUIUtility.standardVerticalSpacing,
+                position.width,
+                position.height - propertyHeight);
+
+            DrawMethods(
+                value,
+                serializedObject.targetObject,
+                property.propertyPath,
+                methodsRect);
         }
 
-        private static void DrawMethods(
+        private static float GetMethodsHeight(
             object obj,
             UnityEngine.Object rootObject,
             string path)
@@ -78,6 +166,8 @@ namespace Fire_Pixel.Utility
                 BindingFlags.Public |
                 BindingFlags.NonPublic);
 
+            float height = 0f;
+
             foreach (MethodInfo method in methods)
             {
                 InspectorButtonAttribute button =
@@ -86,52 +176,118 @@ namespace Fire_Pixel.Utility
                 if (button == null)
                     continue;
 
-                DrawMethod(
-                    obj,
+                height += GetMethodHeight(
                     rootObject,
                     method,
                     button,
                     path);
             }
+
+            return height;
         }
 
-        public static void DrawObjectMethods(object obj)
+        private static float GetMethodHeight(
+            UnityEngine.Object rootObject,
+            MethodInfo method,
+            InspectorButtonAttribute button,
+            string path)
         {
-            DrawMethods(
-                obj,
-                obj as UnityEngine.Object,
-                obj.GetType().Name);
+            MethodCacheEntry entry = GetCacheEntry(
+                rootObject,
+                method,
+                path);
+
+            float height =
+                22f +
+                EditorGUIUtility.standardVerticalSpacing;
+
+            if (entry.parameters.Length > 0)
+            {
+                height += entry.parameters.Length *
+                    (EditorGUIUtility.singleLineHeight +
+                     EditorGUIUtility.standardVerticalSpacing);
+            }
+
+            return height;
         }
 
-        private static void WarnIfMissingCompatibility(
-            Type type,
-            UnityEngine.Object rootObject)
+        private static void DrawMethods(
+            object obj,
+            UnityEngine.Object rootObject,
+            string path,
+            Rect position)
         {
-            if (type.GetCustomAttribute<InspectorButtonCompatibilityAttribute>() != null)
-                return;
-
-            MethodInfo[] methods = type.GetMethods(
+            MethodInfo[] methods = obj.GetType().GetMethods(
                 BindingFlags.Instance |
                 BindingFlags.Public |
                 BindingFlags.NonPublic);
 
+            float y = position.y;
+
             foreach (MethodInfo method in methods)
             {
-                if (method.GetCustomAttribute<InspectorButtonAttribute>() == null)
+                InspectorButtonAttribute button =
+                    method.GetCustomAttribute<InspectorButtonAttribute>();
+
+                if (button == null)
                     continue;
 
-                if (compatibilityWarnings.Add(type))
-                {
-                    Debug.LogError(
-                        $"{ObjectNames.NicifyVariableName(type.Name)} is missing [InspectorButtonCompatibility]. [InspectorButton] only works on non-MonoBehaviour targets when they have the [InspectorButtonCompatibility] attribute.",
-                        rootObject);
-                }
+                float height = GetMethodHeight(
+                    rootObject,
+                    method,
+                    button,
+                    path);
 
-                return;
+                Rect methodRect = new Rect(
+                    position.x,
+                    y,
+                    position.width,
+                    height);
+
+                DrawMethod(
+                    methodRect,
+                    obj,
+                    rootObject,
+                    method,
+                    button,
+                    path);
+
+                y += height;
             }
         }
 
+        private static MethodCacheEntry GetCacheEntry(
+            UnityEngine.Object rootObject,
+            MethodInfo method,
+            string path)
+        {
+            string key =
+                $"{rootObject.GetEntityId()}_{path}_{method.MetadataToken}";
+
+            if (cache.TryGetValue(
+                    key,
+                    out MethodCacheEntry entry))
+            {
+                return entry;
+            }
+
+            ParameterInfo[] parameters =
+                method.GetParameters();
+
+            entry = new MethodCacheEntry
+            {
+                method = method,
+                parameters = parameters,
+                args = new object[parameters.Length]
+            };
+
+            cache[key] = entry;
+
+            return entry;
+        }
+
         private static void DrawMethod(
+            Rect position,
             object obj,
             UnityEngine.Object rootObject,
             MethodInfo method,
@@ -142,25 +298,10 @@ namespace Fire_Pixel.Utility
                 button.AllowUsageOutsidePlayMode ||
                 EditorApplication.isPlaying;
 
-            string key =
-                $"{rootObject.GetEntityId()}_{path}_{method.MetadataToken}";
-
-            if (!cache.TryGetValue(
-                    key,
-                    out MethodCacheEntry entry))
-            {
-                ParameterInfo[] parameters =
-                    method.GetParameters();
-
-                entry = new MethodCacheEntry
-                {
-                    method = method,
-                    parameters = parameters,
-                    args = new object[parameters.Length]
-                };
-
-                cache[key] = entry;
-            }
+            MethodCacheEntry entry = GetCacheEntry(
+                rootObject,
+                method,
+                path);
 
             string label =
                 string.IsNullOrEmpty(button.Label)
@@ -170,11 +311,17 @@ namespace Fire_Pixel.Utility
             if (!allowed)
                 label += " (Play Mode Only)";
 
+            Rect buttonRect = new Rect(
+                position.x,
+                position.y,
+                position.width,
+                22f);
+
             using (new EditorGUI.DisabledScope(!allowed))
             {
-                if (GUILayout.Button(
-                        label,
-                        GUILayout.Height(22)))
+                if (GUI.Button(
+                        buttonRect,
+                        label))
                 {
                     Undo.RecordObject(
                         rootObject,
@@ -203,24 +350,40 @@ namespace Fire_Pixel.Utility
                 }
             }
 
-            if (entry.parameters.Length > 0)
+            if (entry.parameters.Length == 0)
+                return;
+
+            float y =
+                buttonRect.yMax +
+                EditorGUIUtility.standardVerticalSpacing;
+
+            EditorGUI.indentLevel++;
+
+            for (int i = 0;
+                 i < entry.parameters.Length;
+                 i++)
             {
-                EditorGUI.indentLevel++;
+                Rect parameterRect = new Rect(
+                    position.x,
+                    y,
+                    position.width,
+                    EditorGUIUtility.singleLineHeight);
 
-                for (int i = 0;
-                     i < entry.parameters.Length;
-                     i++)
-                {
-                    entry.args[i] = DrawParameter(
-                        entry.parameters[i],
-                        entry.args[i]);
-                }
+                entry.args[i] = DrawParameter(
+                    parameterRect,
+                    entry.parameters[i],
+                    entry.args[i]);
 
-                EditorGUI.indentLevel--;
+                y +=
+                    EditorGUIUtility.singleLineHeight +
+                    EditorGUIUtility.standardVerticalSpacing;
             }
+
+            EditorGUI.indentLevel--;
         }
 
         private static object DrawParameter(
+            Rect position,
             ParameterInfo parameter,
             object current)
         {
@@ -228,7 +391,8 @@ namespace Fire_Pixel.Utility
 
             if (type == typeof(int))
             {
-                return EditorGUILayout.IntField(
+                return EditorGUI.IntField(
+                    position,
                     parameter.Name,
                     current != null
                         ? (int)current
@@ -237,7 +401,8 @@ namespace Fire_Pixel.Utility
 
             if (type == typeof(float))
             {
-                return EditorGUILayout.FloatField(
+                return EditorGUI.FloatField(
+                    position,
                     parameter.Name,
                     current != null
                         ? (float)current
@@ -246,7 +411,8 @@ namespace Fire_Pixel.Utility
 
             if (type == typeof(bool))
             {
-                return EditorGUILayout.Toggle(
+                return EditorGUI.Toggle(
+                    position,
                     parameter.Name,
                     current != null &&
                     (bool)current);
@@ -254,14 +420,16 @@ namespace Fire_Pixel.Utility
 
             if (type == typeof(string))
             {
-                return EditorGUILayout.TextField(
+                return EditorGUI.TextField(
+                    position,
                     parameter.Name,
                     current as string ?? "");
             }
 
             if (type == typeof(Vector3))
             {
-                return EditorGUILayout.Vector3Field(
+                return EditorGUI.Vector3Field(
+                    position,
                     parameter.Name,
                     current != null
                         ? (Vector3)current
@@ -277,27 +445,59 @@ namespace Fire_Pixel.Utility
                 return Attribute.IsDefined(
                     type,
                     typeof(FlagsAttribute))
-                    ? EditorGUILayout.EnumFlagsField(
+                    ? EditorGUI.EnumFlagsField(
+                        position,
                         parameter.Name,
                         value)
-                    : EditorGUILayout.EnumPopup(
+                    : EditorGUI.EnumPopup(
+                        position,
                         parameter.Name,
                         value);
             }
 
             if (typeof(UnityEngine.Object).IsAssignableFrom(type))
             {
-                return EditorGUILayout.ObjectField(
+                return EditorGUI.ObjectField(
+                    position,
                     parameter.Name,
                     current as UnityEngine.Object,
                     type,
                     true);
             }
 
-            EditorGUILayout.LabelField(
+            EditorGUI.LabelField(
+                position,
                 $"{parameter.Name} (unsupported: {type.Name})");
 
             return current;
+        }
+
+        private static void WarnIfMissingCompatibility(
+            Type type,
+            UnityEngine.Object rootObject)
+        {
+            if (type.GetCustomAttribute<InspectorButtonCompatibilityAttribute>() != null)
+                return;
+
+            MethodInfo[] methods = type.GetMethods(
+                BindingFlags.Instance |
+                BindingFlags.Public |
+                BindingFlags.NonPublic);
+
+            foreach (MethodInfo method in methods)
+            {
+                if (method.GetCustomAttribute<InspectorButtonAttribute>() == null)
+                    continue;
+
+                if (compatibilityWarnings.Add(type))
+                {
+                    Debug.LogError(
+                        $"{ObjectNames.NicifyVariableName(type.Name)} is missing [InspectorButtonCompatibility]. [InspectorButton] only works on non-MonoBehaviour targets when they have the [InspectorButtonCompatibility] attribute.",
+                        rootObject);
+                }
+
+                return;
+            }
         }
 
         private static Type GetPropertyType(

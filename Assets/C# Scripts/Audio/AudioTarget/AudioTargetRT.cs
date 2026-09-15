@@ -1,9 +1,13 @@
+using CrowSupport.Events;
 using Unity.Mathematics;
 using UnityEngine;
 
 
 public class AudioTargetRT : MonoBehaviour
 {
+    [SerializeField] private AudioTargetRTEventSO onUpdateAudioTargetRTEvent;
+    [SerializeField] private GameEventSO onAudioTargetUpdateEvent;
+
     [Tooltip("Set this to true if audioTarget never moves at runtime")]
     [SerializeField] private bool isStatic = true;
     public bool IsStatic => isStatic;
@@ -21,19 +25,18 @@ public class AudioTargetRT : MonoBehaviour
 
         if (IsStatic == false)
         {
-            AudioTargetManager.OnAudioTargetUpdate += CheckTransformation;
+            onAudioTargetUpdateEvent += CheckTransformation;
         }
     }
 
-    private void OnEnable() => AudioTargetManager.AddAudioTargetToSystem(this);
-    private void OnDisable() => AudioTargetManager.RemoveAudioTargetFromSystem(this);
+    private void OnEnable() => onUpdateAudioTargetRTEvent?.Invoke((this, AudioTargetChangeType.Add));
+    private void OnDisable() => onUpdateAudioTargetRTEvent?.Invoke((this, AudioTargetChangeType.Remove));
 
     private void OnDestroy()
     {
-        if (IsStatic == false)
-        {
-            AudioTargetManager.OnAudioTargetUpdate -= CheckTransformation;
-        }
+        if (IsStatic) return;
+
+        onAudioTargetUpdateEvent -= CheckTransformation;
     }
 
     public void AddToAudioSystem(NativeJobBatch<float3> audioTargetPositions, short assignedId)
@@ -56,7 +59,7 @@ public class AudioTargetRT : MonoBehaviour
 
         if (transform.position != lastWorldPosition)
         {
-            AudioTargetManager.UpdateColiderInSystem(this);
+            onUpdateAudioTargetRTEvent?.Invoke((this, AudioTargetChangeType.Update));
         }
         lastWorldPosition = transform.position;
     }
@@ -73,7 +76,7 @@ public class AudioTargetRT : MonoBehaviour
 
 #if UNITY_EDITOR
     private bool prevIsStatic;
-    public void SetIsStaticValue(bool value)
+    public void SetStaticState(bool value)
     {
         isStatic = value;
         prevIsStatic = value;

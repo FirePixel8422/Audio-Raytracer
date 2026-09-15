@@ -80,7 +80,7 @@ public class AudioSphereCollider : AudioCollider
 
 
 #if UNITY_EDITOR
-    public override void DrawColliderGizmo()
+    public override void DrawColliderGizmos()
     {
         ColliderSphereStruct colliderStructCopy = colliderStruct;
 

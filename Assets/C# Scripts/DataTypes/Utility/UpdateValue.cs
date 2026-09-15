@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Fire_Pixel.Utility;
+using System;
 using UnityEngine;
 
 
 [Serializable]
 public struct UpdateValue<T>
 {
-    [SerializeField] private T value;
+    [SerializeField, EditorReadOnly] private T value;
+
     public Action<T> OnValueChanged;
 
     public T Value

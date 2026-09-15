@@ -8,7 +8,7 @@ namespace CrowSupport.Events
     public class GameEventListener : MonoBehaviour
     {
         [SerializeField]
-        protected GameEvent _event;
+        protected GameEventSO _event;
 
         [SerializeField]
         protected UltEvent _response;
@@ -52,7 +52,7 @@ namespace CrowSupport.Events
     public class GameEventListener<T> : MonoBehaviour
     {
         [SerializeField]
-        protected GameEvent<T> _event;
+        protected GameEventSO<T> _event;
 
         [SerializeField]
         protected UltEvent<T> _response;

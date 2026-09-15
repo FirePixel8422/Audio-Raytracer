@@ -2752,6 +2752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca81e69a4ea0d40a7c10992aeac491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onUpdateAudioTargetRTEvent: {fileID: 11400000, guid: df225142434395a428c4825be89ce43b,
+    type: 2}
+  onAudioTargetUpdateEvent: {fileID: 11400000, guid: a715a618f2a80d2499ee801a9172ef30,
+    type: 2}
   isStatic: 0
   Id:
     value: 0
@@ -7140,8 +7144,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1030950979}
-  - component: {fileID: 1030950980}
   - component: {fileID: 1030950981}
+  - component: {fileID: 1030950984}
+  - component: {fileID: 1030950983}
+  - component: {fileID: 1030950982}
+  - component: {fileID: 1030950985}
   m_Layer: 0
   m_Name: Audio Raytrace Management
   m_TagString: Untagged
@@ -7164,28 +7171,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1030950980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030950977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91af001a7a3c2e44bac1966bbbe2f07c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioRaytracersManager
-  computeAsync: 1
-  maxThreadCount: 1
-  audioTargetManager:
-    startCapacity: 1
-  colliderManager:
-    startCapacity: 5
-    drawColliderGizmos: 0
-    <ColliderGizmosColor>k__BackingField: {r: 0.9169811, g: 0.70466614, b: 0.3650622,
-      a: 1}
-    <AudioTargetGizmosColor>k__BackingField: {r: 0, g: 0.32309246, b: 1, a: 1}
 --- !u!114 &1030950981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7198,7 +7183,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81ab7c3e75da8740a6cd280b159fffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioMaterialInitializer
-  materialTypeConfigs: []
+  materialTypeConfigs:
+  - {fileID: 11400000, guid: 5aadbfff32a1a3148ab2d57e9914ae62, type: 2}
+  - {fileID: 11400000, guid: 70c44af7f72238a4ea12cc3e42b15579, type: 2}
+  - {fileID: 11400000, guid: a244d77b21c939147878012695491eb0, type: 2}
+  - {fileID: 11400000, guid: 2d4aa89c1a26339469c2b934e0a545ce, type: 2}
+--- !u!114 &1030950982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d434d7127fa8946ae1a87fc7bc7ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioColliderManager
+  startCapacity: 5
+  drawColliderGizmos: 1
+  <ColliderGizmosColor>k__BackingField: {r: 0.97735846, g: 0.71285766, b: 0.34484154,
+    a: 1}
+  <AudioTargetGizmosColor>k__BackingField: {r: 0.80005693, g: 0.33161265, b: 0.8490566,
+    a: 1}
+--- !u!114 &1030950983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac0ffc6f454c5e428b1e0c1ef332e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioTargetManager
+  onAudioTargetUpdateEvent: {fileID: 11400000, guid: a715a618f2a80d2499ee801a9172ef30,
+    type: 2}
+  startCapacity: 5
+--- !u!114 &1030950984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91af001a7a3c2e44bac1966bbbe2f07c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioRaytracingManager
+  <ComputeAsync>k__BackingField: 1
+  MaxThreadCount: 3
+--- !u!114 &1030950985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3019141760a9794d844d16faf870e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioTargetRTEventListener
+  _event: {fileID: 11400000, guid: df225142434395a428c4825be89ce43b, type: 2}
+  _response:
+    _PersistentCalls:
+    - _Target: {fileID: 1030950983}
+      _MemberName: HandleAudioTargetChange
+      _PersistentArguments:
+      - _Type: 14
+        _Int: 0
+        _String: System.ValueTuple`2[[AudioTargetRT, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null],[AudioTargetChangeType, Assembly-CSharp,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+          Culture=neutral, PublicKeyToken=b77a5c561934e089
+        _X: 0
+        _Y: 0
+        _Z: 0
+        _W: 0
+        _Object: {fileID: 0}
 --- !u!1 &1054174521
 GameObject:
   m_ObjectHideFlags: 0
@@ -8217,6 +8282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca81e69a4ea0d40a7c10992aeac491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onUpdateAudioTargetRTEvent: {fileID: 11400000, guid: df225142434395a428c4825be89ce43b,
+    type: 2}
+  onAudioTargetUpdateEvent: {fileID: 11400000, guid: a715a618f2a80d2499ee801a9172ef30,
+    type: 2}
   isStatic: 0
   Id:
     value: 0
@@ -11871,8 +11940,8 @@ Transform:
   m_GameObject: {fileID: 1648640012}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5765404, y: -0.41002467, z: -0.41007876, w: 0.575601}
-  m_LocalPosition: {x: 21.904, y: 1.6475, z: 4.09}
-  m_LocalScale: {x: 0.099910006, y: 4, z: 11.351031}
+  m_LocalPosition: {x: 22.2161, y: 1.7557, z: 4.0903}
+  m_LocalScale: {x: 0.099910006, y: 4, z: 10.690827}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 429698494}
@@ -16960,6 +17029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aca81e69a4ea0d40a7c10992aeac491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioTargetRT
+  onUpdateAudioTargetRTEvent: {fileID: 0}
+  onAudioTargetUpdateEvent: {fileID: 0}
   isStatic: 0
   Id:
     value: 0

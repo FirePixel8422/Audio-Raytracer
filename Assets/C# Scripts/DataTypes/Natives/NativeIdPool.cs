@@ -1,4 +1,6 @@
 ﻿using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
+
 
 /// <summary>
 /// Container that tracks a auto growing list of ids of type T and gives the lowest available id on request.
@@ -15,10 +17,9 @@ public struct NativeIdPool
     /// <summary>
     /// Get the first available id from the list. If none are available, the list is resized to double its previous size.
     /// </summary>
-    public short RequestId()
+    public unsafe short RequestId()
     {
         short idCount = (short)IdList.Length;
-
         for (short i = 0; i < idCount; i++)
         {
             // Check for first free Id and return i if its 'unused' (0). Then set it to 'used' (1).
@@ -29,12 +30,11 @@ public struct NativeIdPool
             }
         }
 
-        // Resize array if we ran out of ids
         NativeArray<byte> old = IdList;
-        IdList = new NativeArray<byte>(idCount * 2, Allocator.Persistent, NativeArrayOptions.ClearMemory);
+        IdList = new NativeArray<byte>(idCount * 2, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
 
-        // And copy the old data back into the newly reszized array
-        NativeArray<byte>.Copy(old, IdList, old.Length);
+        UnsafeUtility.MemCpy(IdList.GetUnsafePtr(), old.GetUnsafeReadOnlyPtr(), old.Length);
+
         old.Dispose();
 
         // return first of newly added id and set it to 'used' (1).
@@ -55,6 +55,6 @@ public struct NativeIdPool
 
     public void Dispose()
     {
-        IdList.DisposeIfCreated();
+        IdList.Dispose();
     }
 }

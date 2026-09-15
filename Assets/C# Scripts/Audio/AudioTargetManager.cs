@@ -3,30 +3,32 @@ using Unity.Collections;
 using UnityEngine;
 using System;
 using Unity.Mathematics;
+using CrowSupport.Events;
 
 
 [Serializable]
-public class AudioTargetManager
+public class AudioTargetManager : MonoBehaviour
 {
+    [SerializeField] private GameEventSO onAudioTargetUpdateEvent;
+
     [SerializeField] private int startCapacity = 5;
 
-    private static List<AudioTargetRT> audioTargets;
-    public static int AudioTargetCount_JobBatch => math.min(AudioTargetSettings.JobBatch.Length, audioTargets.Count);
-    public static int AudioTargetCount_NextBatch => math.min(AudioTargetSettings.NextBatch.Length, audioTargets.Count);
+    private List<AudioTargetRT> audioTargets;
+    public int AudioTargetCount_JobBatch => math.min(AudioTargetSettings.JobBatch.Length, audioTargets.Count);
+    public int AudioTargetCount_NextBatch => math.min(AudioTargetSettings.NextBatch.Length, audioTargets.Count);
 
-    private static NativeIdPool idPool;
+    private NativeIdPool idPool;
 
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
     // possibly get rid of NativeJobBatch wrapper > Just an array instead???
-    public static NativeJobBatch<AudioTargetRTSettings> AudioTargetSettings { get; private set; }
-    public static NativeJobBatch<float3> AudioTargetPositions { get; private set; }
-    public static NativeArray<ushort> MuffleRayHits { get; private set; }
-    public static NativeArray<float> PermeationPowerRemains { get; private set; }
+    public NativeJobBatch<AudioTargetRTSettings> AudioTargetSettings { get; private set; }
+    public NativeJobBatch<float3> AudioTargetPositions { get; private set; }
+    public NativeArray<ushort> MuffleRayHits { get; private set; }
+    public NativeArray<float> PermeationPowerRemains { get; private set; }
 
-    public static Action OnAudioTargetUpdate { get; set; }
 
 
     public void Init()
@@ -38,13 +40,11 @@ public class AudioTargetManager
         AudioTargetSettings = new NativeJobBatch<AudioTargetRTSettings>(startCapacity, Allocator.Persistent);
         AudioTargetPositions = new NativeJobBatch<float3>(startCapacity, Allocator.Persistent);
 
-        MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
-        PermeationPowerRemains = new NativeArray<float>(startCapacity * AudioRaytracingManager.ToUseThreadCount, Allocator.Persistent);
+        MuffleRayHits = new NativeArray<ushort>(startCapacity * AudioRaytracingManager.Instance.ToUseThreadCount, Allocator.Persistent);
+        PermeationPowerRemains = new NativeArray<float>(startCapacity * AudioRaytracingManager.Instance.ToUseThreadCount, Allocator.Persistent);
     }
     public void Dispose()
     {
-        OnAudioTargetUpdate = null;
-
         idPool.Dispose();
         AudioTargetPositions.Dispose();
         AudioTargetSettings.Dispose();
@@ -54,7 +54,25 @@ public class AudioTargetManager
 
     #region Add/Remove/Update AudioTargetRT in system
 
-    public static void AddAudioTargetToSystem(AudioTargetRT target)
+    public void HandleAudioTargetChange((AudioTargetRT Target, AudioTargetChangeType ChangeType) change)
+    {
+        switch (change.ChangeType)
+        {
+            case AudioTargetChangeType.Add:
+                AddAudioTargetToSystem(change.Target);
+                break;
+
+            case AudioTargetChangeType.Update:
+                UpdateAudiotargetInSystem(change.Target);
+                break;
+
+            case AudioTargetChangeType.Remove:
+                RemoveAudioTargetFromSystem(change.Target);
+                break;
+        }
+    }
+
+    private void AddAudioTargetToSystem(AudioTargetRT target)
     {
         audioTargets.Add(target);
 
@@ -63,8 +81,11 @@ public class AudioTargetManager
         short audioTargetId = idPool.RequestId();
         target.AddToAudioSystem(AudioTargetPositions, audioTargetId);
     }
-
-    public static void RemoveAudioTargetFromSystem(AudioTargetRT target)
+    private void UpdateAudiotargetInSystem(AudioTargetRT target)
+    {
+        target.UpdateToAudioSystem(AudioTargetPositions);
+    }
+    private void RemoveAudioTargetFromSystem(AudioTargetRT target)
     {
         if (target == null || audioTargets.Count == 0) return;
 
@@ -102,22 +123,18 @@ public class AudioTargetManager
         AudioTargetSettings.RemoveLastEntry();
         AudioTargetPositions.RemoveLastEntry();
     }
-    public static void UpdateColiderInSystem(AudioTargetRT target)
-    {
-        target.UpdateToAudioSystem(AudioTargetPositions);
-    }
 
     #endregion
 
 
-    public static void UpdateJobBatch()
+    public void UpdateJobBatch()
     {
-        OnAudioTargetUpdate?.Invoke();
+        onAudioTargetUpdateEvent?.Invoke();
 
         AudioTargetPositions.UpdateJobBatch();
         AudioTargetSettings.UpdateJobBatch();
 
-        int maxBatchCapacity = audioTargets.Count * AudioRaytracingManager.ToUseThreadCount;
+        int maxBatchCapacity = audioTargets.Count * AudioRaytracingManager.Instance.ToUseThreadCount;
 
         // Resize MuffleRayHits array if needed
         if (maxBatchCapacity != MuffleRayHits.Length)
@@ -129,7 +146,7 @@ public class AudioTargetManager
             PermeationPowerRemains = new NativeArray<float>(maxBatchCapacity, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
         }
     }
-    public static void UpdateAudioTargetSettings()
+    public void UpdateAudioTargetSettings()
     {
         // Update audio targets
         for (short audioTargetId = 0; audioTargetId < AudioTargetCount_JobBatch; audioTargetId++)

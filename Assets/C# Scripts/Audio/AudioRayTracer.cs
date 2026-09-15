@@ -1,5 +1,6 @@
 using Fire_Pixel.Utility;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -121,7 +122,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
     protected override void OnUpdate()
     {
         // If computeAsync is true skip a frame if job is not done yet
-        if ((AudioRaytracingManager.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
+        if ((AudioRaytracingManager.Instance.ComputeAsync && mainJobHandle.IsCompleted == false) || AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_NextBatch == 0) return;
         
         mainJobHandle.Complete();
 
@@ -133,7 +134,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
 #endif
 
         // Trigger an update for all audio targets with ray traced data after raytrace job has finished
-        AudioTargetManager.UpdateAudioTargetSettings();
+        AudioRaytracingManager.Instance.AudioTargetManager.UpdateAudioTargetSettings();
 
 #if UNITY_EDITOR
         // Failsafe to prevent crash when updating maxBounces in editor
@@ -169,28 +170,38 @@ public class AudioRayTracer : UpdateMonoBehaviour
             Debugger.DebugData.RayResultCounts = rayHitResultCounts.ToArray();
 
             Debugger.DebugData.EchoRayDistances = echoRayDistances.ToArray();
-            Debugger.DebugData.AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatch.ToArray();
+            Debugger.DebugData.AudioTargetPositions = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetPositions.JobBatch.ToArray();
 
             Debugger.DebugData.MaxMuffleHits = rayCount * MaxHitsPerRay;
-            Debugger.DebugData.MuffleRayHits = AudioTargetManager.MuffleRayHits.ToArray();
+            Debugger.DebugData.MuffleRayHits = AudioRaytracingManager.Instance.AudioTargetManager.MuffleRayHits.ToArray();
 
-            Debugger.DebugData.MufflePercent01 = new float[AudioTargetManager.AudioTargetCount_JobBatch];
-            for (int i = 0; i < AudioTargetManager.AudioTargetCount_JobBatch; i++)
+            Debugger.DebugData.MufflePercent01 = new float[AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch];
+            for (int i = 0; i < AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch; i++)
             {
-                Debugger.DebugData.MufflePercent01[i] = AudioTargetManager.AudioTargetSettings.JobBatch[i].MuffleStrength;
+                Debugger.DebugData.MufflePercent01[i] = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetSettings.JobBatch[i].MuffleStrength;
             }
         }
 #endif
 
-        AudioTargetManager.UpdateJobBatch();
+        AudioRaytracingManager.Instance.AudioTargetManager.UpdateJobBatch();
         AudioColliderManager.UpdateJobBatch();
 
 #if UNITY_EDITOR
         batchCycleMs = batchCycleStopwatch.ElapsedMilliseconds;
 #endif
 
-        int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracingManager.ToUseThreadCount));
+        int batchSize = (int)math.max(1, math.ceil((float)rayCount / AudioRaytracingManager.Instance.ToUseThreadCount));
 
+        JobHandle raytracerHandle = ScheduleRaytracerJob(batchSize);
+        JobHandle permeationHandle = SchedulePermeationJob(batchSize);
+
+        JobHandle processingDependency = JobHandle.CombineDependencies(raytracerHandle, permeationHandle);
+        mainJobHandle = ScheduleProcessAudioDataJob(processingDependency);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private JobHandle ScheduleRaytracerJob(int batchSize)
+    {
         audioRayTracerJobBatched = new AudioRaytracerJobBatched
         {
             RayOrigin = RayOrigin,
@@ -205,22 +216,27 @@ public class AudioRayTracer : UpdateMonoBehaviour
             SphereColliders = AudioColliderManager.SphereColliders.JobBatch,
             SphereColliderCount = AudioColliderManager.SphereColliders.JobBatchCount,
 
-            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatch,
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
+            AudioTargetPositions = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetPositions.JobBatch,
+            TotalAudioTargets = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch,
 
             MaxHitsPerRay = MaxHitsPerRay,
             MaxRayLife = maxRayLife,
-            
+
             RayHitResults = rayHitResults,
             RayHitResultCounts = rayHitResultCounts,
 
             EchoRayDistances = echoRayDistances,
-            
-            MuffleRayHits = AudioTargetManager.MuffleRayHits,
+
+            MuffleRayHits = AudioRaytracingManager.Instance.AudioTargetManager.MuffleRayHits,
             MaxMuffleHitDistance = maxMuffleHitDistance,
         };
-        JobHandle handleA = audioRayTracerJobBatched.Schedule(rayCount, batchSize);
 
+        return audioRayTracerJobBatched.Schedule(rayCount, batchSize);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private JobHandle SchedulePermeationJob(int batchSize)
+    {
         audioPermeationJobBatched = new AudioPermeationJobBatched
         {
             RayOrigin = RayOrigin,
@@ -235,27 +251,32 @@ public class AudioRayTracer : UpdateMonoBehaviour
             SphereColliders = AudioColliderManager.SphereColliders.JobBatch,
             SphereColliderCount = AudioColliderManager.SphereColliders.JobBatchCount,
 
-            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatch,
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
+            AudioTargetPositions = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetPositions.JobBatch,
+            TotalAudioTargets = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch,
 
             PermeationStrengthPerRay = permeationStrengthPerRay,
-            PermeationPowerRemains = AudioTargetManager.PermeationPowerRemains,
+            PermeationPowerRemains = AudioRaytracingManager.Instance.AudioTargetManager.PermeationPowerRemains,
         };
-        handleA = JobHandle.CombineDependencies(handleA, audioPermeationJobBatched.Schedule(rayCount, batchSize));
 
+        return audioPermeationJobBatched.Schedule(rayCount, batchSize);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private JobHandle ScheduleProcessAudioDataJob(JobHandle dependency)
+    {
         processAudioDataJob = new ProcessAudioDataJob
         {
             EchoRayDistances = echoRayDistances,
             MaxReverbDistance = maxReverbDistance,
 
-            TotalAudioTargets = AudioTargetManager.AudioTargetCount_JobBatch,
-            AudioTargetPositions = AudioTargetManager.AudioTargetPositions.JobBatch,
-            AudioTargetSettings = AudioTargetManager.AudioTargetSettings.JobBatch,
+            TotalAudioTargets = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch,
+            AudioTargetPositions = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetPositions.JobBatch,
+            AudioTargetSettings = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetSettings.JobBatch,
 
-            MuffleRayHits = AudioTargetManager.MuffleRayHits,
+            MuffleRayHits = AudioRaytracingManager.Instance.AudioTargetManager.MuffleRayHits,
             MuffleEffectiveness = muffleEffectiveness,
 
-            PermeationPowerRemains = AudioTargetManager.PermeationPowerRemains,
+            PermeationPowerRemains = AudioRaytracingManager.Instance.AudioTargetManager.PermeationPowerRemains,
             PermeationStrengthPerRay = permeationStrengthPerRay,
             PermeationEffectiveness = mufflePermeationEffectiveness,
 
@@ -263,8 +284,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
             RayCount = rayCount,
             RayOrigin = RayOrigin,
         };
-        // Start job and give mainJobHandle dependency, so it only start after the raytrace job is done.
-        // Update mainJobHandle to include this new job for its completion signal
-        mainJobHandle = JobHandle.CombineDependencies(handleA, processAudioDataJob.Schedule(handleA));
+
+        return processAudioDataJob.Schedule(dependency);
     }
 }

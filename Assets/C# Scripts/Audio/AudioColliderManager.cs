@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [Serializable]
-public class AudioColliderManager
+public class AudioColliderManager : MonoBehaviour
 {
     [SerializeField] private int startCapacity = 5;
 
@@ -139,7 +139,7 @@ public class AudioColliderManager
     [field: ShowIf(nameof(drawColliderGizmos))]
     [field: SerializeField] public Color AudioTargetGizmosColor { get; private set; }
 
-    public void DrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (!drawColliderGizmos) return;
 
@@ -152,7 +152,7 @@ public class AudioColliderManager
                 AudioTargetGizmosColor :
                 ColliderGizmosColor;
 
-            colliders[i].DrawColliderGizmo();
+            colliders[i].DrawColliderGizmos();
         }
     }
 #endif

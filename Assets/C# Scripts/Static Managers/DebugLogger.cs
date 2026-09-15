@@ -6,7 +6,7 @@
 /// </summary>
 public static class DebugLogger
 {
-    public const string ScriptingDefineSymbol = "Enable_Debug_Systems";
+    public const string ScriptingDefineSymbol = "ENABLE_DEBUG_SYSTEMS";
 
 
     [System.Diagnostics.Conditional(ScriptingDefineSymbol)]

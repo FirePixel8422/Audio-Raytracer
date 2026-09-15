@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using Fire_Pixel.Utility;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,61 +9,60 @@ using UnityEngine.Profiling;
 
 public class DebugDataDisplay : UpdateMonoBehaviour
 {
-    [SerializeField, Tooltip("Average over this many seconds")]
+    [Tooltip("Average over this many seconds")]
+    [SerializeField, EditorReadOnly]
     private float avgFPSCombineTime = 1f;
 
     [Space(10)]
 
-    [SerializeField] private string avgFps;
-    [SerializeField] private string avgFrameMs;
-    [SerializeField] private int drawCalls;
-    [SerializeField] private int setPassCalls;
-    [SerializeField] private int tris;
+    [SerializeField, EditorReadOnly] private string avgFps;
+    [SerializeField, EditorReadOnly] private string avgFrameMs;
+    [SerializeField, EditorReadOnly] private int drawCalls;
+    [SerializeField, EditorReadOnly] private int setPassCalls;
+    [SerializeField, EditorReadOnly] private int tris;
 
     [Header("Global Memory (MB)")]
-    [SerializeField] private string totalAllocatedMemoryMB;
-    [SerializeField] private string totalReservedMemoryMB;
-    [SerializeField] private string totalUnusedReservedMemoryMB;
-    [SerializeField] private string monoHeapSizeMB;
-    [SerializeField] private string monoUsedSizeMB;
+    [SerializeField, EditorReadOnly] private string totalAllocatedMemoryMB;
+    [SerializeField, EditorReadOnly] private string totalReservedMemoryMB;
+    [SerializeField, EditorReadOnly] private string totalUnusedReservedMemoryMB;
+    [SerializeField, EditorReadOnly] private string monoHeapSizeMB;
+    [SerializeField, EditorReadOnly] private string monoUsedSizeMB;
 
     [Space(10)]
 
     [Header("Component Counts: (Active/Total)")]
-    [SerializeField] private string gameObjectCount;
-    [SerializeField] private string componentCount;
-    [SerializeField] private string uiComponentCount;
-    [SerializeField] private int activeAudioSources;
+    [SerializeField, EditorReadOnly] private string gameObjectCount;
+    [SerializeField, EditorReadOnly] private string componentCount;
+    [SerializeField, EditorReadOnly] private string uiComponentCount;
+    [SerializeField, EditorReadOnly] private int activeAudioSources;
 
     private static readonly CultureInfo enCulture = new CultureInfo("en-US");
 
     private struct FrameData
     {
-        public float timestamp;
-        public float deltaTime;
+        public float Timestamp;
+        public float DeltaTime;
     }
 
     private readonly Queue<FrameData> frameTimes = new Queue<FrameData>();
 
 
-    private void Start()
-    {
-        ReloadExpensiveStats();
-    }
+    private void Awake() => ReloadExpensiveStats();
+
     protected override void OnUpdate()
     {
         float currentTime = Time.time;
         float deltaTime = Time.deltaTime;
 
         // Track frame times for rolling avg
-        frameTimes.Enqueue(new FrameData { timestamp = currentTime, deltaTime = deltaTime });
-        while (frameTimes.Count > 0 && currentTime - frameTimes.Peek().timestamp > avgFPSCombineTime)
+        frameTimes.Enqueue(new FrameData { Timestamp = currentTime, DeltaTime = deltaTime });
+        while (frameTimes.Count > 0 && currentTime - frameTimes.Peek().Timestamp > avgFPSCombineTime)
             frameTimes.Dequeue();
 
         // Calculate averages
         float totalDeltaTime = 0f;
         foreach (var frame in frameTimes)
-            totalDeltaTime += frame.deltaTime;
+            totalDeltaTime += frame.DeltaTime;
 
         int count = frameTimes.Count;
         if (count > 0)
@@ -89,7 +89,7 @@ public class DebugDataDisplay : UpdateMonoBehaviour
         monoUsedSizeMB = (Profiler.GetMonoUsedSizeLong() / (1024 * 1024)).ToString("N0", enCulture) + " mb";
     }
 
-    // Manual reload method to refresh expensive stats (call from inspector button)
+    [InspectorButton("ReloadExpensiveStatistics")]
     public void ReloadExpensiveStats()
     {
         int totalGameObjectCount = this.FindObjectsOfType<GameObject>(true).Length;

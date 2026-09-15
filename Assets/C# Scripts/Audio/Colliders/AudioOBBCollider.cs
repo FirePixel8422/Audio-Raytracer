@@ -93,7 +93,7 @@ public class AudioOBBCollider : AudioCollider
 
 
 #if UNITY_EDITOR
-    public override void DrawColliderGizmo()
+    public override void DrawColliderGizmos()
     {
         ColliderOBBStruct colliderStructCopy = colliderStruct;
 

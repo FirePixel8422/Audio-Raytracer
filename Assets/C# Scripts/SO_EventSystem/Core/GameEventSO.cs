@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 
 namespace CrowSupport.Events
 {
-    [CreateAssetMenu(fileName = "GameEvent", menuName = "Scriptable Objects/Events/Game Event", order = -1005)]
-    public class GameEvent : ScriptableObject
+    [CreateAssetMenu(fileName = "GameEvent", menuName = "ScriptableObjects/Events/Game Event", order = -1005)]
+    public class GameEventSO : ScriptableObject
     {
         [FormerlySerializedAs("gameEvent")]
         [SerializeField]
@@ -35,11 +35,21 @@ namespace CrowSupport.Events
         public bool HasListeners => _response != null;
 
         public void AddListener(Action method) => _response += method;
-
         public void RemoveListener(Action method) => _response -= method;
+
+        public static GameEventSO operator +(GameEventSO gameEvent, Action method)
+        {
+            gameEvent.AddListener(method);
+            return gameEvent;
+        }
+        public static GameEventSO operator -(GameEventSO gameEvent, Action method)
+        {
+            gameEvent.RemoveListener(method);
+            return gameEvent;
+        }
     }
 
-    public class GameEvent<T> : ScriptableObject
+    public class GameEventSO<T> : ScriptableObject
     {
         [FormerlySerializedAs("gameEvent")]
         [SerializeField]
@@ -71,7 +81,17 @@ namespace CrowSupport.Events
         public bool HasListeners => _response != null;
 
         public void AddListener(Action<T> method) => _response += method;
-
         public void RemoveListener(Action<T> method) => _response -= method;
+
+        public static GameEventSO<T> operator +(GameEventSO<T> gameEvent, Action<T> method)
+        {
+            gameEvent.AddListener(method);
+            return gameEvent;
+        }
+        public static GameEventSO<T> operator -(GameEventSO<T> gameEvent, Action<T> method)
+        {
+            gameEvent.RemoveListener(method);
+            return gameEvent;
+        }
     }
 }

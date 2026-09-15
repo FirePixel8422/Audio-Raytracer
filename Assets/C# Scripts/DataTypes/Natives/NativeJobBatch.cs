@@ -84,7 +84,7 @@ public class NativeJobBatch<T> where T : unmanaged
 
     public void Dispose()
     {
-        JobBatch.DisposeIfCreated();
-        NextBatch.DisposeIfCreated();
+        JobBatch.Dispose();
+        NextBatch.Dispose();
     }
 }

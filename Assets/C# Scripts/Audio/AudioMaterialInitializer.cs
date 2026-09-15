@@ -44,6 +44,9 @@ public class AudioMaterialInitializer : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        Absorption.Dispose();
+        TransmissionLoss.Dispose();
+        Scattering.Dispose();
+        Echo.Dispose();
     }
 }

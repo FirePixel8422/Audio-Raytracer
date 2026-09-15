@@ -1,7 +1,5 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
 
 
 public class ColorSwapper : MonoBehaviour
@@ -9,11 +7,8 @@ public class ColorSwapper : MonoBehaviour
     [SerializeField] private Color colorA;
     [SerializeField] private Color colorB;
 
-    [SerializeField] private bool swap;
-    [SerializeField] private bool reverseSwap;
 
-
-    [ContextMenu("Swap Colors")]
+    [InspectorButton("Swap Colors", true)]
     private void SwapColors()
     {
         DebugLogger.Log("Swapping colors...");
@@ -32,7 +27,7 @@ public class ColorSwapper : MonoBehaviour
         }
     }
 
-    [ContextMenu("Undo")]
+    [InspectorButton("ReverseSwap", true)]
     private void Undo()
     {
         DebugLogger.Log("Swapping colors...");
@@ -50,19 +45,4 @@ public class ColorSwapper : MonoBehaviour
             }
         }
     }
-
-    private void OnValidate()
-    {
-        if (swap)
-        {
-            swap = false;
-            SwapColors();
-        }
-        if (reverseSwap)
-        {
-            reverseSwap = false;
-            Undo();
-        }
-    }
 }
-#endif

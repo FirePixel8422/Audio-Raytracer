@@ -101,7 +101,7 @@ public abstract class AudioCollider : MonoBehaviour
 
         if (TryGetComponent(out AudioTargetRT audiotarget))
         {
-            audiotarget.SetIsStaticValue(IsStatic);
+            audiotarget.SetStaticState(IsStatic);
         }
 
         AudioCollider[] audioColliders = GetComponents<AudioCollider>();
@@ -120,11 +120,11 @@ public abstract class AudioCollider : MonoBehaviour
     {
         bool isAudioTarget = transform.HasComponent<AudioTargetRT>();
         Gizmos.color = isAudioTarget ?
-            AudioRaytracingManager.ColliderManager.AudioTargetGizmosColor :
-            AudioRaytracingManager.ColliderManager.ColliderGizmosColor;
+            AudioRaytracingManager.EditorInstance.ColliderManager.AudioTargetGizmosColor :
+            AudioRaytracingManager.EditorInstance.ColliderManager.ColliderGizmosColor;
 
-        DrawColliderGizmo();
+        DrawColliderGizmos();
     }
-    public virtual void DrawColliderGizmo() { }
+    public virtual void DrawColliderGizmos() { }
 #endif
 }

@@ -329,7 +329,7 @@ public static class ExtensionMethods
     /// <summary>
     /// Check if the NativeArray is created, and if so, dispose of it
     /// </summary>
-    public static void DisposeIfCreated<T>(this NativeArray<T> array) where T : unmanaged
+    public static void DisposeIfCreated<T>(this ref NativeArray<T> array) where T : unmanaged
     {
         if (array.IsCreated)
             array.Dispose();
@@ -337,7 +337,7 @@ public static class ExtensionMethods
     /// <summary>
     /// Check if the NativeArray is created, and if so, dispose of it
     /// </summary>
-    public static void DisposeIfCreated<T>(this NativeList<T> array) where T : unmanaged
+    public static void DisposeIfCreated<T>(this ref NativeList<T> array) where T : unmanaged
     {
         if (array.IsCreated)
             array.Dispose();
@@ -345,7 +345,7 @@ public static class ExtensionMethods
     /// <summary>
     /// Check if the NativeArray is created, and if so, dispose of it
     /// </summary>
-    public static void DisposeIfCreated<T>(this NativeReference<T> array) where T : unmanaged
+    public static void DisposeIfCreated<T>(this ref NativeReference<T> array) where T : unmanaged
     {
         if (array.IsCreated)
             array.Dispose();
@@ -353,7 +353,7 @@ public static class ExtensionMethods
     /// <summary>
     /// Check if the NativeArray is created, and if so, dispose of it
     /// </summary>
-    public static void DisposeIfCreated<T>(this NativeHashSet<T> array) where T : unmanaged, IEquatable<T>
+    public static void DisposeIfCreated<T>(this ref NativeHashSet<T> array) where T : unmanaged, IEquatable<T>
     {
         if (array.IsCreated)
             array.Dispose();
@@ -361,7 +361,7 @@ public static class ExtensionMethods
     /// <summary>
     /// Check if the NativeArray is created, and if so, dispose of it
     /// </summary>
-    public static void DisposeIfCreated<Tkey, TValue>(this NativeHashMap<Tkey, TValue> array) where Tkey : unmanaged, IEquatable<Tkey> where TValue : unmanaged
+    public static void DisposeIfCreated<Tkey, TValue>(this ref NativeHashMap<Tkey, TValue> array) where Tkey : unmanaged, IEquatable<Tkey> where TValue : unmanaged
     {
         if (array.IsCreated)
             array.Dispose();

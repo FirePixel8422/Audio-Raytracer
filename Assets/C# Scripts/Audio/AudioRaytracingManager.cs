@@ -4,26 +4,22 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
+[RequireComponent(typeof(AudioTargetManager), typeof(AudioColliderManager))]
 public class AudioRaytracingManager : MonoBehaviour
 {
-    private static AudioRaytracingManager Instance;
-    
+    public static AudioRaytracingManager Instance { get; private set; }
 
-    [Header("Run Raytracing async on background threads in parallel")]
-    [Tooltip("WARNING: If false will block the main thread until finished")]
-    [SerializeField] private bool computeAsync = true;
+
+    [field: Header("Run Raytracing async on background threads in parallel")]
+    [field: Tooltip("WARNING: If false will block the main thread until finished")]
+    [field: SerializeField] public bool ComputeAsync { get; private set; } = true;
 
     [Tooltip("Max threads to use for raytrace jobs")]
-    [SerializeField] private int maxThreadCount = 3;
+    [SerializeField] private int MaxThreadCount = 3;
+    public int ToUseThreadCount => math.min(MaxThreadCount, JobsUtility.JobWorkerCount);
 
-    public static bool ComputeAsync => Instance.computeAsync;
-    public static int ToUseThreadCount => math.min(Instance.maxThreadCount, JobsUtility.JobWorkerCount);
-
-    [SerializeField] private AudioTargetManager audioTargetManager;
-    public static AudioTargetManager AudioTargetManager => Instance.audioTargetManager;
-
-    [SerializeField] private AudioColliderManager colliderManager;
-    public static AudioColliderManager ColliderManager => Instance.colliderManager;
+    public AudioTargetManager AudioTargetManager { get; private set; }
+    public AudioColliderManager ColliderManager { get; private set; }
 
 
 
@@ -31,24 +27,32 @@ public class AudioRaytracingManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        colliderManager.Init();
-        audioTargetManager.Init();
+
+        AudioTargetManager = GetComponent<AudioTargetManager>();
+        ColliderManager = GetComponent<AudioColliderManager>();
+
+        ColliderManager.Init();
+        AudioTargetManager.Init();
     }
     private void OnDestroy()
     {
         CallbackScheduler.RegisterCallback(CallbackType.LateApplicationQuit, () =>
         {
-            colliderManager.Dispose();
-            audioTargetManager.Dispose();
+            ColliderManager.Dispose();
+            AudioTargetManager.Dispose();
         });
     }
 
+
+
+#if UNITY_EDITOR
+    public static AudioRaytracingManager EditorInstance { get; private set; }
     private void OnValidate()
     {
-        Instance = this;
+        EditorInstance = this;
+
+        AudioTargetManager = GetComponent<AudioTargetManager>();
+        ColliderManager = GetComponent<AudioColliderManager>();
     }
-    private void OnDrawGizmosSelected()
-    {
-        colliderManager.DrawGizmos();
-    }
+#endif
 }
