@@ -1,3 +1,4 @@
+using Fire_Pixel.Utility;
 using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 

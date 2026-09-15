@@ -1,3 +1,7 @@
 ﻿using UnityEngine;
 
-public class EditorReadOnlyAttribute : PropertyAttribute { }
+
+namespace Fire_Pixel.Utility
+{
+    public class EditorReadOnlyAttribute : PropertyAttribute { }
+}

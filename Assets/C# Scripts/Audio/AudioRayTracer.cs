@@ -1,3 +1,4 @@
+using Fire_Pixel.Utility;
 using System.Diagnostics;
 using Unity.Collections;
 using Unity.Jobs;
@@ -15,7 +16,7 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
     [Range(0, 25)]
     [SerializeField] private int maxBounces = 3;
-    public int MaxHitsPerRay => (maxBounces + 1);
+    public int MaxHitsPerRay => maxBounces + 1;
 
     [Range(0, 500)]
     [Tooltip("Max distance a ray can travel")]
@@ -69,6 +70,20 @@ public class AudioRayTracer : UpdateMonoBehaviour
 #if UNITY_EDITOR
         raytracerJobsStopwatch = new Stopwatch();
         batchCycleStopwatch = new Stopwatch();
+#endif
+    }
+    private void OnDestroy()
+    {
+        // Force complete all jobs
+        mainJobHandle.Complete();
+
+        // Ray arrays
+        mainRayDirections.DisposeIfCreated();
+        echoRayDistances.DisposeIfCreated();
+
+#if UNITY_EDITOR
+        rayHitResults.DisposeIfCreated();
+        rayHitResultCounts.DisposeIfCreated();
 #endif
     }
 
@@ -251,21 +266,5 @@ public class AudioRayTracer : UpdateMonoBehaviour
         // Start job and give mainJobHandle dependency, so it only start after the raytrace job is done.
         // Update mainJobHandle to include this new job for its completion signal
         mainJobHandle = JobHandle.CombineDependencies(handleA, processAudioDataJob.Schedule(handleA));
-    }
-
-
-    private void OnDestroy()
-    {
-        // Force complete all jobs
-        mainJobHandle.Complete();
-
-        // Ray arrays
-        mainRayDirections.DisposeIfCreated();
-        echoRayDistances.DisposeIfCreated();
-
-#if UNITY_EDITOR
-        rayHitResults.DisposeIfCreated();
-        rayHitResultCounts.DisposeIfCreated();
-#endif
     }
 }

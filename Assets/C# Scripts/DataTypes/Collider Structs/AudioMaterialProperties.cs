@@ -10,7 +10,10 @@ public struct AudioMaterialProperties
     public half Absorption;
 
     [Tooltip("How much power gets consumed when permeation rays go through material")]
-    public half Density;
+    public half TransmissionLoss;
+
+    [Tooltip("How much reflected sound is scattered away from the perfect reflection direction")]
+    public half Scattering;
 
     [Tooltip("Echo power multiplier when an echo ray hits this surface")]
     public half Echo;
@@ -19,14 +22,16 @@ public struct AudioMaterialProperties
     public static AudioMaterialProperties Default => new AudioMaterialProperties
     {
         Absorption = (half)0,
-        Density = (half)1,
+        TransmissionLoss = (half)1,
+        Scattering = (half)0,
         Echo = (half)1
     };
 
 
     public static bool operator ==(AudioMaterialProperties a, AudioMaterialProperties b)
     {
-        return a.Density.value == b.Density.value &&
+        return a.TransmissionLoss.value == b.TransmissionLoss.value &&
+               a.Scattering.value == b.Scattering.value &&
                a.Absorption.value == b.Absorption.value &&
                a.Echo.value == b.Echo.value;
     }
@@ -40,6 +45,6 @@ public struct AudioMaterialProperties
     }
     public override int GetHashCode()
     {
-        return HashCode.Combine(Absorption, Density, Echo);
+        return HashCode.Combine(Absorption, TransmissionLoss, Echo);
     }
 }

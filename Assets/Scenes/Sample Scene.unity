@@ -192,13 +192,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2305065
 MeshRenderer:
@@ -329,13 +323,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &8522048
 MeshRenderer:
@@ -464,13 +452,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &43325688
 MeshRenderer:
@@ -600,13 +582,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &49560624
 BoxCollider:
@@ -798,13 +774,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &73095047
 MeshRenderer:
@@ -933,13 +903,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &77056783
 MeshRenderer:
@@ -1068,13 +1032,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &120906098
 MeshRenderer:
@@ -1203,13 +1161,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &120931855
 MeshRenderer:
@@ -1333,13 +1285,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &122325304
 MeshRenderer:
@@ -1468,13 +1414,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &133238652
 MeshRenderer:
@@ -1605,13 +1545,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &146710065
 MeshRenderer:
@@ -1744,13 +1678,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &146765639
 BoxCollider:
@@ -1928,13 +1856,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &158516855
 BoxCollider:
@@ -2084,13 +2006,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &176565373
 MeshRenderer:
@@ -2335,13 +2251,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &223890882
 GameObject:
@@ -2414,13 +2324,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &223890885
 BoxCollider:
@@ -2570,13 +2474,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &239611385
 MeshRenderer:
@@ -2873,9 +2771,9 @@ MonoBehaviour:
   settings:
     PanStrength: 0
     RearAttenuationStrength: 0
-    DistanceBasedPanning: 0
+    UseDistanceBasedPanning: 0
     MaxPanDistance: 0
-    DistanceBasedRearAttenuation: 0
+    UseDistanceBasedRearAttenuation: 0
     MaxRearAttenuationDistance: 0
     MaxElevationEffectDistance: 0
     LowPassCutoff:
@@ -2887,14 +2785,31 @@ MonoBehaviour:
       max: 0
     HighPassVolume: 0
     MuffleCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
     MuffleCutoff:
       min: 0
       max: 0
@@ -2902,26 +2817,60 @@ MonoBehaviour:
       min: 0
       max: 0
     ReverbStrengthCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
     ReverbDryBoost:
       min: 0
       max: 3
     ReverbVolumeCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
   listenerTransform: {fileID: 2039623052}
   reverb: {fileID: 241768786}
   volumeMultiplier: 1
@@ -2971,13 +2920,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!54 &241768785
 Rigidbody:
@@ -3103,13 +3046,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &245504481
 BoxCollider:
@@ -3344,13 +3281,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &259388603
 BoxCollider:
@@ -3601,13 +3532,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &328095850
 GameObject:
@@ -3681,13 +3606,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &328095853
 MeshRenderer:
@@ -3817,13 +3736,7 @@ MonoBehaviour:
         value: 8479
       z:
         value: 17664
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!64 &357030088
 MeshCollider:
@@ -4014,13 +3927,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &419194980
 MeshRenderer:
@@ -4204,13 +4111,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &433413358
 MeshRenderer:
@@ -4341,13 +4242,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &440390999
 MeshRenderer:
@@ -4471,13 +4366,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &450729912
 MeshRenderer:
@@ -4725,13 +4614,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &539639580
 GameObject:
@@ -4804,13 +4687,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &539639583
 BoxCollider:
@@ -4960,13 +4837,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &569009411
 MeshRenderer:
@@ -5099,13 +4970,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &569555417
 BoxCollider:
@@ -5324,13 +5189,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &622996817
 MeshRenderer:
@@ -5461,13 +5320,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &645838348
 MeshRenderer:
@@ -5615,13 +5468,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &675734749
 BoxCollider:
@@ -5806,13 +5653,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &734906218
 MeshRenderer:
@@ -5941,13 +5782,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &766073541
 MeshRenderer:
@@ -6077,13 +5912,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &778732180
 BoxCollider:
@@ -6233,13 +6062,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &804470059
 MeshRenderer:
@@ -6369,13 +6192,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &828541734
 BoxCollider:
@@ -6525,13 +6342,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &837190018
 MeshRenderer:
@@ -6662,13 +6473,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &843413162
 MeshRenderer:
@@ -6839,13 +6644,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &852839083
 MeshRenderer:
@@ -6974,13 +6773,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &927513933
 MeshRenderer:
@@ -7148,13 +6941,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &978148323
 MeshRenderer:
@@ -7285,13 +7072,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1009373544
 MeshRenderer:
@@ -7360,6 +7141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1030950979}
   - component: {fileID: 1030950980}
+  - component: {fileID: 1030950981}
   m_Layer: 0
   m_Name: Audio Raytrace Management
   m_TagString: Untagged
@@ -7404,6 +7186,19 @@ MonoBehaviour:
     <ColliderGizmosColor>k__BackingField: {r: 0.9169811, g: 0.70466614, b: 0.3650622,
       a: 1}
     <AudioTargetGizmosColor>k__BackingField: {r: 0, g: 0.32309246, b: 1, a: 1}
+--- !u!114 &1030950981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030950977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81ab7c3e75da8740a6cd280b159fffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioMaterialInitializer
+  materialTypeConfigs: []
 --- !u!1 &1054174521
 GameObject:
   m_ObjectHideFlags: 0
@@ -7476,13 +7271,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1054174524
 MeshRenderer:
@@ -7615,13 +7404,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1056975620
 BoxCollider:
@@ -7877,13 +7660,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1095846428
 GameObject:
@@ -7957,13 +7734,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1095846431
 MeshRenderer:
@@ -8094,13 +7865,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1106927718
 MeshRenderer:
@@ -8200,9 +7965,9 @@ MonoBehaviour:
   settings:
     PanStrength: 0
     RearAttenuationStrength: 0
-    DistanceBasedPanning: 0
+    UseDistanceBasedPanning: 0
     MaxPanDistance: 0
-    DistanceBasedRearAttenuation: 0
+    UseDistanceBasedRearAttenuation: 0
     MaxRearAttenuationDistance: 0
     MaxElevationEffectDistance: 0
     LowPassCutoff:
@@ -8214,14 +7979,31 @@ MonoBehaviour:
       max: 0
     HighPassVolume: 0
     MuffleCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
     MuffleCutoff:
       min: 0
       max: 0
@@ -8229,26 +8011,60 @@ MonoBehaviour:
       min: 0
       max: 0
     ReverbStrengthCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
     ReverbDryBoost:
       min: 0
       max: 0
     ReverbVolumeCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
   listenerTransform: {fileID: 2039623052}
   reverb: {fileID: 1116814348}
   volumeMultiplier: 1
@@ -8387,13 +8203,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!114 &1116814342
 MonoBehaviour:
@@ -8618,13 +8428,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1130241396
 MeshRenderer:
@@ -8755,13 +8559,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1152929539
 MeshRenderer:
@@ -8971,13 +8769,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1173208416
 GameObject:
@@ -9130,13 +8922,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1175773108
 GameObject:
@@ -9208,13 +8994,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1175773111
 MeshRenderer:
@@ -9343,13 +9123,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1217067796
 MeshRenderer:
@@ -9480,13 +9254,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1268935503
 MeshRenderer:
@@ -9616,13 +9384,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1277114085
 BoxCollider:
@@ -9776,13 +9538,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1282826399
 BoxCollider:
@@ -9961,13 +9717,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1283343193
 MeshRenderer:
@@ -10096,13 +9846,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1297430150
 MeshRenderer:
@@ -10233,13 +9977,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1324975904
 MeshRenderer:
@@ -10447,13 +10185,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1402880967
 GameObject:
@@ -10525,13 +10257,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1402880970
 MeshRenderer:
@@ -10662,13 +10388,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1429552776
 MeshRenderer:
@@ -10876,13 +10596,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1488041906
 GameObject:
@@ -11033,13 +10747,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1490143452
 GameObject:
@@ -11111,13 +10819,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1490143455
 MeshRenderer:
@@ -11248,13 +10950,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1523628497
 MeshRenderer:
@@ -11384,13 +11080,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1536627928
 BoxCollider:
@@ -11540,13 +11230,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1577868759
 MeshRenderer:
@@ -11715,13 +11399,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1614154679
 MeshRenderer:
@@ -11850,13 +11528,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1620887204
 MeshRenderer:
@@ -11987,13 +11659,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1626384781
 MeshRenderer:
@@ -12117,13 +11783,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1631511339
 MeshRenderer:
@@ -12333,13 +11993,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1651633855
 GameObject:
@@ -12411,13 +12065,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1651633858
 MeshRenderer:
@@ -12541,13 +12189,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1651931112
 MeshRenderer:
@@ -12683,13 +12325,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1658346142
 BoxCollider:
@@ -12839,13 +12475,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1659741437
 MeshRenderer:
@@ -12976,13 +12606,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1666046539
 MeshRenderer:
@@ -13113,13 +12737,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1674427233
 MeshRenderer:
@@ -13243,13 +12861,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1674688592
 MeshRenderer:
@@ -13379,13 +12991,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1691937633
 BoxCollider:
@@ -13535,13 +13141,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1727043840
 MeshRenderer:
@@ -13751,13 +13351,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1744947561
 GameObject:
@@ -13829,13 +13423,7 @@ MonoBehaviour:
         value: 11878
       z:
         value: 17664
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1744947565
 MeshRenderer:
@@ -13964,13 +13552,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1789665509
 MeshRenderer:
@@ -14099,13 +13681,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1790565409
 MeshRenderer:
@@ -14238,13 +13814,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1810182911
 BoxCollider:
@@ -14423,13 +13993,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1833578126
 MeshRenderer:
@@ -14560,13 +14124,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1850253255
 MeshRenderer:
@@ -14695,13 +14253,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1859639168
 MeshRenderer:
@@ -14832,13 +14384,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1900560660
 MeshRenderer:
@@ -15046,13 +14592,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &1917171995
 GameObject:
@@ -15125,13 +14665,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!65 &1917171998
 BoxCollider:
@@ -15361,13 +14895,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!114 &1920798015
 MonoBehaviour:
@@ -15456,13 +14984,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1928809388
 MeshRenderer:
@@ -15720,13 +15242,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1950484548
 MeshRenderer:
@@ -15855,13 +15371,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &1975569093
 MeshRenderer:
@@ -15992,13 +15502,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2000582518
 MeshRenderer:
@@ -16129,13 +15633,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2021201545
 MeshRenderer:
@@ -16266,13 +15764,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2027865664
 MeshRenderer:
@@ -16480,13 +15972,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!4 &2039623052 stripped
 Transform:
@@ -16597,13 +16083,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2056685598
 MeshRenderer:
@@ -16734,13 +16214,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2064583592
 MeshRenderer:
@@ -16864,13 +16338,7 @@ MonoBehaviour:
         value: 0
     Radius:
       value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2098158231
 MeshRenderer:
@@ -17078,13 +16546,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!1 &2115961653
 GameObject:
@@ -17273,13 +16735,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2115961663
 MeshRenderer:
@@ -17354,9 +16810,9 @@ MonoBehaviour:
   settings:
     PanStrength: 0
     RearAttenuationStrength: 0
-    DistanceBasedPanning: 0
+    UseDistanceBasedPanning: 0
     MaxPanDistance: 0
-    DistanceBasedRearAttenuation: 0
+    UseDistanceBasedRearAttenuation: 0
     MaxRearAttenuationDistance: 0
     MaxElevationEffectDistance: 0
     LowPassCutoff:
@@ -17368,14 +16824,31 @@ MonoBehaviour:
       max: 0
     HighPassVolume: 0
     MuffleCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
     MuffleCutoff:
       min: 0
       max: 0
@@ -17383,26 +16856,60 @@ MonoBehaviour:
       min: 0
       max: 0
     ReverbStrengthCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
     ReverbDryBoost:
       min: 0
       max: 0
     ReverbVolumeCurve:
-      curve:
+      _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      valueMultiplier: 0
-      sampleCount: 0
+      _sampleCount: 50
   listenerTransform: {fileID: 2039623052}
   reverb: {fileID: 0}
   volumeMultiplier: 1
@@ -17528,13 +17035,7 @@ MonoBehaviour:
         value: 14336
       z:
         value: 14336
-    MaterialProperties:
-      Absorption:
-        value: 0
-      Density:
-        value: 0
-      Echo:
-        value: 0
+    MaterialId: 0
     AudioTargetId: -1
 --- !u!23 &2124988598
 MeshRenderer:

@@ -1,16 +1,17 @@
+using Fire_Pixel.Utility;
 using System;
-using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
 
 
-[BurstCompile, Serializable]
+[Serializable]
 public struct ColliderSphereStruct
 {
     public half3 Center;
     public half Radius;
 
-    [HideInInspector] public AudioMaterialProperties MaterialProperties;
+    //[EditorReadOnly] public AudioMaterialProperties MaterialProperties;
+    [EditorReadOnly] public short MaterialId;
     [HideInInspector] public short AudioTargetId;
 
 
@@ -26,7 +27,7 @@ public struct ColliderSphereStruct
                a.Center.y.value == b.Center.y.value &&
                a.Center.z.value == b.Center.z.value &&
                a.Radius.value == b.Radius.value &&
-               a.MaterialProperties == b.MaterialProperties &&
+               a.MaterialId == b.MaterialId &&
                a.AudioTargetId == b.AudioTargetId;
     }
     public static bool operator !=(ColliderSphereStruct a, ColliderSphereStruct b)

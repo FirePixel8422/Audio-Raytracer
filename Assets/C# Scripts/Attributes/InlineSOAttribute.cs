@@ -1,3 +1,7 @@
 ﻿using UnityEngine;
 
-public sealed class InlineSOAttribute : PropertyAttribute { }
+
+namespace Fire_Pixel.Utility
+{
+    public sealed class InlineSOAttribute : PropertyAttribute { }
+}

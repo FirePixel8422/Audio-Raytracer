@@ -1,17 +1,37 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MonoBehaviour), true)]
-public class MonoButtonEditor : Editor
+
+namespace Fire_Pixel.Utility
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(MonoBehaviour), true)]
+    public class MonoButtonEditor : Editor
     {
-        serializedObject.Update();
+        public override void OnInspectorGUI()
+        {
+            serializedObject.Update();
 
-        DrawPropertiesExcluding(serializedObject, "m_Script");
+            SerializedProperty property = serializedObject.GetIterator();
+            bool enterChildren = true;
 
-        serializedObject.ApplyModifiedProperties();
+            while (property.NextVisible(enterChildren))
+            {
+                enterChildren = false;
 
-        InspectorButtonDrawer.Draw(target);
+                if (property.propertyPath == "m_Script")
+                {
+                    EditorGUI.BeginDisabledGroup(true);
+                    EditorGUILayout.PropertyField(property);
+                    EditorGUI.EndDisabledGroup();
+                    continue;
+                }
+
+                InspectorButtonDrawer.DrawProperty(serializedObject, property);
+            }
+
+            InspectorButtonDrawer.DrawObjectMethods(target);
+
+            serializedObject.ApplyModifiedProperties();
+        }
     }
 }

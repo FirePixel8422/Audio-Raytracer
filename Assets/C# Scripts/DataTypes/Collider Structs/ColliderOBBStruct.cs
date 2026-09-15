@@ -1,10 +1,10 @@
+using Fire_Pixel.Utility;
 using System;
-using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
 
 
-[BurstCompile, Serializable]
+[Serializable]
 public struct ColliderOBBStruct
 {
     public half3 Center;
@@ -20,8 +20,9 @@ public struct ColliderOBBStruct
         }
     }
 
-    [HideInInspector] public AudioMaterialProperties MaterialProperties;
-    [HideInInspector] public short AudioTargetId;
+    //[EditorReadOnly] public AudioMaterialProperties MaterialProperties;
+    [EditorReadOnly] public short MaterialId;
+    [EditorReadOnly] public short AudioTargetId;
 
 
     public static ColliderOBBStruct Default => new ColliderOBBStruct()
@@ -40,7 +41,7 @@ public struct ColliderOBBStruct
                a.Size.y.value == b.Size.y.value &&
                a.Size.z.value == b.Size.z.value &&
                a.rotation == b.rotation &&
-               a.MaterialProperties == b.MaterialProperties &&
+               a.MaterialId == b.MaterialId &&
                a.AudioTargetId == b.AudioTargetId;
     }
     public static bool operator !=(ColliderOBBStruct a, ColliderOBBStruct b)

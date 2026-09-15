@@ -16,7 +16,9 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
     [ReadOnly, NoAlias] public int OBBColliderCount;
     [ReadOnly, NoAlias] public NativeArray<ColliderSphereStruct> SphereColliders;
     [ReadOnly, NoAlias] public int SphereColliderCount;
-             
+
+    [ReadOnly, NoAlias] public NativeArray<half> TransmissionLoss;
+
     [ReadOnly, NoAlias] public NativeArray<float3> AudioTargetPositions;
     [ReadOnly, NoAlias] public int TotalAudioTargets;
 
@@ -234,7 +236,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
             // Skip colliders that belong to the audiotarget
             if (tempSphere.AudioTargetId == AudioTargetId) continue;
 
-            RayIntersectsSpherePermeation(rayOrigin, rayDir, tempSphere.Center, tempSphere.Radius, tempSphere.MaterialProperties.Density, ref totalPermeationPowerLoss);
+            RayIntersectsSpherePermeation(rayOrigin, rayDir, tempSphere.Center, tempSphere.Radius, TransmissionLoss[tempSphere.MaterialId], ref totalPermeationPowerLoss);
         }
         // Check against AABBs
         for (int i = 0; i < AABBColliderCount; i++)
@@ -244,7 +246,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
             // Skip colliders that belong to the audiotarget
             if (tempAABB.AudioTargetId == AudioTargetId) continue;
 
-            RayIntersectsAABBPermeation(rayOrigin, rayDir, tempAABB.Center, tempAABB.Size, tempAABB.MaterialProperties.Density, ref totalPermeationPowerLoss);
+            RayIntersectsAABBPermeation(rayOrigin, rayDir, tempAABB.Center, tempAABB.Size, TransmissionLoss[tempAABB.MaterialId], ref totalPermeationPowerLoss);
         }
         // Check against OBBs
         for (int i = 0; i < OBBColliderCount; i++)
@@ -254,7 +256,7 @@ public struct AudioPermeationJobBatched : IJobParallelForBatch
             // Skip colliders that belong to the audiotarget
             if (tempOBB.AudioTargetId == AudioTargetId) continue;
 
-            RayIntersectsOBBPermeation(rayOrigin, rayDir, tempOBB.Center, tempOBB.Size, tempOBB.Rotation, tempOBB.MaterialProperties.Density, ref totalPermeationPowerLoss);
+            RayIntersectsOBBPermeation(rayOrigin, rayDir, tempOBB.Center, tempOBB.Size, tempOBB.Rotation, TransmissionLoss[tempOBB.MaterialId], ref totalPermeationPowerLoss);
         }
 
         permeationPowerRemains = RayDirections.Length * PermeationStrengthPerRay - totalPermeationPowerLoss;

@@ -4,44 +4,153 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-public static class InspectorButtonDrawer
+
+namespace Fire_Pixel.Utility
 {
-    private class MethodCacheEntry
+    public static class InspectorButtonDrawer
     {
-        public MethodInfo method;
-        public ParameterInfo[] parameters;
-        public object[] args;
-    }
-
-    private static readonly Dictionary<(object, MethodInfo), MethodCacheEntry> cache = new();
-
-    public static void Draw(object obj)
-    {
-        if (obj == null)
+        private class MethodCacheEntry
         {
-            return;
+            public MethodInfo method;
+            public ParameterInfo[] parameters;
+            public object[] args;
         }
 
-        MethodInfo[] methods = obj.GetType().GetMethods(
-            BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        private static readonly Dictionary<string, MethodCacheEntry> cache = new();
+        private static readonly HashSet<Type> compatibilityWarnings = new();
 
-        foreach (MethodInfo method in methods)
+        public static void DrawProperty(
+            SerializedObject serializedObject,
+            SerializedProperty property)
         {
-            InspectorButtonAttribute button =
-                method.GetCustomAttribute<InspectorButtonAttribute>();
+            Type type = GetPropertyType(property);
 
-            if (button == null)
+            if (type == null)
             {
-                continue;
+                EditorGUILayout.PropertyField(property, true);
+                return;
             }
 
-            bool allowed = button.AllowUsageOutsidePlayMode || EditorApplication.isPlaying;
+            WarnIfMissingCompatibility(
+                type,
+                serializedObject.targetObject);
 
-            var key = (obj, method);
-
-            if (!cache.TryGetValue(key, out MethodCacheEntry entry))
+            if (!IsMarked(type))
             {
-                ParameterInfo[] parameters = method.GetParameters();
+                EditorGUILayout.PropertyField(property, true);
+                return;
+            }
+
+            DrawMarkedProperty(
+                serializedObject,
+                property);
+        }
+
+        private static void DrawMarkedProperty(
+            SerializedObject serializedObject,
+            SerializedProperty property)
+        {
+            EditorGUILayout.PropertyField(property, true);
+
+            if (!property.isExpanded)
+                return;
+
+            object value = GetValue(
+                serializedObject.targetObject,
+                property.propertyPath);
+
+            if (value != null)
+            {
+                DrawMethods(
+                    value,
+                    serializedObject.targetObject,
+                    property.propertyPath);
+            }
+        }
+
+        private static void DrawMethods(
+            object obj,
+            UnityEngine.Object rootObject,
+            string path)
+        {
+            MethodInfo[] methods = obj.GetType().GetMethods(
+                BindingFlags.Instance |
+                BindingFlags.Public |
+                BindingFlags.NonPublic);
+
+            foreach (MethodInfo method in methods)
+            {
+                InspectorButtonAttribute button =
+                    method.GetCustomAttribute<InspectorButtonAttribute>();
+
+                if (button == null)
+                    continue;
+
+                DrawMethod(
+                    obj,
+                    rootObject,
+                    method,
+                    button,
+                    path);
+            }
+        }
+
+        public static void DrawObjectMethods(object obj)
+        {
+            DrawMethods(
+                obj,
+                obj as UnityEngine.Object,
+                obj.GetType().Name);
+        }
+
+        private static void WarnIfMissingCompatibility(
+            Type type,
+            UnityEngine.Object rootObject)
+        {
+            if (type.GetCustomAttribute<InspectorButtonCompatibilityAttribute>() != null)
+                return;
+
+            MethodInfo[] methods = type.GetMethods(
+                BindingFlags.Instance |
+                BindingFlags.Public |
+                BindingFlags.NonPublic);
+
+            foreach (MethodInfo method in methods)
+            {
+                if (method.GetCustomAttribute<InspectorButtonAttribute>() == null)
+                    continue;
+
+                if (compatibilityWarnings.Add(type))
+                {
+                    Debug.LogError(
+                        $"{ObjectNames.NicifyVariableName(type.Name)} is missing [InspectorButtonCompatibility]. [InspectorButton] only works on non-MonoBehaviour targets when they have the [InspectorButtonCompatibility] attribute.",
+                        rootObject);
+                }
+
+                return;
+            }
+        }
+
+        private static void DrawMethod(
+            object obj,
+            UnityEngine.Object rootObject,
+            MethodInfo method,
+            InspectorButtonAttribute button,
+            string path)
+        {
+            bool allowed =
+                button.AllowUsageOutsidePlayMode ||
+                EditorApplication.isPlaying;
+
+            string key =
+                $"{rootObject.GetEntityId()}_{path}_{method.MetadataToken}";
+
+            if (!cache.TryGetValue(
+                    key,
+                    out MethodCacheEntry entry))
+            {
+                ParameterInfo[] parameters =
+                    method.GetParameters();
 
                 entry = new MethodCacheEntry
                 {
@@ -53,133 +162,210 @@ public static class InspectorButtonDrawer
                 cache[key] = entry;
             }
 
-            bool hasParams = entry.parameters.Length > 0;
+            string label =
+                string.IsNullOrEmpty(button.Label)
+                    ? ObjectNames.NicifyVariableName(method.Name)
+                    : button.Label;
 
-            if (hasParams)
+            if (!allowed)
+                label += " (Play Mode Only)";
+
+            using (new EditorGUI.DisabledScope(!allowed))
             {
-                EditorGUILayout.BeginVertical("box");
+                if (GUILayout.Button(
+                        label,
+                        GUILayout.Height(22)))
+                {
+                    Undo.RecordObject(
+                        rootObject,
+                        label);
+
+                    try
+                    {
+                        method.Invoke(
+                            obj,
+                            entry.args.Length == 0
+                                ? null
+                                : entry.args);
+
+                        EditorUtility.SetDirty(rootObject);
+                        SerializedObjectUpdate(rootObject);
+                    }
+                    catch (TargetInvocationException exception)
+                    {
+                        Debug.LogException(
+                            exception.InnerException ?? exception);
+                    }
+                    catch (Exception exception)
+                    {
+                        Debug.LogException(exception);
+                    }
+                }
             }
 
-            bool prevGUI = GUI.enabled;
-            GUI.enabled = allowed;
-
-            string label = string.IsNullOrEmpty(button.Label)
-                ? ObjectNames.NicifyVariableName(method.Name)
-                : button.Label;
-
-            if (GUILayout.Button(label, GUILayout.Height(22)))
+            if (entry.parameters.Length > 0)
             {
-                RecordUndo(obj, label);
-
-                entry.method.Invoke(obj, entry.args.Length == 0 ? null : entry.args);
-
-                EditorUtility.SetDirty(obj as UnityEngine.Object);
-            }
-
-            GUI.enabled = prevGUI;
-
-            if (hasParams)
-            {
-                string foldoutKey = GetFoldoutKey(obj, method);
-
                 EditorGUI.indentLevel++;
 
-                bool expanded = SessionState.GetBool(foldoutKey, false);
-
-                bool newExpanded = EditorGUILayout.Foldout(
-                    expanded,
-                    "Parameters",
-                    true);
-
-                if (newExpanded != expanded)
+                for (int i = 0;
+                     i < entry.parameters.Length;
+                     i++)
                 {
-                    SessionState.SetBool(foldoutKey, newExpanded);
-                }
-
-                if (newExpanded)
-                {
-                    EditorGUI.indentLevel++;
-
-                    for (int i = 0; i < entry.parameters.Length; i++)
-                    {
-                        EditorGUI.BeginChangeCheck();
-
-                        entry.args[i] = DrawParameter(entry.parameters[i], entry.args[i]);
-
-                        if (EditorGUI.EndChangeCheck())
-                        {
-                            RecordUndo(obj, "Modify Parameters");
-                            EditorUtility.SetDirty(obj as UnityEngine.Object);
-                        }
-                    }
-
-                    EditorGUI.indentLevel--;
+                    entry.args[i] = DrawParameter(
+                        entry.parameters[i],
+                        entry.args[i]);
                 }
 
                 EditorGUI.indentLevel--;
             }
+        }
 
-            if (hasParams)
+        private static object DrawParameter(
+            ParameterInfo parameter,
+            object current)
+        {
+            Type type = parameter.ParameterType;
+
+            if (type == typeof(int))
             {
-                EditorGUILayout.EndVertical();
+                return EditorGUILayout.IntField(
+                    parameter.Name,
+                    current != null
+                        ? (int)current
+                        : 0);
             }
+
+            if (type == typeof(float))
+            {
+                return EditorGUILayout.FloatField(
+                    parameter.Name,
+                    current != null
+                        ? (float)current
+                        : 0f);
+            }
+
+            if (type == typeof(bool))
+            {
+                return EditorGUILayout.Toggle(
+                    parameter.Name,
+                    current != null &&
+                    (bool)current);
+            }
+
+            if (type == typeof(string))
+            {
+                return EditorGUILayout.TextField(
+                    parameter.Name,
+                    current as string ?? "");
+            }
+
+            if (type == typeof(Vector3))
+            {
+                return EditorGUILayout.Vector3Field(
+                    parameter.Name,
+                    current != null
+                        ? (Vector3)current
+                        : Vector3.zero);
+            }
+
+            if (type.IsEnum)
+            {
+                Enum value =
+                    current as Enum ??
+                    (Enum)Activator.CreateInstance(type);
+
+                return Attribute.IsDefined(
+                    type,
+                    typeof(FlagsAttribute))
+                    ? EditorGUILayout.EnumFlagsField(
+                        parameter.Name,
+                        value)
+                    : EditorGUILayout.EnumPopup(
+                        parameter.Name,
+                        value);
+            }
+
+            if (typeof(UnityEngine.Object).IsAssignableFrom(type))
+            {
+                return EditorGUILayout.ObjectField(
+                    parameter.Name,
+                    current as UnityEngine.Object,
+                    type,
+                    true);
+            }
+
+            EditorGUILayout.LabelField(
+                $"{parameter.Name} (unsupported: {type.Name})");
+
+            return current;
         }
-    }
 
-    private static object DrawParameter(ParameterInfo param, object current)
-    {
-        Type type = param.ParameterType;
-
-        if (type == typeof(int))
-            return EditorGUILayout.IntField(param.Name, current != null ? (int)current : 0);
-
-        if (type == typeof(float))
-            return EditorGUILayout.FloatField(param.Name, current != null ? (float)current : 0f);
-
-        if (type == typeof(string))
-            return EditorGUILayout.TextField(param.Name, current as string ?? "");
-
-        if (type == typeof(bool))
-            return EditorGUILayout.Toggle(param.Name, current != null && (bool)current);
-
-        if (typeof(UnityEngine.Object).IsAssignableFrom(type))
-            return EditorGUILayout.ObjectField(param.Name, current as UnityEngine.Object, type, true);
-
-        if (type.IsEnum)
+        private static Type GetPropertyType(
+            SerializedProperty property)
         {
-            Enum e = current as Enum ?? (Enum)Activator.CreateInstance(type);
+            Type type =
+                property.serializedObject.targetObject.GetType();
 
-            if (Attribute.IsDefined(type, typeof(FlagsAttribute)))
-                return EditorGUILayout.EnumFlagsField(param.Name, e);
+            string[] parts =
+                property.propertyPath.Split('.');
 
-            return EditorGUILayout.EnumPopup(param.Name, e);
+            foreach (string part in parts)
+            {
+                if (part == "Array" ||
+                    part == "data")
+                {
+                    return null;
+                }
+
+                FieldInfo field = type.GetField(
+                    part,
+                    BindingFlags.Instance |
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic);
+
+                if (field == null)
+                    return null;
+
+                type = field.FieldType;
+            }
+
+            return type;
         }
 
-        EditorGUILayout.LabelField($"{param.Name} (unsupported: {type.Name})");
-        return current;
-    }
+        private static bool IsMarked(Type type) =>
+            type.GetCustomAttribute<InspectorButtonCompatibilityAttribute>() != null;
 
-    private static string GetFoldoutKey(object obj, MethodInfo method)
-    {
-        if (obj is UnityEngine.Object unityObject)
+        private static object GetValue(
+            object obj,
+            string path)
         {
-            GlobalObjectId id = GlobalObjectId.GetGlobalObjectIdSlow(unityObject);
+            string[] parts =
+                path.Split('.');
 
-            return $"InspectorButtonFoldout_{id}_{method.DeclaringType.FullName}_{method.Name}";
+            foreach (string part in parts)
+            {
+                FieldInfo field = obj.GetType().GetField(
+                    part,
+                    BindingFlags.Instance |
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic);
+
+                if (field == null)
+                    return null;
+
+                obj = field.GetValue(obj);
+
+                if (obj == null)
+                    return null;
+            }
+
+            return obj;
         }
 
-        return $"InspectorButtonFoldout_{obj.GetHashCode()}_{method.DeclaringType.FullName}_{method.Name}";
-    }
-
-    private static void RecordUndo(object obj, string label)
-    {
-        UnityEngine.Object uObj = obj as UnityEngine.Object;
-
-        if (uObj == null)
+        private static void SerializedObjectUpdate(
+            UnityEngine.Object obj)
         {
-            return;
+            EditorUtility.SetDirty(obj);
         }
-
-        Undo.RecordObject(uObj, label);
     }
 }

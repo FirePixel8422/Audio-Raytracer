@@ -17,7 +17,7 @@ public struct BinauralDSP
         float azimuth = math.degrees(math.atan2(localDir.x, localDir.z));
 
         float effectivePanStrength = settings.PanStrength;
-        if (settings.DistanceBasedPanning)
+        if (settings.UseDistanceBasedPanning)
         {
             float distanceFactor = math.saturate(distanceToListener / settings.MaxPanDistance);
             effectivePanStrength *= distanceFactor;
@@ -32,7 +32,7 @@ public struct BinauralDSP
         float frontFactor = math.max(0f, math.cos(math.radians(azimuth)));
         float rearAtten = math.lerp(1f - settings.RearAttenuationStrength, 1f, frontFactor);
 
-        if (settings.DistanceBasedRearAttenuation)
+        if (settings.UseDistanceBasedRearAttenuation)
         {
             float distanceFactor = math.saturate(1f - (distanceToListener / settings.MaxRearAttenuationDistance));
 

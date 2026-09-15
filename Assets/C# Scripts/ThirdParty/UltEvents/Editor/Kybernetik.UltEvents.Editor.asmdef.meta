@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 67343ec479df49c47822aeadae39b006
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 111307
+  packageName: UltEvents
+  packageVersion: 3.0.8
+  assetPath: Packages/com.kybernetik.ultevents/Editor/Kybernetik.UltEvents.Editor.asmdef
+  uploadId: 810854

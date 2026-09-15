@@ -1,13 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-[AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-public sealed class ShowIfAttribute : PropertyAttribute
-{
-    public readonly string condition;
 
-    public ShowIfAttribute(string condition)
+namespace Fire_Pixel.Utility
+{
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    public sealed class ShowIfAttribute : PropertyAttribute
     {
-        this.condition = condition;
+        public readonly string condition;
+
+        public ShowIfAttribute(string condition)
+        {
+            this.condition = condition;
+        }
     }
 }

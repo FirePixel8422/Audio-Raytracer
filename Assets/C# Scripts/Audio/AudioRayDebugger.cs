@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using Fire_Pixel.Utility;
+using Unity.Mathematics;
 using UnityEngine;
 
 

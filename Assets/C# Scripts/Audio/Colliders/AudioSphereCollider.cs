@@ -42,8 +42,8 @@ public class AudioSphereCollider : AudioCollider
             colliderStructCopy.Radius = scaledRadius;
         }
 
-        // Upload material properties from ScriptableObject and AudioTargetId from this component
-        colliderStructCopy.MaterialProperties = AudioMaterialPropertiesSO != null ? AudioMaterialPropertiesSO.MaterialProperties : AudioMaterialProperties.Default;
+        // Upload material properties Id from ScriptableObject and AudioTargetId from this component
+        colliderStructCopy.MaterialId = AudioMaterialPropertiesSO.Id;
         colliderStructCopy.AudioTargetId = AudioTargetId;
 
         return colliderStructCopy;

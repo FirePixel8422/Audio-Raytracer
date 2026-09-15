@@ -1,16 +1,17 @@
+using Fire_Pixel.Utility;
 using System;
-using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
 
 
-[BurstCompile, Serializable]
+[Serializable]
 public struct ColliderAABBStruct
 {
     public half3 Center;
     public half3 Size;
 
-    [HideInInspector] public AudioMaterialProperties MaterialProperties;
+    //[EditorReadOnly] public AudioMaterialProperties MaterialProperties;
+    [EditorReadOnly] public short MaterialId;
     [HideInInspector] public short AudioTargetId;
 
 
@@ -28,7 +29,7 @@ public struct ColliderAABBStruct
                a.Size.x.value == b.Size.x.value &&
                a.Size.y.value == b.Size.y.value &&
                a.Size.z.value == b.Size.z.value &&
-               a.MaterialProperties == b.MaterialProperties &&
+               a.MaterialId == b.MaterialId &&
                a.AudioTargetId == b.AudioTargetId;
     }
     public static bool operator !=(ColliderAABBStruct a, ColliderAABBStruct b)

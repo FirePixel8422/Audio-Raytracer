@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fire_Pixel.Utility;
+using UnityEngine;
 
 
 public abstract class AudioCollider : MonoBehaviour
@@ -75,10 +76,9 @@ public abstract class AudioCollider : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (IsStatic == false)
-        {
-            AudioColliderManager.OnColliderUpdate -= CheckColliderTransformation;
-        }
+        if (!IsStatic) return;
+
+        AudioColliderManager.OnColliderUpdate -= CheckColliderTransformation;
     }
 
     protected virtual void CheckColliderTransformation() { }
