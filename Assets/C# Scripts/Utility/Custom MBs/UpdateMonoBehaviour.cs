@@ -6,11 +6,11 @@ public class UpdateMonoBehaviour : MonoBehaviour
 {
     protected virtual void OnEnable()
     {
-        CallbackScheduler.RegisterCallback(CallbackType.Update, OnUpdate);
+        CallbackScheduler.RegisterCallback(OnUpdate, CallbackType.Update);
     }
     protected virtual void OnDisable()
     {
-        CallbackScheduler.UnRegisterCallback(CallbackType.Update, OnUpdate);
+        CallbackScheduler.UnRegisterCallback(OnUpdate, CallbackType.Update);
     }
     /// <summary>
     /// Called every frame.

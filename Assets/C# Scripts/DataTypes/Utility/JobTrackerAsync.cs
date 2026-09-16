@@ -19,7 +19,7 @@ public class JobTrackerAsync
     public JobTrackerAsync(Action onCompleteAction)
     {
         onComplete = onCompleteAction;
-        CallbackScheduler.RegisterCallback(CallbackType.Update, OnUpdate);
+        CallbackScheduler.RegisterCallback(OnUpdate, CallbackType.Update);
     }
     /// <summary>
     /// Completes the currently tracked job, if any, and unregisters this tracker from the update callback.
@@ -33,7 +33,7 @@ public class JobTrackerAsync
         }
 
         onComplete = null;
-        CallbackScheduler.UnRegisterCallback(CallbackType.Update, OnUpdate);
+        CallbackScheduler.UnRegisterCallback(OnUpdate, CallbackType.Update);
     }
 
     /// <summary>
