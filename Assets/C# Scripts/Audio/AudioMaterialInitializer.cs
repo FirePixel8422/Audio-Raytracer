@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class AudioMaterialInitializer : MonoBehaviour
 {
+    public static AudioMaterialInitializer Instance { get; private set; }
+    // KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_
+    // KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_KILL_INSTANCE_
+
+
     [SerializeField] private AudioMaterialPropertiesSO[] materialTypeConfigs;
-    //public 
 
 
     [Tooltip("How much power of the mainRays hitting this surface gets consumed")]
@@ -24,6 +28,8 @@ public class AudioMaterialInitializer : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         int materialCount = materialTypeConfigs.Length;
 
         Absorption = new NativeArray<half>(materialCount, Allocator.Persistent);
@@ -47,6 +53,6 @@ public class AudioMaterialInitializer : MonoBehaviour
         Absorption.Dispose();
         TransmissionLoss.Dispose();
         Scattering.Dispose();
-        Echo.Dispose();
+        Echo.Dispose(); 
     }
 }

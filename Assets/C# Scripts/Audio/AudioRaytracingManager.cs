@@ -36,11 +36,8 @@ public class AudioRaytracingManager : MonoBehaviour
     }
     private void OnDestroy()
     {
-        CallbackScheduler.RegisterCallback(() =>
-        {
-            ColliderManager.Dispose();
-            AudioTargetManager.Dispose();
-        }, CallbackType.LateApplicationQuit);
+        ColliderManager.Dispose();
+        AudioTargetManager.Dispose();
     }
 
 

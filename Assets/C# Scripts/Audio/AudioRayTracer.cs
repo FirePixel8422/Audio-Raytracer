@@ -216,6 +216,9 @@ public class AudioRayTracer : UpdateMonoBehaviour
             SphereColliders = AudioColliderManager.SphereColliders.JobBatch,
             SphereColliderCount = AudioColliderManager.SphereColliders.JobBatchCount,
 
+            Absorption = AudioMaterialInitializer.Instance.Absorption,
+            Echo = AudioMaterialInitializer.Instance.Echo,
+
             AudioTargetPositions = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetPositions.JobBatch,
             TotalAudioTargets = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch,
 
@@ -250,6 +253,8 @@ public class AudioRayTracer : UpdateMonoBehaviour
 
             SphereColliders = AudioColliderManager.SphereColliders.JobBatch,
             SphereColliderCount = AudioColliderManager.SphereColliders.JobBatchCount,
+
+            TransmissionLoss = AudioMaterialInitializer.Instance.TransmissionLoss,
 
             AudioTargetPositions = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetPositions.JobBatch,
             TotalAudioTargets = AudioRaytracingManager.Instance.AudioTargetManager.AudioTargetCount_JobBatch,

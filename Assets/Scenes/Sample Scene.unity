@@ -8132,7 +8132,7 @@ MonoBehaviour:
       _sampleCount: 50
   listenerTransform: {fileID: 2039623052}
   reverb: {fileID: 1116814348}
-  volumeMultiplier: 1
+  volumeMultiplier: 0.6
   audioTargetSettings:
     MuffleStrength: 0
     ReverbStrength: 0
